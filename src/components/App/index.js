@@ -6,7 +6,7 @@ import Home from 'src/components/Home';
 import Error from 'src/components/Error';
 // import Loading from './Loading';
 
-// import './style.scss';
+import './styles.scss';
 
 function App() {
   return (

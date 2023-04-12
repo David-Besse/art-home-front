@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -13,12 +13,12 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 
-const pages = ['Products', 'Pricing', 'Blog'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const pages = ['Accueil', 'Expositions', 'Mon Profil'];
+const settings = ['Se déconnecter'];
 
-function Header() {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
+const Header = () => {
+  const [anchorElNav, setAnchorElNav] = useState(null);
+  const [anchorElUser, setAnchorElUser] = useState(null);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -39,7 +39,11 @@ function Header() {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
+
+          {/* Logo Art@home à mettre à la place de l'icone adb (pour écran de 900px et plus) */}
           <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+
+          {/* Titre du site (pour écran de 900px de large) */}
           <Typography
             variant="h6"
             noWrap
@@ -55,9 +59,10 @@ function Header() {
               textDecoration: 'none',
             }}
           >
-            LOGO
+            Art@home
           </Typography>
 
+          {/* menu burger (pour écran de inférieur à 900px) */}
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"
@@ -94,7 +99,11 @@ function Header() {
               ))}
             </Menu>
           </Box>
+
+          {/* Logo Art@home à mettre à la place de l'icone adb (pour écran de inférieur à 900px) */}
           <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+
+          {/* Titre du site (pour écran de inférieur à 900px) */}
           <Typography
             variant="h5"
             noWrap
@@ -111,8 +120,10 @@ function Header() {
               textDecoration: 'none',
             }}
           >
-            LOGO
+            Art@home
           </Typography>
+
+          {/* menu normal (pour écran de 900px et plus) */}
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
               <Button
@@ -126,7 +137,7 @@ function Header() {
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
+            <Tooltip title="Paramètres">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
               </IconButton>
@@ -158,5 +169,6 @@ function Header() {
       </Container>
     </AppBar>
   );
-}
+};
+
 export default Header;
