@@ -1,14 +1,13 @@
 import Page from 'src/components/Page';
+import HomeCarousel from '../HomeCarousel';
 
 import './styles.scss';
 
 const Home = () => (
   <Page>
     <h1>EXPOSITION</h1>
-    <p> - bouclierman@herocorp.io / jennifer
-      - acidman@herocorp.io / fructis
-      - captain.sportsextremes@herocorp.io / pingpong
-    </p>
+    <HomeCarousel />
+    <p>Description de l'exposition</p>
   </Page>
 );
 
