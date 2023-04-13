@@ -5,6 +5,10 @@ import './styles.scss';
 const Home = () => (
   <Page>
     <h1>EXPOSITION</h1>
+    <p> - bouclierman@herocorp.io / jennifer
+      - acidman@herocorp.io / fructis
+      - captain.sportsextremes@herocorp.io / pingpong
+    </p>
   </Page>
 );
 
