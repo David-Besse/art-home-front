@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -8,13 +9,16 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
 /**
- * Login modale
- * @param {*} props
- * @returns
+ * Modal Login
+ * @param {object} props
+ * @param {boolean} props.show - determines whether the modal is shown or not
+ * @param {function} props.onHide - function to hide the modal
+ * @returns {JSX.Element}
  */
-const LogModal = (props) => (
+const LogModal = ({ show, onHide }) => (
   <Modal
-    {...props}
+    show={show}
+    onHide={onHide}
     size="sm"
     aria-labelledby="contained-modal-title-vcenter"
     centered
@@ -43,11 +47,20 @@ const LogModal = (props) => (
       </Form>
     </Modal.Body>
     <Modal.Footer>
-      <Button onClick={props.onHide}>Soumettre</Button>
+      <Button onClick={onHide}>Soumettre</Button>
     </Modal.Footer>
   </Modal>
 );
 
+LogModal.propTypes = {
+  show: PropTypes.bool.isRequired,
+  onHide: PropTypes.func.isRequired,
+};
+
+/**
+ * Navbar
+ * @returns {JSX.Element}
+ */
 const Header = () => {
   const [modalState, setModalState] = useState(false);
 
