@@ -1,5 +1,6 @@
 import Page from 'src/components/Page';
 import HomeCarousel from '../HomeCarousel';
+// import imageData from '../HomeCarousel/ImageCarousel/imageData';
 
 import './styles.scss';
 
