@@ -30,7 +30,7 @@ const LogModal = () => {
       onHide={handleLogModal}
       size="sm"
       aria-labelledby="contained-modal-title-vcenter"
-      centered
+      backdrop="static"
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">Se connecter</Modal.Title>

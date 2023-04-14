@@ -9,6 +9,13 @@ export const initialState = {
   nickname: '',
   token: '',
   role: '',
+  lastName: '',
+  firstName: '',
+  dateOfBirth: '',
+  description: '',
+  avatar: '',
+  exhibitions: [],
+  artworks: [],
 };
 
 const reducer = (state = initialState, action = {}) => {

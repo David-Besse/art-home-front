@@ -1,23 +1,25 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { handleLoginOff } from 'src/actions/users';
-import { changeLoginModalSate } from 'src/actions/modals';
+import { changeLoginModalSate, changeNewAccountModalSate } from 'src/actions/modals';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { LinkContainer } from 'react-router-bootstrap';
 import LogModal from './LogModal';
+import NewAccountModal from './NewAccountModal';
 
 /**
  * Navbar
  * @returns {JSX.Element}
  */
 const Header = () => {
-  const { isLogModalOpened } = useSelector((state) => state.modals);
+  const { isLogModalOpened, isNewAccountModalOpened } = useSelector((state) => state.modals);
   const { logged, nickname, role } = useSelector((state) => state.users);
 
   const dispatch = useDispatch();
   const handleLogout = () => dispatch(handleLoginOff());
   const handleLogModal = () => dispatch(changeLoginModalSate());
+  const handleNewAccountModal = () => dispatch(changeNewAccountModalSate());
 
   return (
     <>
@@ -26,10 +28,10 @@ const Header = () => {
           <LinkContainer to="/">
             <Navbar.Brand>Art@home</Navbar.Brand>
           </LinkContainer>
-          {role !== 'Artiste'
+          {nickname !== ''
             && (
-            <Navbar.Text>
-              {role}
+            <Navbar.Text className="d-lg-none">
+              {nickname}
             </Navbar.Text>
             )}
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -38,23 +40,34 @@ const Header = () => {
               <LinkContainer to="/expositions">
                 <Nav.Link eventKey={1}>Expositions</Nav.Link>
               </LinkContainer>
-              {
+              {role === 'Artiste'
+                && (
                 <LinkContainer to="/profil">
-                <Nav.Link eventKey={2}>Profil</Nav.Link>
+                  <Nav.Link eventKey={2}>Profil</Nav.Link>
                 </LinkContainer>
-              }
+                )}
+              {(role === 'Administrateur' || role === 'Modérateur')
+                && (
+                <LinkContainer to="/backoffice">
+                  <Nav.Link eventKey={5}>Backoffice</Nav.Link>
+                </LinkContainer>
+                )}
               <LinkContainer to="/mentions-legales" className="d-lg-none">
                 <Nav.Link eventKey={3}>Mentions Légales</Nav.Link>
               </LinkContainer>
               <LinkContainer to="/contact" className="d-lg-none">
                 <Nav.Link eventKey={4}>Contact</Nav.Link>
               </LinkContainer>
-              <LinkContainer to="/backoffice">
-                <Nav.Link eventKey={5}>Backoffice</Nav.Link>
-              </LinkContainer>
             </Nav>
             <Nav>
-              {!logged && (<Nav.Link eventKey={6}>Créer un compte</Nav.Link>)}
+              {!logged
+                && (
+                <Nav.Link
+                  eventKey={6}
+                  onClick={handleNewAccountModal}
+                >Créer un compte
+                </Nav.Link>
+                )}
               {logged && (
               <Nav.Link eventKey={7} onClick={handleLogout} className="d-flex align-items-center">
                 <Navbar.Text className="d-none d-lg-flex text-white me-2">
@@ -67,8 +80,10 @@ const Header = () => {
               </Nav.Link>
               )}
               {!logged && (
-              <Nav.Link eventKey={7} onClick={handleLogModal}>
-                Se connecter
+              <Nav.Link
+                eventKey={7}
+                onClick={handleLogModal}
+              >Se connecter
               </Nav.Link>
               )}
             </Nav>
@@ -76,6 +91,7 @@ const Header = () => {
         </Container>
       </Navbar>
       <LogModal show={isLogModalOpened} />
+      <NewAccountModal show={isNewAccountModalOpened} />
     </>
   );
 };
