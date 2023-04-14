@@ -8,6 +8,7 @@ const Home = () => (
     <p> - bouclierman@herocorp.io / jennifer
       - acidman@herocorp.io / fructis
       - captain.sportsextremes@herocorp.io / pingpong
+      - gilles.margaret@chevalier.com / artiste
     </p>
   </Page>
 );

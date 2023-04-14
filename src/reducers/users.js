@@ -1,4 +1,6 @@
-import { CHANGE_LOGIN_FIELD, SAVE_AUTH_DATA, HANDLE_LOGIN_OFF } from '../actions/users';
+import {
+  CHANGE_LOGIN_FIELD, SAVE_AUTH_DATA, SAVE_USER_DATA, HANDLE_LOGIN_OFF,
+} from '../actions/users';
 
 export const initialState = {
   logged: false,
@@ -20,12 +22,16 @@ const reducer = (state = initialState, action = {}) => {
       return {
         ...state,
         logged: true,
-        nickname: action.nickname,
         token: action.token,
-        role: action.role,
         // ! SECURITY : we erase identifiers
         email: '',
         password: '',
+      };
+    case SAVE_USER_DATA:
+      return {
+        ...state,
+        nickname: action.nickname,
+        role: action.role,
       };
     case HANDLE_LOGIN_OFF:
       return {

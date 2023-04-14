@@ -26,7 +26,7 @@ const Header = () => {
           <LinkContainer to="/">
             <Navbar.Brand>Art@home</Navbar.Brand>
           </LinkContainer>
-          {role !== 'artiste'
+          {role !== 'Artiste'
             && (
             <Navbar.Text>
               {role}
@@ -38,9 +38,11 @@ const Header = () => {
               <LinkContainer to="/expositions">
                 <Nav.Link eventKey={1}>Expositions</Nav.Link>
               </LinkContainer>
-              <LinkContainer to="/profil">
+              {
+                <LinkContainer to="/profil">
                 <Nav.Link eventKey={2}>Profil</Nav.Link>
-              </LinkContainer>
+                </LinkContainer>
+              }
               <LinkContainer to="/mentions-legales" className="d-lg-none">
                 <Nav.Link eventKey={3}>Mentions Légales</Nav.Link>
               </LinkContainer>
