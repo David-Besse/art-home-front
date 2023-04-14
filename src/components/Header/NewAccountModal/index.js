@@ -1,10 +1,13 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { changeLoginField, submitLogin } from 'src/actions/users';
+import { changeLoginField } from 'src/actions/users';
 import { changeNewAccountModalSate } from 'src/actions/modals';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
+import { useState } from 'react';
 
 /**
  * Modal New Account
@@ -16,9 +19,6 @@ const NewAccountModal = () => {
     password,
     firstName,
     lastName,
-    dateOfBirth,
-    description,
-    avatar,
   } = useSelector((state) => state.users);
   const { isNewAccountModalOpened } = useSelector((state) => state.modals);
 
@@ -26,11 +26,19 @@ const NewAccountModal = () => {
   const changeField = (newValue, name) => dispatch(changeLoginField(newValue, name));
   const handleLogModal = () => dispatch(changeNewAccountModalSate());
 
-  const handleSubmit = (evt) => {
-    evt.preventDefault();
-    dispatch(submitLogin());
-    handleLogModal();
+  /**
+   * local 'state' management for field validation
+   */
+  const [validated, setValidated] = useState(false);
+  const handleSubmit = (event) => {
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+    setValidated(true);
   };
+  /** ****************************************** */
 
   return (
     <Modal
@@ -41,83 +49,83 @@ const NewAccountModal = () => {
       backdrop="static"
     >
       <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">Formulaire d'inscription</Modal.Title>
+        <Modal.Title id="contained-modal-title-vcenter">Créer un compte</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Form onSubmit={handleSubmit} style={{ textAlign: 'center' }}>
-          <Form.Group className="mb-3" controlId="newAccountForm">
-            <FloatingLabel controlId="inputFirstName" label="Prénom" className="mb-3">
-              <Form.Control
-                type="text"
-                autoFocus
-                placeholder="Prénom"
-                value={firstName}
-                onChange={(evt) => {
-                  changeField(evt.target.value, 'firstName');
-                }}
-              />
-            </FloatingLabel>
-            <FloatingLabel controlId="inputLastName" label="Nom" className="mb-3">
-              <Form.Control
-                type="text"
-                placeholder="Nom"
-                value={lastName}
-                onChange={(evt) => {
-                  changeField(evt.target.value, 'lastName');
-                }}
-              />
-            </FloatingLabel>
-            <FloatingLabel controlId="inputDateOfBirth" label="Date de naissance" className="mb-3">
-              <Form.Control
-                type="date"
-                placeholder="Date de naissance"
-                value={dateOfBirth}
-                onChange={(evt) => {
-                  changeField(evt.target.value, 'dateOfBirth');
-                }}
-              />
-            </FloatingLabel>
-            <FloatingLabel controlId="inputEmail" label="Adresse mail" className="mb-3">
+        <Form noValidate validated={validated} onSubmit={handleSubmit} style={{ textAlign: 'center' }}>
+          <Row className="mb-3">
+            <Form.Group as={Col} controlId="inputLastName">
+              <FloatingLabel label="Nom" className="mb-3">
+                <Form.Control
+                  type="text"
+                  placeholder="Nom"
+                  required
+                  value={lastName}
+                  onChange={(evt) => {
+                    changeField(evt.target.value, 'lastName');
+                  }}
+                />
+                <Form.Control.Feedback type="invalid">
+                  Votre nom est manquant.
+                </Form.Control.Feedback>
+              </FloatingLabel>
+            </Form.Group>
+            <Form.Group as={Col} controlId="inputFirstName">
+              <FloatingLabel label="Prénom" className="mb-3">
+                <Form.Control
+                  type="text"
+                  placeholder="Prénom"
+                  required
+                  value={firstName}
+                  onChange={(evt) => {
+                    changeField(evt.target.value, 'firstName');
+                  }}
+                />
+                <Form.Control.Feedback type="invalid">
+                  Votre prénom est manquant.
+                </Form.Control.Feedback>
+              </FloatingLabel>
+            </Form.Group>
+          </Row>
+          <Form.Group controlId="inputEmail">
+            <FloatingLabel label="Email" className="mb-3">
               <Form.Control
                 type="email"
-                placeholder="Adresse mail"
+                placeholder="Email"
+                required
                 value={email}
                 onChange={(evt) => {
                   changeField(evt.target.value, 'email');
                 }}
               />
+              <Form.Control.Feedback type="invalid">
+                Votre email est manquant.
+              </Form.Control.Feedback>
             </FloatingLabel>
-            <FloatingLabel controlId="inputPassword" label="Mot de passe" className="mb-3">
+          </Form.Group>
+          <Form.Group controlId="inputPassword">
+            <FloatingLabel label="Mot de passe" className="mb-3">
               <Form.Control
                 type="password"
                 placeholder="Mot de passe"
+                required
                 value={password}
                 onChange={(evt) => {
                   changeField(evt.target.value, 'password');
                 }}
               />
+              <Form.Control.Feedback type="invalid">
+                Votre mot de passe est manquant.
+              </Form.Control.Feedback>
             </FloatingLabel>
-            <FloatingLabel controlId="inputAvatar" label="Avatar" className="mb-3">
-              <Form.Control
-                type="text"
-                placeholder="URL de ton avatar"
-                value={avatar}
-                onChange={(evt) => {
-                  changeField(evt.target.value, 'avatar');
-                }}
-              />
-            </FloatingLabel>
-            <FloatingLabel controlId="inputDescription" label="Description" className="mb-3">
-              <Form.Control
-                as="textarea"
-                rows="3"
-                placeholder="Description"
-                value={description}
-                onChange={(evt) => {
-                  changeField(evt.target.value, 'description');
-                }}
-              />
-            </FloatingLabel>
+          </Form.Group>
+          <Form.Group className="mb-3">
+            <Form.Check
+              required
+              label="Vous êtes d'accord avec nos conditions d'utilisations et vous acceptez que la terre s'arrêtera de tourner un jour..."
+              feedback="Bon, vous devez tout de même cocher la case."
+              feedbackType="invalid"
+            />
           </Form.Group>
           <Button type="submit">Soumettre</Button>
         </Form>
