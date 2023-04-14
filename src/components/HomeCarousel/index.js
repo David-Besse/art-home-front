@@ -1,6 +1,5 @@
 // TODO Carousel.Item is the element to do do the filter with - we want to extract all the images from the array of object imageData
 // TODO so it might not be needed to have a component that deals only with the images
-// ? Do we require default props ?
 
 // Display several images in carousel on the Home page to promote the lastest exhibitions
 import PropTypes from 'prop-types';
@@ -12,7 +11,7 @@ import './style.scss';
 const HomeCarousel = ({ exhibitions }) => (
   <section className="home-carousel">
     <Carousel fade className="carousel">
-      <h1>{exhibition.name}</h1>
+      <h1>{exhibition.title}</h1>
       {exhibitions.map((exhibition) => (
         <Carousel.Item key={exhibition.id} {...exhibition}>
           <a href={`/exhibitons/${exhibition.slug}`}>
@@ -37,7 +36,6 @@ HomeCarousel.propTypes = {
       name: PropTypes.string.isRequired,
       slug: PropTypes.string.isRequired,
       picture: PropTypes.string.isRequired,
-      nickname: PropTypes.string.isRequired,
       description: PropTypes.string.isRequired,
     }),
   ),
