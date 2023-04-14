@@ -6,6 +6,7 @@ export const initialState = {
   password: '',
   nickname: '',
   token: '',
+  role: '',
 };
 
 const reducer = (state = initialState, action = {}) => {
@@ -13,7 +14,7 @@ const reducer = (state = initialState, action = {}) => {
     case CHANGE_LOGIN_FIELD:
       return {
         ...state,
-        [action.identifier]: action.newValue,
+        [action.fieldName]: action.newValue,
       };
     case SAVE_AUTH_DATA:
       return {
@@ -21,16 +22,18 @@ const reducer = (state = initialState, action = {}) => {
         logged: true,
         nickname: action.nickname,
         token: action.token,
-        // ! security : we erase the identifiers of the state
+        role: action.role,
+        // ! SECURITY : we erase identifiers
         email: '',
         password: '',
       };
     case HANDLE_LOGIN_OFF:
       return {
         ...state,
-        pseudo: '',
+        nickname: '',
         logged: false,
         token: '',
+        role: '',
       };
     default:
       return state;

@@ -12,7 +12,11 @@ const user = (store) => (next) => (action) => {
         },
       )
         .then((response) => {
-          store.dispatch(saveAuthData(response.data.pseudo, response.data.token));
+          store.dispatch(saveAuthData(
+            response.data.pseudo,
+            response.data.token,
+            response.data.role,
+          ));
         })
         .catch((error) => {
           console.warn(error);
