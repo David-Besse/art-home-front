@@ -1,18 +1,28 @@
-// Show an image from the data
-
 import imageData from './imageData';
+import { Link } from 'react-router-bootstrap';
 
 const ImageCarousel = () => {
-  // eslint-disable-next-line arrow-body-style
-  imageData.filter((artwork) => {
-    return (
-      <img
-        className="d-block w-100 image-cover"
-        src={artwork.image}
-        alt="First slide"
-      />
-    );
-  });
+ 
+/*  <>
+  <img
+    className="d-block w-100 image-cover"
+    <Link
+      to={artwork.image}
+      classname="image-link"
+      >
+      Voir l'exposition
+    </Link>
+    alt="First slide"
+    />
+</> */
+
+// Provide an array containing only the pictures to display in the carousel
+/* const imageCarousel = imageData.map((artwork) => {
+  const imageToDisplay = artwork.image;
+  return imageToDisplay;
+});
+ */
 };
 
 export default ImageCarousel;
+
