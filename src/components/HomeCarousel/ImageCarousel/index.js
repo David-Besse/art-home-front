@@ -24,5 +24,12 @@ const ImageCarousel = () => {
  */
 };
 
+/* const imageCarousel = imageData.map((artwork) => {
+  const imageToDisplay = artwork.image;
+  const expoName = artwork.expo;
+  const texte = artwork.description;
+  return (imageToDisplay, expoName, texte);
+}); */
+
 export default ImageCarousel;
 
