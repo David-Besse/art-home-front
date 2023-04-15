@@ -11,21 +11,23 @@ import './style.scss';
 const HomeCarousel = ({ exhibitions }) => (
   <section className="home-carousel">
     <Carousel fade className="carousel">
-      <h1>{exhibition.title}</h1>
-      {exhibitions.map((exhibition) => (
-        <Carousel.Item key={exhibition.id} {...exhibition}>
-          <a href={`/exhibitons/${exhibition.slug}`}>
-            <img
-              className="d-block w-100 image-cover"
-              src={exhibition.picture}
-              alt={exhibition.slug}
-            />
-          </a>
-        </Carousel.Item>
-      ))}
+      {exhibitions.map((exhibition) => {
+        <>
+          <h1>{exhibition.title}</h1>
+          <Carousel.Item key={exhibition.id} {...exhibition}>
+            <a href={`/exhibitons/${exhibition.slug}`}>
+              <img
+                className="d-block w-100 image-cover"
+                src={exhibition.picture}
+                alt={exhibition.slug}
+              />
+            </a>
+            <h2>DESCRIPTION</h2>
+            <p>{exhibition.description}</p>
+          </Carousel.Item>
+        </>;
+      })}
     </Carousel>
-    <h2>DESCRIPTION</h2>
-    <p>{exhibition.description}</p>
   </section>
 );
 
