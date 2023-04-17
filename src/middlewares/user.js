@@ -80,6 +80,7 @@ const user = (store) => (next) => (action) => {
           store.dispatch(changeNewAccountModalSate());
           store.dispatch(resetFormFields());
           store.dispatch(toggleTermOfUseBox());
+          store.dispatch(changeNewAccountFieldsValidation(false));
           store.dispatch(toggleNewAccountModalSate());
         })
         .catch((error) => {
