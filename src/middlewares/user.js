@@ -1,43 +1,97 @@
 import axios from 'axios';
-import { SUBMIT_LOGIN, saveAuthData, saveUserData } from '../actions/users';
+import {
+  SUBMIT_LOGIN,
+  saveAuthData,
+  saveUserData,
+  resetFormFields,
+  SUBMIT_NEW_ACCOUNT,
+} from '../actions/users';
+import {
+  changeLoginFieldsValidation,
+  changeLoginModalSate,
+  changeNewAccountFieldsValidation,
+  changeNewAccountModalSate,
+  toggleNewAccountModalSate,
+  toggleTermOfUseBox,
+} from '../actions/modals';
 
 const user = (store) => (next) => (action) => {
   switch (action.type) {
     case SUBMIT_LOGIN:
       axios.post(
-        'http://aurelia-perrier.vpnuser.lan/Apotheose/projet-12-art-at-home-back/public/api/login_check',
+        'http://localhost:3001/login',
         {
           username: store.getState().users.email,
           password: store.getState().users.password,
         },
       )
         .then((response) => {
+          console.log(response.data);
           store.dispatch(saveAuthData(
             response.data.token,
           ));
-          axios.get(
-            'http://aurelia-perrier.vpnuser.lan/Apotheose/projet-12-art-at-home-back/public/api/users/informations',
-            {
-              headers: {
-                Authorization: `Bearer ${store.getState().users.token}`,
-              },
-            },
-          )
-            .then((res) => {
-              store.dispatch(saveUserData(
-                res.data.nickname,
-                res.data.roles,
-              ));
-            })
-            .catch((error) => {
-              console.warn(error);
-            });
+
+          // * pour les tests en local
+          store.dispatch(saveUserData(
+            response.data.username,
+            response.data.role,
+            response.data.logged,
+          ));
+          //* *****************************
+
+          store.dispatch(resetFormFields());
+          store.dispatch(changeLoginModalSate());
+          store.dispatch(changeLoginFieldsValidation(false));
+          // axios.get(
+          //   'http://localhost:3001/login',
+          //   {
+          //     headers: {
+          //       Authorization: `Bearer ${store.getState().users.token}`,
+          //     },
+          //   },
+          // )
+          //   .then((res) => {
+          //     store.dispatch(saveUserData(
+          //       res.data.username,
+          //       res.data.role,
+          //     ));
+          //   })
+          //   .catch((error) => {
+          //     console.warn(error);
+          //   });
         })
         .catch((error) => {
           console.warn(error);
+          store.dispatch(resetFormFields());
+          store.dispatch(changeLoginFieldsValidation(true));
         });
       break;
-
+    case SUBMIT_NEW_ACCOUNT:
+      axios.post(
+        'http://localhost:3001/create-account',
+        {
+          email: store.getState().users.email,
+          password: store.getState().users.password,
+          lastName: store.getState().users.lastName,
+          firstName: store.getState().users.firstName,
+        },
+      )
+        .then((response) => {
+          console.log(response.data);
+          store.dispatch(changeNewAccountModalSate());
+          store.dispatch(resetFormFields());
+          store.dispatch(toggleTermOfUseBox());
+          store.dispatch(toggleNewAccountModalSate());
+        })
+        .catch((error) => {
+          console.warn(error);
+          store.dispatch(changeNewAccountModalSate());
+          store.dispatch(resetFormFields());
+          store.dispatch(toggleTermOfUseBox());
+          store.dispatch(changeNewAccountFieldsValidation(true));
+          store.dispatch(toggleNewAccountModalSate());
+        });
+      break;
     default:
   }
 

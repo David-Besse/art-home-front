@@ -1,5 +1,8 @@
 import {
-  CHANGE_LOGIN_FIELD, SAVE_AUTH_DATA, SAVE_USER_DATA, HANDLE_LOGIN_OFF,
+  CHANGE_LOGIN_FIELD,
+  SAVE_AUTH_DATA, SAVE_USER_DATA,
+  HANDLE_LOGIN_OFF,
+  RESET_FORM_FIELDS,
 } from '../actions/users';
 
 export const initialState = {
@@ -24,6 +27,14 @@ const reducer = (state = initialState, action = {}) => {
       return {
         ...state,
         [action.fieldName]: action.newValue,
+      };
+    case RESET_FORM_FIELDS:
+      return {
+        ...state,
+        email: '',
+        password: '',
+        lastName: '',
+        firstName: '',
       };
     case SAVE_AUTH_DATA:
       return {
