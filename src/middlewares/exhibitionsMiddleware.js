@@ -8,7 +8,7 @@ const exhibitionsMiddleware = (store) => (next) => (action) => {
 
   switch (action.type) {
     case FETCH_EXHIBITIONS:
-      axios.get('http://localhost:3001/exhibitions')
+      axios.get('http://mathieu-zagar.vpnuser.lan/Apo/projet-12-art-at-home-back/public/api/exhibitions/homepage')
         .then((response) => {
           console.log(response);
 

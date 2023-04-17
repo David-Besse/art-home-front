@@ -1,7 +1,5 @@
-// TODO Carousel.Item is the element to do do the filter with - we want to extract all the images from the array of object imageData
-// TODO so it might not be needed to have a component that deals only with the images
-
 // Display several images in carousel on the Home page to promote the lastest exhibitions
+
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 
@@ -11,13 +9,13 @@ import './style.scss';
 
 const HomeCarousel = () => {
   const { list } = useSelector((state) => state.exhibitions);
-  console.log(list);
   return (
     <section className="home-carousel">
       <Carousel fade className="carousel">
         {list.map((exhibition) => (
           <Carousel.Item key={exhibition.id}>
-            <h1>{exhibition.title}</h1>
+            <h1 className="carousel-title">{exhibition.title}</h1>
+            <p className="carousel-artist">Cécile Anssieux</p>
             <a href={`/exhibitons/${exhibition.slug}`}>
               <img
                 className="d-block w-100 image-cover"
@@ -25,8 +23,8 @@ const HomeCarousel = () => {
                 alt={exhibition.slug}
               />
             </a>
-            <Carousel.Caption>
-              <h2>DESCRIPTION</h2>
+            <Carousel.Caption className="carousel-caption">
+              {/* <h2>DESCRIPTION</h2> */}
               <p>{exhibition.description}</p>
             </Carousel.Caption>
           </Carousel.Item>
@@ -37,7 +35,7 @@ const HomeCarousel = () => {
 };
 
 HomeCarousel.propTypes = {
-  exhibitions: PropTypes.arrayOf(
+  list: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
       name: PropTypes.string.isRequired,
@@ -49,7 +47,7 @@ HomeCarousel.propTypes = {
 };
 
 HomeCarousel.defaultProps = {
-  exhibitions: null,
+  list: null,
 };
 
 export default HomeCarousel;
