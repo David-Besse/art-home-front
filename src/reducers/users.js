@@ -1,4 +1,9 @@
-import { CHANGE_LOGIN_FIELD, SAVE_AUTH_DATA, HANDLE_LOGIN_OFF } from '../actions/users';
+import {
+  CHANGE_LOGIN_FIELD,
+  SAVE_AUTH_DATA, SAVE_USER_DATA,
+  HANDLE_LOGIN_OFF,
+  RESET_FORM_FIELDS,
+} from '../actions/users';
 
 export const initialState = {
   logged: false,
@@ -6,6 +11,14 @@ export const initialState = {
   password: '',
   nickname: '',
   token: '',
+  role: '',
+  lastName: '',
+  firstName: '',
+  dateOfBirth: '',
+  description: '',
+  avatar: '',
+  exhibitions: [],
+  artworks: [],
 };
 
 const reducer = (state = initialState, action = {}) => {
@@ -13,24 +26,38 @@ const reducer = (state = initialState, action = {}) => {
     case CHANGE_LOGIN_FIELD:
       return {
         ...state,
-        [action.identifier]: action.newValue,
+        [action.fieldName]: action.newValue,
+      };
+    case RESET_FORM_FIELDS:
+      return {
+        ...state,
+        email: '',
+        password: '',
+        lastName: '',
+        firstName: '',
       };
     case SAVE_AUTH_DATA:
       return {
         ...state,
         logged: true,
-        nickname: action.nickname,
         token: action.token,
-        // ! security : we erase the identifiers of the state
+        // ! SECURITY : we erase identifiers
         email: '',
         password: '',
+      };
+    case SAVE_USER_DATA:
+      return {
+        ...state,
+        nickname: action.nickname,
+        role: action.role,
       };
     case HANDLE_LOGIN_OFF:
       return {
         ...state,
-        pseudo: '',
+        nickname: '',
         logged: false,
         token: '',
+        role: '',
       };
     default:
       return state;
