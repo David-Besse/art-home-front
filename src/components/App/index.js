@@ -19,7 +19,7 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
-        {/* <Route path="/exposition" element={<Exhibition />} /> */}
+        {/* <Route path="/exposition/`${slug}`" element={<Exhibition />} /> */}
         {/* <Route path="/profil" element={<Profil />} /> */}
         {/* <Route path="/backoffice" element={<Backoffice />} /> */}
         {/* <Route path="/mentions-legales" element={<Disclaimer />} /> */}
