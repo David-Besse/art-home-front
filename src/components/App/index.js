@@ -4,6 +4,7 @@ import Header from 'src/components/Header';
 import Footer from 'src/components/Footer';
 import Home from 'src/components/Home';
 // import Exhibition from 'src/components/Exhibition';
+import OneExhibition from '../OneExhibition';
 // import Profil from 'src/components/Profil';
 // import Backoffice from 'src/components/Backoffice';
 // import Disclaimer from 'src/components/Disclaimer';
