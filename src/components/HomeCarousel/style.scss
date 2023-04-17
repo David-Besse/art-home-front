@@ -1,0 +1,62 @@
+.image-cover {
+ object-fit: cover;
+}
+
+.carousel{
+  margin-top: .5rem;
+  margin-bottom: 1rem;
+
+}
+
+.carousel-title {
+  color: goldenrod; 
+  font-weight: bold;
+  font-variant-caps:all-small-caps;
+  font-size:4rem;
+  font-family: 'Akshar', sans-serif;
+  //font-family: 'Allerta Stencil', sans-serif;
+  margin-bottom: 0;
+  text-align: center;
+}
+.carousel-artist {
+  text-align: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+} 
+
+.carousel-caption{
+  background-color: rgba(0, 0, 0, 0.4);
+  padding-left: 1rem;
+  padding-right: 1rem;
+  bottom: 2%;
+  left: 0%; 
+  right: 0%;
+  text-align: center;
+}
+
+@media screen and  (orientation: portrait){
+  img {
+  height: 55vh;
+}
+  .carousel-caption{
+  font-size: 0.8rem;
+}
+}
+
+@media screen and  (min-width: 768px){
+  .carousel-caption{
+    font-size: 1rem;
+  }
+}
+
+@media screen and  (min-width: 768px) and (max-width:1199px){
+  img {
+    height: 65vh;
+  }
+}
+
+@media screen and  (min-width: 1200px){
+  img {
+  height: 75vh;
+}
+}
+

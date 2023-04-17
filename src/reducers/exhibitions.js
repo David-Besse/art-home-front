@@ -1,8 +1,9 @@
-// import {  } from '../actions/exhibitions';
+import { SAVE_EXHIBITIONS } from '../actions/exhibitions';
 
 export const initialState = {
+  // list of all exhibition occuring at the moment
   list: [],
-  // recettes préférées de l'utilisateur
+  // indicate if all exhibitions are loaded
   isExhibitionsLoaded: false,
 };
 
@@ -11,6 +12,12 @@ export const initialState = {
 
 const reducer = (state = initialState, action = {}) => {
   switch (action.type) {
+    case SAVE_EXHIBITIONS:
+      return {
+        ...state,
+        list: action.exhibitions,
+        isExhibitionsLoaded: true,
+      };
     default:
       return state;
   }
