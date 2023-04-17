@@ -1,32 +1,99 @@
+import { useSelector, useDispatch } from 'react-redux';
+import { handleLoginOff } from 'src/actions/users';
+import { changeLoginModalSate, changeNewAccountModalSate } from 'src/actions/modals';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
+import { LinkContainer } from 'react-router-bootstrap';
+import LogModal from './LogModal';
+import NewAccountModal from './NewAccountModal';
 
-const Header = () => (
-  <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-    <Container>
-      <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
-      <Navbar.Toggle aria-controls="basic-navbar-nav" />
-      <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="me-auto">
-          <Nav.Link href="#home">Home</Nav.Link>
-          <Nav.Link href="#link">Link</Nav.Link>
-          <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-            <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-            <NavDropdown.Item href="#action/3.2">
-              Another action
-            </NavDropdown.Item>
-            <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-            <NavDropdown.Divider />
-            <NavDropdown.Item href="#action/3.4">
-              Separated link
-            </NavDropdown.Item>
-          </NavDropdown>
-        </Nav>
-      </Navbar.Collapse>
-    </Container>
-  </Navbar>
-);
+/**
+ * Navbar
+ * @returns {JSX.Element}
+ */
+const Header = () => {
+  const { isLogModalOpened, isNewAccountModalOpened } = useSelector((state) => state.modals);
+  const { logged, nickname, role } = useSelector((state) => state.users);
+
+  const dispatch = useDispatch();
+  const handleLogout = () => dispatch(handleLoginOff());
+  const handleLogModal = () => dispatch(changeLoginModalSate());
+  const handleNewAccountModal = () => dispatch(changeNewAccountModalSate());
+
+  return (
+    <>
+      <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+        <Container>
+          <LinkContainer to="/">
+            <Navbar.Brand>Art@home</Navbar.Brand>
+          </LinkContainer>
+          {nickname !== ''
+            && (
+            <Navbar.Text className="d-lg-none">
+              {nickname}
+            </Navbar.Text>
+            )}
+          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+          <Navbar.Collapse id="responsive-navbar-nav">
+            <Nav className="me-auto">
+              <LinkContainer to="/expositions">
+                <Nav.Link eventKey={1}>Expositions</Nav.Link>
+              </LinkContainer>
+              {role === 'Artiste'
+                && (
+                <LinkContainer to="/profil">
+                  <Nav.Link eventKey={2}>Profil</Nav.Link>
+                </LinkContainer>
+                )}
+              {(role === 'Administrateur' || role === 'Modérateur')
+                && (
+                <LinkContainer to="/backoffice">
+                  <Nav.Link eventKey={5}>Backoffice</Nav.Link>
+                </LinkContainer>
+                )}
+              <LinkContainer to="/mentions-legales" className="d-lg-none">
+                <Nav.Link eventKey={3}>Mentions Légales</Nav.Link>
+              </LinkContainer>
+              <LinkContainer to="/contact" className="d-lg-none">
+                <Nav.Link eventKey={4}>Contact</Nav.Link>
+              </LinkContainer>
+            </Nav>
+            <Nav>
+              {!logged
+                && (
+                <Nav.Link
+                  eventKey={6}
+                  onClick={handleNewAccountModal}
+                >Créer un compte
+                </Nav.Link>
+                )}
+              {logged && (
+              <Nav.Link eventKey={7} onClick={handleLogout} className="d-flex align-items-center">
+                <Navbar.Text className="d-none d-lg-flex text-white me-2">
+                  Bienvenue {role} {nickname}
+                </Navbar.Text>
+                <svg xmlns="http://www.w3.org/2000/svg" width="1.6em" height="1.6em" fill="currentColor" className="bi bi-box-arrow-right" viewBox="0 0 16 16">
+                  <path fillRule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z" />
+                  <path fillRule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z" />
+                </svg>
+              </Nav.Link>
+              )}
+              {!logged && (
+              <Nav.Link
+                eventKey={7}
+                onClick={handleLogModal}
+              >Se connecter
+              </Nav.Link>
+              )}
+            </Nav>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
+      <LogModal show={isLogModalOpened} />
+      <NewAccountModal show={isNewAccountModalOpened} />
+    </>
+  );
+};
 
 export default Header;

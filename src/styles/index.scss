@@ -1,8 +1,7 @@
 @use 'reset';
 @use 'vars';
-@import "~bootstrap/scss/bootstrap";
-@import url(https://fonts.bunny.net/css?family=akshar:400|allerta-stencil:400);
 
+@import '~bootstrap/scss/bootstrap';
 
 body {
   font-family: sans-serif;
