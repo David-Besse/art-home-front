@@ -15,7 +15,7 @@ const HomeCarousel = () => {
         {list.map((exhibition) => (
           <Carousel.Item key={exhibition.id}>
             <h1 className="carousel-title">{exhibition.title}</h1>
-            <p className="carousel-artist">Cécile Anssieux</p>
+            <p className="carousel-artist">{exhibition.nickname}</p>
             <a href={`/exhibitons/${exhibition.slug}`}>
               <img
                 className="d-block w-100 image-cover"

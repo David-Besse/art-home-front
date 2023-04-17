@@ -26,7 +26,7 @@ function App() {
 
   if (!isExhibitionsLoaded) {
     // TODO - Loader to indicate that the parge is charging
-    console.log('LOADING');
+    // <Loading />;
   }
 
   return (
