@@ -1,17 +1,13 @@
 import axios from 'axios';
-import { fetchExhibitions, FETCH_EXHIBITIONS, saveExhibitions } from '../actions/exhibitions';
+import { FETCH_EXHIBITIONS, saveExhibitions } from '../actions/exhibitions';
 
 // Fetching the list of exhibition and putting them into the state
 
 const exhibitionsMiddleware = (store) => (next) => (action) => {
-  console.log('on a intercepté une action dans le middleware: ', action);
-
   switch (action.type) {
     case FETCH_EXHIBITIONS:
-      axios.get('http://mathieu-zagar.vpnuser.lan/Apo/projet-12-art-at-home-back/public/api/exhibitions/homepage')
+      axios.get('http://localhost:3001/exhibitions')
         .then((response) => {
-          console.log(response);
-
           store.dispatch(saveExhibitions(response.data));
         })
         .catch((error) => {

@@ -33,9 +33,8 @@ const user = (store) => (next) => (action) => {
 
           // * pour les tests en local
           store.dispatch(saveUserData(
-            response.data.username,
             response.data.role,
-            response.data.logged,
+            response.data.nickname,
           ));
           //* *****************************
 
