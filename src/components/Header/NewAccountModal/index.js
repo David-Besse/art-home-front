@@ -160,7 +160,7 @@ const NewAccountModal = () => {
         {!isNewAccountFormValidated
         && <Modal.Body>Compte créé, vous pouvez vous connecter !</Modal.Body>}
         {isNewAccountFormValidated
-        && <Modal.Body className="text-danger">Cette adresse email est déjà utilisée !</Modal.Body>}
+        && <Modal.Body className="text-danger">Une erreur inatendue est survenue !</Modal.Body>}
         <Modal.Footer>
           <Button variant="secondary" onClick={handleNewAccountModalSate}>
             Close

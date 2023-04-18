@@ -67,16 +67,18 @@ const user = (store) => (next) => (action) => {
       break;
     case SUBMIT_NEW_ACCOUNT:
       axios.post(
-        'http://localhost:3001/create-account',
+        // 'http://localhost:3001/create-account',
+        'http://aurelia-perrier.vpnuser.lan/Apotheose/projet-12-art-at-home-back/public/users/new',
         {
           email: store.getState().users.email,
           password: store.getState().users.password,
-          lastName: store.getState().users.lastName,
-          firstName: store.getState().users.firstName,
+          lastname: store.getState().users.lastName,
+          firstname: store.getState().users.firstName,
+          roles: ['ROLE_ARTIST'],
         },
       )
         .then((response) => {
-          console.log(response.data);
+          console.log(response);
           store.dispatch(changeNewAccountModalSate());
           store.dispatch(resetFormFields());
           store.dispatch(toggleTermOfUseBox());
