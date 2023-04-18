@@ -25,17 +25,19 @@ export const saveAuthData = (token) => ({
   token: token,
 });
 
-export const saveUserData = (email, password, lastName, firstName, nickname, avatar, role, dateOfBirth, presentation) => ({
+export const saveUserData = ({
+  nickname, lastname, firstname, avatar, birthday, presentation, role, email, exhibitions,
+}) => ({
   type: SAVE_USER_DATA,
-  email: email,
-  password: password,
-  lastName: lastName,
-  firstName: firstName,
   nickname: nickname,
+  lastName: lastname,
+  firstName: firstname,
   avatar: avatar,
-  role: role,
-  dateOfBirth: dateOfBirth,
+  birthday: birthday,
   presentation: presentation,
+  role: role,
+  email: email,
+  exhibitions: exhibitions,
 });
 
 export const handleLoginOff = () => ({

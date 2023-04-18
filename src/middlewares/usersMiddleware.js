@@ -20,7 +20,6 @@ const user = (store) => (next) => (action) => {
     case SUBMIT_LOGIN:
       axios
         .post(
-          // 'http://localhost:3001/login', // pour les tests en local
           'http://aurelia-perrier.vpnuser.lan:8000/api/login_check',
           {
             username: store.getState().users.email,
@@ -30,19 +29,12 @@ const user = (store) => (next) => (action) => {
         .then((response) => {
           store.dispatch(saveAuthData(response.data.token));
 
-          // pour les tests en local
-          // store.dispatch(saveUserData(
-          //   response.data.role,
-          //   response.data.nickname,
-          // ));
-
           store.dispatch(resetFormFields());
           store.dispatch(changeLoginModalSate());
           store.dispatch(changeLoginFieldsValidation(false));
           axios
             .get(
-              // 'http://localhost:3001/login', // pour les tests en local
-              'http://aurelia-perrier.vpnuser.lan:8000/api/secure/users/informations',
+              'http://mathieu-zagar.vpnuser.lan:8000/api/secure/users/profile',
               {
                 headers: {
                   Authorization: `Bearer ${store.getState().users.token}`,
@@ -50,17 +42,8 @@ const user = (store) => (next) => (action) => {
               },
             )
             .then((res) => {
-              store.dispatch(saveUserData(
-                res.data.user.email,
-                res.data.user.password,
-                res.data.user.lastName,
-                res.data.user.firstName,
-                res.data.user.nickname,
-                res.data.user.avatar,
-                res.data.role,
-                res.data.date,
-                res.data.user.presentation,
-              ));
+              console.log(res.data);
+              store.dispatch(saveUserData(res.data));
             })
             .catch((error) => {
               console.warn(error);
@@ -75,8 +58,7 @@ const user = (store) => (next) => (action) => {
     case SUBMIT_NEW_ACCOUNT:
       axios
         .post(
-          // 'http://localhost:3001/create-account', // pour les tests en local
-          'http://aurelia-perrier.vpnuser.lan:8000/api/users/new',
+          'http://mathieu-zagar.vpnuser.lan:8000/api/users/new',
           {
             email: store.getState().users.email,
             password: store.getState().users.password,

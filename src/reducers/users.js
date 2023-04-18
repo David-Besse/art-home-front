@@ -14,11 +14,11 @@ export const initialState = {
   role: '',
   lastName: '',
   firstName: '',
-  dateOfBirth: '',
+  birthday: '',
   presentation: '',
   avatar: '',
   exhibitions: [],
-  artworks: [],
+  exhibition: [],
 };
 
 const reducer = (state = initialState, action = {}) => {
@@ -49,14 +49,14 @@ const reducer = (state = initialState, action = {}) => {
       return {
         ...state,
         email: action.email,
-        password: action.password,
         lastName: action.lastName,
         firstName: action.firstName,
         nickname: action.nickname,
         avatar: action.avatar,
-        role: action.role,
-        dateOfBirth: action.dateOfBirth,
+        birthday: action.birthday,
         presentation: action.presentation,
+        role: action.role,
+        exhibitions: action.exhibitions,
       };
     case HANDLE_LOGIN_OFF:
       return {
@@ -70,8 +70,10 @@ const reducer = (state = initialState, action = {}) => {
         nickname: '',
         avatar: '',
         role: '',
-        dateOfBirth: '',
+        birthday: '',
         presentation: '',
+        exhibitions: [],
+        exhibition: [],
       };
     default:
       return state;
