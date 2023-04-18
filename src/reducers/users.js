@@ -15,7 +15,7 @@ export const initialState = {
   lastName: '',
   firstName: '',
   dateOfBirth: '',
-  description: '',
+  presentation: '',
   avatar: '',
   exhibitions: [],
   artworks: [],
@@ -48,16 +48,30 @@ const reducer = (state = initialState, action = {}) => {
     case SAVE_USER_DATA:
       return {
         ...state,
+        email: action.email,
+        password: action.password,
+        lastName: action.lastName,
+        firstName: action.firstName,
         nickname: action.nickname,
+        avatar: action.avatar,
         role: action.role,
+        dateOfBirth: action.dateOfBirth,
+        presentation: action.presentation,
       };
     case HANDLE_LOGIN_OFF:
       return {
         ...state,
-        nickname: '',
         logged: false,
         token: '',
+        email: '',
+        password: '',
+        lastName: '',
+        firstName: '',
+        nickname: '',
+        avatar: '',
         role: '',
+        dateOfBirth: '',
+        presentation: '',
       };
     default:
       return state;
