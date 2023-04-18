@@ -2,17 +2,12 @@ import Header from 'src/components/Header';
 import Page from 'src/components/Page';
 import Footer from 'src/components/Footer';
 
-const Error = () => (
+const Contact = () => (
   <Page>
     <Header />
-    <main>
-      <div>
-        <h1>Erreur</h1>
-        <p>Nous sommes désolé, Une erreur s'est produite.</p>
-      </div>
-    </main>
+    <div>PAGE CONTACT</div>
     <Footer />
   </Page>
 );
 
-export default Error;
+export default Contact;

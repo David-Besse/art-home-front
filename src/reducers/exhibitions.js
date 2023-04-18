@@ -7,9 +7,6 @@ export const initialState = {
   isExhibitionsLoaded: false,
 };
 
-// /!\ combinaison de reducers (state à tiroirs) : ne pas oublier le nom du tiroir quand7
-// on veut lire une info du state => state.recipes.list
-
 const reducer = (state = initialState, action = {}) => {
   switch (action.type) {
     case SAVE_EXHIBITIONS:
