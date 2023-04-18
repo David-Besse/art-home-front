@@ -5,7 +5,7 @@ export const fetchPictures = () => ({
   type: FETCH_PICTURES,
 });
 
-export const savePictures = ((pictures)) => ({
+export const savePictures = (pictures) => ({
   type: SAVE_PICTURES,
   pictures: pictures,
 });
