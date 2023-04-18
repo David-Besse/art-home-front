@@ -18,46 +18,53 @@ import {
 const user = (store) => (next) => (action) => {
   switch (action.type) {
     case SUBMIT_LOGIN:
-      axios.post(
-        'http://localhost:3001/login',
-        {
-          username: store.getState().users.email,
-          password: store.getState().users.password,
-        },
-      )
+      axios
+        .post(
+          // 'http://localhost:3001/login', // pour les tests en local
+          'http://aurelia-perrier.vpnuser.lan/Apotheose/projet-12-art-at-home-back/public/api/login_check',
+          {
+            username: store.getState().users.email,
+            password: store.getState().users.password,
+          },
+        )
         .then((response) => {
-          console.log(response.data);
-          store.dispatch(saveAuthData(
-            response.data.token,
-          ));
+          store.dispatch(saveAuthData(response.data.token));
 
-          // * pour les tests en local
-          store.dispatch(saveUserData(
-            response.data.role,
-            response.data.nickname,
-          ));
-          //* *****************************
+          // pour les tests en local
+          // store.dispatch(saveUserData(
+          //   response.data.role,
+          //   response.data.nickname,
+          // ));
 
           store.dispatch(resetFormFields());
           store.dispatch(changeLoginModalSate());
           store.dispatch(changeLoginFieldsValidation(false));
-          // axios.get(
-          //   'http://localhost:3001/login',
-          //   {
-          //     headers: {
-          //       Authorization: `Bearer ${store.getState().users.token}`,
-          //     },
-          //   },
-          // )
-          //   .then((res) => {
-          //     store.dispatch(saveUserData(
-          //       res.data.username,
-          //       res.data.role,
-          //     ));
-          //   })
-          //   .catch((error) => {
-          //     console.warn(error);
-          //   });
+          axios
+            .get(
+              // 'http://localhost:3001/login', // pour les tests en local
+              'http://aurelia-perrier.vpnuser.lan/Apotheose/projet-12-art-at-home-back/public/api/users/informations',
+              {
+                headers: {
+                  Authorization: `Bearer ${store.getState().users.token}`,
+                },
+              },
+            )
+            .then((res) => {
+              store.dispatch(saveUserData(
+                res.data.user.email,
+                res.data.user.password,
+                res.data.user.lastName,
+                res.data.user.firstName,
+                res.data.user.nickname,
+                res.data.user.avatar,
+                res.data.role,
+                res.data.date,
+                res.data.user.presentation,
+              ));
+            })
+            .catch((error) => {
+              console.warn(error);
+            });
         })
         .catch((error) => {
           console.warn(error);
@@ -66,17 +73,18 @@ const user = (store) => (next) => (action) => {
         });
       break;
     case SUBMIT_NEW_ACCOUNT:
-      axios.post(
-        // 'http://localhost:3001/create-account',
-        'http://aurelia-perrier.vpnuser.lan/Apotheose/projet-12-art-at-home-back/public/users/new',
-        {
-          email: store.getState().users.email,
-          password: store.getState().users.password,
-          lastname: store.getState().users.lastName,
-          firstname: store.getState().users.firstName,
-          roles: ['ROLE_ARTIST'],
-        },
-      )
+      axios
+        .post(
+          // 'http://localhost:3001/create-account', // pour les tests en local
+          'http://aurelia-perrier.vpnuser.lan/Apotheose/projet-12-art-at-home-back/public/users/new',
+          {
+            email: store.getState().users.email,
+            password: store.getState().users.password,
+            lastname: store.getState().users.lastName,
+            firstname: store.getState().users.firstName,
+            roles: ['ROLE_ARTIST'],
+          },
+        )
         .then((response) => {
           console.log(response);
           store.dispatch(changeNewAccountModalSate());
