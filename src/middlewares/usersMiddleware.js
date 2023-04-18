@@ -21,7 +21,7 @@ const user = (store) => (next) => (action) => {
       axios
         .post(
           // 'http://localhost:3001/login', // pour les tests en local
-          'http://aurelia-perrier.vpnuser.lan/Apotheose/projet-12-art-at-home-back/public/api/login_check',
+          'http://aurelia-perrier.vpnuser.lan:8000/api/login_check',
           {
             username: store.getState().users.email,
             password: store.getState().users.password,
@@ -42,7 +42,7 @@ const user = (store) => (next) => (action) => {
           axios
             .get(
               // 'http://localhost:3001/login', // pour les tests en local
-              'http://aurelia-perrier.vpnuser.lan/Apotheose/projet-12-art-at-home-back/public/api/users/informations',
+              'http://aurelia-perrier.vpnuser.lan:8000/api/secure/users/informations',
               {
                 headers: {
                   Authorization: `Bearer ${store.getState().users.token}`,
@@ -76,7 +76,7 @@ const user = (store) => (next) => (action) => {
       axios
         .post(
           // 'http://localhost:3001/create-account', // pour les tests en local
-          'http://aurelia-perrier.vpnuser.lan/Apotheose/projet-12-art-at-home-back/public/users/new',
+          'http://aurelia-perrier.vpnuser.lan:8000/api/users/new',
           {
             email: store.getState().users.email,
             password: store.getState().users.password,
