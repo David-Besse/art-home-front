@@ -1,22 +1,18 @@
-import { useSelector } from 'react-redux';
-
+import Header from 'src/components/Header';
 import Page from 'src/components/Page';
-import HomeCarousel from '../HomeCarousel';
+import Footer from 'src/components/Footer';
+import HomeCarousel from './HomeCarousel';
 
 import './styles.scss';
 
 // TODO Review the police size depending on the screen size
 
-const Home = () => {
-  const exhibitions = useSelector((state) => state.exhibitions.list);
-
-  console.log(exhibitions); // ! Array is empty, WHY ?
-
-  return (
-    <Page>
-      <HomeCarousel exhibitons={exhibitions} />
-    </Page>
-  );
-};
+const Home = () => (
+  <Page>
+    <Header />
+    <HomeCarousel />
+    <Footer />
+  </Page>
+);
 
 export default Home;
