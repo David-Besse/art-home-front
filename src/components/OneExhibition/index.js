@@ -13,7 +13,7 @@ import Pictures from './Pictures';
 const OneExhibition = () => {
   // Compare the slug
   const { slug } = useParams();
-  const exhibition = useSelector((state) => findExhibition(state.exhibition.list, slug));
+  const exhibition = useSelector((state) => findExhibition(state.pictures.list, slug));
 
   if (!exhibition) {
     return <Navigate to="/error" replace />;
@@ -21,12 +21,7 @@ const OneExhibition = () => {
   return (
     <Page>
       <Header />
-      <Pictures
-        name={exhibition.title}
-        description={exhibition.description}
-        pictures={exhibition.artwork} // Do a map to fill the gallery part in Pictures
-        artist={exhibition.artist} // Do a map to fill the artist part in Pictures
-      />
+      <Pictures />
       <Footer />
     </Page>
   );

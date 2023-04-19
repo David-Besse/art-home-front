@@ -22,7 +22,8 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchExhibitions(), fetchPictures());
+    dispatch(fetchExhibitions());
+    dispatch(fetchPictures());
   }, []);
 
   if (!isExhibitionsLoaded) {
@@ -40,7 +41,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/expositions" element={<Exhibitions />} />
-        <Route path="/expositions/{:slug}" element={<OneExhibition />} />
+        <Route path="/expositions/:slug" element={<OneExhibition />} />
         {/* <Route path="/profil" element={<Profil />} /> */}
         {/* <Route path="/backoffice" element={<Backoffice />} /> */}
         <Route path="/mentions-legales" element={<Disclaimer />} />

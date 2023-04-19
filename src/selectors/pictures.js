@@ -1,15 +1,16 @@
 /* eslint-disable import/prefer-default-export */
 /* eslint-disable arrow-body-style */
 
+// Looking ofr one exhibition among the list of all the exhibitions available
 /**
- *  on trouve la recette voulue dans la liste des recettes
- * @param {Array} exhibitions - toutes les recettes
- * @param {string} searchedSlug - le slug de la recette recherchée
- * @return {Object} - La recette trouvée
+ *  Find the exhibiton that need to be display
+ * @param {Array} exhibitions - all exhibitions
+ * @param {string} searchedSlug - slug of the selected exhibition
+ * @return {Object} - the exhibition corresponding
  */
 export function findExhibition(exhibitions, searchedSlug) {
-  const exhibition = exhibitions.find((testedExhibition) => {
-    return testedExhibition.slug === searchedSlug;
+  const exhibitionToDisplay = exhibitions.find((exhibition) => {
+    return exhibition.slug === searchedSlug;
   });
-  return exhibition;
+  return exhibitionToDisplay;
 }
