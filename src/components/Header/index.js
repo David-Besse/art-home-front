@@ -40,16 +40,10 @@ const Header = () => {
               <LinkContainer to="/expositions">
                 <Nav.Link eventKey={1}>Expositions</Nav.Link>
               </LinkContainer>
-              {role === 'Artiste'
+              {logged
                 && (
                 <LinkContainer to="/profil">
                   <Nav.Link eventKey={2}>Profil</Nav.Link>
-                </LinkContainer>
-                )}
-              {(role === 'Administrateur' || role === 'Modérateur')
-                && (
-                <LinkContainer to="/backoffice">
-                  <Nav.Link eventKey={5}>Backoffice</Nav.Link>
                 </LinkContainer>
                 )}
               <LinkContainer to="/mentions-legales" className="d-lg-none">
@@ -59,6 +53,7 @@ const Header = () => {
                 <Nav.Link eventKey={4}>Contact</Nav.Link>
               </LinkContainer>
             </Nav>
+
             <Nav>
               {!logged
                 && (
@@ -68,6 +63,7 @@ const Header = () => {
                 >Créer un compte
                 </Nav.Link>
                 )}
+
               {logged && (
               <Nav.Link eventKey={7} onClick={handleLogout} className="d-flex align-items-center">
                 <Navbar.Text className="d-none d-lg-flex text-white me-2">
@@ -79,6 +75,7 @@ const Header = () => {
                 </svg>
               </Nav.Link>
               )}
+
               {!logged && (
               <Nav.Link
                 eventKey={7}
@@ -90,7 +87,9 @@ const Header = () => {
           </Navbar.Collapse>
         </Container>
       </Navbar>
+
       <LogModal show={isLogModalOpened} />
+
       <NewAccountModal show={isNewAccountModalOpened} />
     </>
   );

@@ -9,8 +9,8 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const enhancers = composeEnhancers(
   applyMiddleware(
-    usersMiddleware,
     exhibitionsMiddleware,
+    usersMiddleware,
   ),
 );
 
