@@ -22,7 +22,7 @@ const Pictures = () => {
         </Card.Body>
       </Card>
       {/* Showcase of all the picture included in the exhibiton */}
-      <Container>
+      <Container className="picture-container">
         <Row>
           {artwork.map((picture) => (
             <Col key={picture.slug}>
@@ -37,8 +37,3 @@ const Pictures = () => {
 };
 
 export default Pictures;
-
-/* name={exhibition.title}
-pictures={exhibition.artwork} // Need a map to fill the gallery part in Pictures (array of objects)
-artist={exhibition.artist}
-description={exhibition.description} */
