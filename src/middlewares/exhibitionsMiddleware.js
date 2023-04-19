@@ -6,7 +6,7 @@ import { FETCH_EXHIBITIONS, saveExhibitions } from '../actions/exhibitions';
 const exhibitionsMiddleware = (store) => (next) => (action) => {
   switch (action.type) {
     case FETCH_EXHIBITIONS:
-      axios.get('http://localhost:3001/exhibitions')
+      axios.get('http://mathieu-zagar.vpnuser.lan:8000/api/exhibitions/homepage')
         .then((response) => {
           store.dispatch(saveExhibitions(response.data));
         })

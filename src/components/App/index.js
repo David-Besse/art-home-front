@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Home from 'src/components/Home';
 import Exhibitions from 'src/components/Exhibitions';
 // import OneExhibition from 'src/components/OneExhibition';
-import Profil from 'src/components/Profil';
+import Profile from 'src/components/Profile';
 // import Backoffice from 'src/components/Backoffice';
 import Disclaimer from 'src/components/Disclaimer';
 import Contact from 'src/components/Contact';
@@ -36,7 +36,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/expositions" element={<Exhibitions />} />
         {/* <Route path="/expositions/{:slug}" element={<OneExhibition />} */}
-        {logged && <Route path="/profil" element={<Profil />} />}
+        {logged && <Route path="/profil" element={<Profile />} />}
         <Route path="/mentions-legales" element={<Disclaimer />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="*" element={<Error />} />

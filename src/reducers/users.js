@@ -41,8 +41,7 @@ const reducer = (state = initialState, action = {}) => {
         ...state,
         logged: true,
         token: action.token,
-        // ! SECURITY : we erase identifiers
-        email: '',
+        // ! SECURITY : we erase password
         password: '',
       };
     case SAVE_USER_DATA:
@@ -53,7 +52,7 @@ const reducer = (state = initialState, action = {}) => {
         firstName: action.firstName,
         nickname: action.nickname,
         avatar: action.avatar,
-        birthday: action.birthday,
+        birthday: action.birthday === null ? '1900-01-01' : action.birthday,
         presentation: action.presentation,
         role: action.role,
         exhibitions: action.exhibitions,

@@ -5,6 +5,7 @@ import {
   saveUserData,
   resetFormFields,
   SUBMIT_NEW_ACCOUNT,
+  SUBMIT_PROFILE_UPDATE,
 } from '../actions/users';
 import {
   changeLoginFieldsValidation,
@@ -20,7 +21,8 @@ const user = (store) => (next) => (action) => {
     case SUBMIT_LOGIN:
       axios
         .post(
-          'http://aurelia-perrier.vpnuser.lan:8000/api/login_check',
+          // 'http://localhost:3001/login',
+          'http://mathieu-zagar.vpnuser.lan:8000/api/login_check',
           {
             username: store.getState().users.email,
             password: store.getState().users.password,
@@ -32,6 +34,11 @@ const user = (store) => (next) => (action) => {
           store.dispatch(resetFormFields());
           store.dispatch(changeLoginModalSate());
           store.dispatch(changeLoginFieldsValidation(false));
+
+          // test en local //
+          // store.dispatch(saveUserData(response.data));
+          // test en local //
+
           axios
             .get(
               'http://mathieu-zagar.vpnuser.lan:8000/api/secure/users/profile',
@@ -42,7 +49,6 @@ const user = (store) => (next) => (action) => {
               },
             )
             .then((res) => {
-              console.log(res.data);
               store.dispatch(saveUserData(res.data));
             })
             .catch((error) => {
@@ -57,16 +63,13 @@ const user = (store) => (next) => (action) => {
       break;
     case SUBMIT_NEW_ACCOUNT:
       axios
-        .post(
-          'http://mathieu-zagar.vpnuser.lan:8000/api/users/new',
-          {
-            email: store.getState().users.email,
-            password: store.getState().users.password,
-            lastname: store.getState().users.lastName,
-            firstname: store.getState().users.firstName,
-            roles: ['ROLE_ARTIST'],
-          },
-        )
+        .post('http://mathieu-zagar.vpnuser.lan:8000/api/users/new', {
+          email: store.getState().users.email,
+          password: store.getState().users.password,
+          lastname: store.getState().users.lastName,
+          firstname: store.getState().users.firstName,
+          roles: ['ROLE_ARTIST'],
+        })
         .then((response) => {
           console.log(response);
           store.dispatch(changeNewAccountModalSate());
@@ -82,6 +85,35 @@ const user = (store) => (next) => (action) => {
           store.dispatch(toggleTermOfUseBox());
           store.dispatch(changeNewAccountFieldsValidation(true));
           store.dispatch(toggleNewAccountModalSate());
+        });
+      break;
+    case SUBMIT_PROFILE_UPDATE:
+      axios
+        .put(
+          'http://mathieu-zagar.vpnuser.lan:8000/api/secure/users/edit',
+          {
+            email: store.getState().users.email,
+            lastname: store.getState().users.lastName,
+            firstname: store.getState().users.firstName,
+            nickname: store.getState().users.nickname,
+            avatar: store.getState().users.avatar,
+            dateOfBirth: store.getState().users.birthday,
+            presentation: store.getState().users.presentation,
+            password: ' ',
+            roles: ['ROLE_ARTIST'],
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${store.getState().users.token}`,
+              'Content-Type': 'application/json',
+            },
+          },
+        )
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.warn(error);
         });
       break;
     default:
