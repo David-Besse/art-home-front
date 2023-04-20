@@ -200,7 +200,7 @@ const userInformations = () => {
                           : 'fw-normal fst-italic fw-lighter'
                       }
                     >
-                      {birthday === '' ? 'non communiqué' : birthday}
+                      {birthday === '' ? '0000-00-00' : birthday}
                     </span>
                   )}
                 </p>

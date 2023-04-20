@@ -13,7 +13,7 @@ const HomeCarousel = () => {
     <section className="home-carousel">
       <Carousel fade className="carousel">
         {list.map((exhibition) => (
-          <Carousel.Item key={exhibition.id}>
+          <Carousel.Item key={exhibition.id} interval={4000}>
             <h1 className="carousel-title">{exhibition.title}</h1>
             <p className="carousel-artist">{exhibition.nickname}</p>
             <LinkContainer to={`/expositions/${exhibition.slug}`}>
