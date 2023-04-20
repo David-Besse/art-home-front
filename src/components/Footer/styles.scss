@@ -1,11 +1,12 @@
 .footer-socials {
-  position:fixed;
+  position: fixed;
   bottom: 0%;
   width: 100%;
+  z-index: 10;
 }
 
-@media screen and  (max-width: 1023px){
+@media screen and (max-width: 1023px) {
   .footer-socials {
-    position:relative;
+    position: relative;
   }
 }

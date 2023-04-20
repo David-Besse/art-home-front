@@ -13,7 +13,7 @@ const reducer = (state = initialState, action = {}) => {
       return {
         ...state,
         list: action.exhibitions,
-        isExhibitionsLoaded: false,
+        isExhibitionsLoaded: true,
       };
     default:
       return state;
