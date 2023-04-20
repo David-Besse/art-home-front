@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Home from 'src/components/Home';
 import Exhibitions from 'src/components/Exhibitions';
@@ -15,8 +15,8 @@ import './styles.scss';
 import { fetchExhibitions } from '../../actions/exhibitions';
 
 function App() {
-
   const dispatch = useDispatch();
+  const { logged } = useSelector((state) => state.users);
 
   useEffect(() => {
     dispatch(fetchExhibitions());
