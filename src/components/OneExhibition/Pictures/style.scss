@@ -1,0 +1,64 @@
+.card {
+  border: none;
+}
+
+/* 
+INFO ARTIST
+ */
+.card-img-top {
+  &.avatar {
+    width: 500px;
+  }
+}
+
+/* 
+INFO EXHIBITION
+ */
+
+.card-exhibition {
+  align-items: center;
+}
+
+.card-body.body-exhibtion {
+  // background-color: beige;
+  margin-bottom: 1rem;
+  width: 95vw;
+}
+
+.card-body.body-exhibtion > .title {
+    color: goldenrod;
+    font-family: 'Averia Libre', display;
+    font-variant-caps: all-small-caps;
+    font-weight: bold;
+    font-size:3rem;
+    line-height: 2rem;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+
+.card-body.body-exhibtion > .description {
+    color: rgb(29, 26, 16);
+    border: goldenrod ridge 4px;
+    border-radius: 5px;
+    font-size: 1rem;
+    padding: 1rem;
+  }
+
+
+/* 
+PICTURES EXHIBITION
+ */
+
+.card-picturee {
+  align-items: center;
+  background-color: aqua;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0;
+  width: 100%;
+}
+
+.image-picture {
+  max-width: 100%;
+  height: auto;
+}

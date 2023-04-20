@@ -33,7 +33,7 @@
 }
 
 @media screen and  (orientation: portrait){
-  img {
+  .image-cover {
   height: 55vh;
 }
   .carousel-caption{
@@ -48,13 +48,13 @@
 }
 
 @media screen and  (min-width: 768px) and (max-width:1199px){
-  img {
+  .image-cover {
     height: 65vh;
   }
 }
 
 @media screen and  (min-width: 1200px){
-  img {
+  .image-cover {
   height: 75vh;
 }
 }

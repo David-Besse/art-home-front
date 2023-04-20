@@ -8,10 +8,10 @@ import Header from 'src/components/Header';
 import Footer from 'src/components/Footer';
 import Pictures from './Pictures';
 
-// import './styles.scss';
+import './style.scss';
 
 const OneExhibition = () => {
-  // Compare the slug
+// Compare the slug
   const { slug } = useParams();
   const exhibition = useSelector((state) => findExhibition(state.pictures.list, slug));
 

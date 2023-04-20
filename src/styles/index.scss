@@ -1,9 +1,8 @@
 @use 'reset';
 @use 'vars';
-
+@import url(https://fonts.bunny.net/css?family=albert-sans:300|averia-libre:300);
 @import '~bootstrap/scss/bootstrap';
 
 body {
-  font-family: sans-serif;
+  font-family: 'Albert Sans', sans-serif;
 }
-
