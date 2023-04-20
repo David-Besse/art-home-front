@@ -2,6 +2,7 @@ import {
   CHANGE_LOGIN_MODAL_STATE, CHANGE_LOGIN_FIELDS_VALIDATION,
   CHANGE_NEW_ACCOUNT_MODAL_STATE, CHANGE_NEW_ACCOUNT_FIELDS_VALIDATION,
   TOGGLE_NEW_ACCOUNT_MODAL_STATE, TOGGLE_TERM_OF_USES_BOX,
+  TOGGLE_ACCOUNT_CREATION_MODAL,
 } from '../actions/modals';
 
 export const initialState = {
@@ -11,6 +12,7 @@ export const initialState = {
   isNewAccountFormValidated: false,
   isNewAccountModalStateOpened: false,
   isCheckedTermOfUsesBox: false,
+  isAccountCreationModalOpened: false,
 };
 
 const reducer = (state = initialState, action = {}) => {
@@ -44,6 +46,11 @@ const reducer = (state = initialState, action = {}) => {
       return {
         ...state,
         isCheckedTermOfUsesBox: !state.isCheckedTermOfUsesBox,
+      };
+    case TOGGLE_ACCOUNT_CREATION_MODAL:
+      return {
+        ...state,
+        isAccountCreationModalOpened: !state.isAccountCreationModalOpened,
       };
     default:
       return state;

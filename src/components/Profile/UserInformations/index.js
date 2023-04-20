@@ -147,7 +147,7 @@ const userInformations = () => {
                 )}
 
                 <p className="card-text fw-bold mb-0">
-                  Prénom :
+                  Prénom :{' '}
                   {!isProfileEditingActivated && (
                     <span className="fw-normal fst-italic fw-lighter">
                       {firstName}
@@ -195,12 +195,12 @@ const userInformations = () => {
                   {!isProfileEditingActivated && (
                     <span
                       className={
-                        birthday === ''
-                          ? 'fw-normal text-muted fst-italic fw-lighter'
-                          : 'fw-normal fst-italic fw-lighter'
+                        birthday !== ''
+                          ? 'fw-normal fst-italic fw-lighter'
+                          : 'fw-normal text-muted fst-italic fw-lighter'
                       }
                     >
-                      {birthday === '' ? '0000-00-00' : birthday}
+                      {birthday !== '' ? birthday : '0000-00-00' }
                     </span>
                   )}
                 </p>

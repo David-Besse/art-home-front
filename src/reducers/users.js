@@ -3,6 +3,7 @@ import {
   SAVE_AUTH_DATA, SAVE_USER_DATA,
   HANDLE_LOGIN_OFF,
   RESET_FORM_FIELDS,
+  SAVE_USER_EXHIBITIONS_LIST,
 } from '../actions/users';
 
 export const initialState = {
@@ -18,7 +19,8 @@ export const initialState = {
   presentation: '',
   avatar: '',
   exhibitions: [],
-  exhibition: [],
+  exhibitionName: '',
+  exhibitionDescription: '',
 };
 
 const reducer = (state = initialState, action = {}) => {
@@ -52,7 +54,7 @@ const reducer = (state = initialState, action = {}) => {
         firstName: action.firstName,
         nickname: action.nickname === null ? '' : action.nickname,
         avatar: action.avatar === null ? '' : action.avatar,
-        birthday: action.birthday === null ? '' : action.birthday,
+        birthday: action.birthday,
         presentation: action.presentation === null ? '' : action.presentation,
         role: action.role,
         exhibitions: action.exhibitions,
@@ -73,6 +75,13 @@ const reducer = (state = initialState, action = {}) => {
         presentation: '',
         exhibitions: [],
         exhibition: [],
+      };
+    case SAVE_USER_EXHIBITIONS_LIST:
+      return {
+        ...state,
+        exhibitions: action.exhibitions,
+        exhibitionName: '',
+        exhibitionDescription: '',
       };
     default:
       return state;

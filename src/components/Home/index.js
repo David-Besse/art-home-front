@@ -9,7 +9,8 @@ import HomeCarousel from './HomeCarousel';
 // TODO Review the police size depending on the screen size
 
 const Home = () => {
-  const isExhibitionsLoaded = useSelector((state) => state.exhibitions.isExhibitionsLoaded);
+  const { isExhibitionsLoaded } = useSelector((state) => state.exhibitions);
+
   return (
     <Page>
       <Header />

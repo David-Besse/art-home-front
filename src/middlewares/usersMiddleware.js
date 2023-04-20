@@ -6,6 +6,8 @@ import {
   resetFormFields,
   SUBMIT_NEW_ACCOUNT,
   SUBMIT_PROFILE_UPDATE,
+  SUBMIT_NEW_EXHIBITION,
+  saveUserExhibitionsList,
 } from '../actions/users';
 import {
   changeLoginFieldsValidation,
@@ -22,7 +24,7 @@ const user = (store) => (next) => (action) => {
       axios
         .post(
           // 'http://localhost:3001/login',
-          'http://mathieu-zagar.vpnuser.lan:8000/api/login_check',
+          'http://aurelia-perrier.vpnuser.lan:8000/api/login_check',
           {
             username: store.getState().users.email,
             password: store.getState().users.password,
@@ -41,7 +43,7 @@ const user = (store) => (next) => (action) => {
 
           axios
             .get(
-              'http://mathieu-zagar.vpnuser.lan:8000/api/secure/users/profile',
+              'http://aurelia-perrier.vpnuser.lan:8000/api/secure/users/profile',
               {
                 headers: {
                   Authorization: `Bearer ${store.getState().users.token}`,
@@ -49,6 +51,7 @@ const user = (store) => (next) => (action) => {
               },
             )
             .then((res) => {
+              console.log(res.data.dateOfBirth);
               store.dispatch(saveUserData(res.data));
             })
             .catch((error) => {
@@ -63,7 +66,7 @@ const user = (store) => (next) => (action) => {
       break;
     case SUBMIT_NEW_ACCOUNT:
       axios
-        .post('http://mathieu-zagar.vpnuser.lan:8000/api/users/new', {
+        .post('http://aurelia-perrier.vpnuser.lan:8000/api/users/new', {
           email: store.getState().users.email,
           password: store.getState().users.password,
           lastname: store.getState().users.lastName,
@@ -90,7 +93,7 @@ const user = (store) => (next) => (action) => {
     case SUBMIT_PROFILE_UPDATE:
       axios
         .put(
-          'http://mathieu-zagar.vpnuser.lan:8000/api/secure/users/edit',
+          'http://aurelia-perrier.vpnuser.lan:8000/api/secure/users/edit',
           {
             email: store.getState().users.email,
             lastname: store.getState().users.lastName,
@@ -111,6 +114,30 @@ const user = (store) => (next) => (action) => {
         )
         .then((response) => {
           console.log(response);
+        })
+        .catch((error) => {
+          console.warn(error);
+        });
+      break;
+    case SUBMIT_NEW_EXHIBITION:
+      axios
+        .put(
+          'http://aurelia-perrier.vpnuser.lan:8000/api/secure/exhibitions/new',
+          {
+            title: store.getState().users.exhibitionName,
+            description: store.getState().users.exhibitionDescription,
+            artist: '',
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${store.getState().users.token}`,
+              'Content-Type': 'application/json',
+            },
+          },
+        )
+        .then((response) => {
+          console.log(response);
+          store.dispatch(saveUserExhibitionsList(response.data));
         })
         .catch((error) => {
           console.warn(error);
