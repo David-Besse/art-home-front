@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import Home from 'src/components/Home';
 import Exhibitions from 'src/components/Exhibitions';
-// import OneExhibition from 'src/components/OneExhibition';
+import OneExhibition from 'src/components/OneExhibition';
 import Profile from 'src/components/Profile';
 // import Backoffice from 'src/components/Backoffice';
 import Disclaimer from 'src/components/Disclaimer';
@@ -13,6 +13,7 @@ import Error from 'src/components/Error';
 
 import './styles.scss';
 import { fetchExhibitions } from '../../actions/exhibitions';
+import { fetchPictures } from '../../actions/pictures';
 
 function App() {
   const dispatch = useDispatch();
@@ -20,6 +21,7 @@ function App() {
 
   useEffect(() => {
     dispatch(fetchExhibitions());
+    dispatch(fetchPictures());
   }, []);
 
   return (
@@ -27,7 +29,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/expositions" element={<Exhibitions />} />
-        {/* <Route path="/expositions/{:slug}" element={<OneExhibition />} */}
+        <Route path="/expositions/:slug" element={<OneExhibition />} />
         {logged && <Route path="/profil" element={<Profile />} />}
         <Route path="/mentions-legales" element={<Disclaimer />} />
         <Route path="/contact" element={<Contact />} />

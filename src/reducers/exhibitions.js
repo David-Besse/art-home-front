@@ -1,7 +1,7 @@
 import { SAVE_EXHIBITIONS } from '../actions/exhibitions';
 
 export const initialState = {
-  // list of all exhibition occuring at the moment
+  // list of all exhibition available at the moment
   list: [],
   // indicate if all exhibitions are loaded
   isExhibitionsLoaded: false,
