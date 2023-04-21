@@ -1,5 +1,6 @@
 import Card from 'react-bootstrap/Card';
-import { Container, Row } from 'react-bootstrap';
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row'
 import { useParams } from 'react-router-dom';
 import { findExhibition } from 'src/selectors/pictures';
 import { useSelector } from 'react-redux';
@@ -22,6 +23,7 @@ const Pictures = () => {
         <Card.Img className="avatar" variant="top" src={artist.avatar} alt={artist.slug} />
         <Card.Body className="body-artist">
           <Card.Title className="nickname">{artist.nickname}</Card.Title>
+          <Card.Text className="presentation">{artist.firstname} {artist.lastname}</Card.Text>
           <Card.Text className="presentation">{artist.presentation}</Card.Text>
         </Card.Body>
       </Card>
@@ -30,21 +32,40 @@ const Pictures = () => {
       <Card className="card-exhibition">
         <Card.Body className="body-exhibtion">
           <Card.Title className="title">{title}</Card.Title>
+          <Card.Title className="nickname">{artist.nickname}</Card.Title>
           <Card.Text className="description">{description}</Card.Text>
         </Card.Body>
       </Card>
 
       {/* Showcase of all the picture included in the exhibiton */}
-      <Card className="card-picture">
+      <Row xs={1} md={1} lg={2} className="g-4">
         {artwork.map((picture) => (
-          <>
-            <Card.Img className="image-picture" src={picture.picture} alt={picture.slug} key={picture.slug} />
-            <Card.Text className="description-picture">{picture.description}</Card.Text>
-          </>
+          <Col className="col-picture" key={picture.slug}>
+            <Card className="card-picture" >
+              <Card.Img className="image-picture" src={picture.picture} alt={picture.slug} />
+              <Card.Body className="body-picture">
+                <Card.Title className="title-picture">{picture.title}</Card.Title>
+                <Card.Text className="description-picture">{picture.description}</Card.Text>
+              </Card.Body>
+            </Card>
+          </Col>
         ))}
-      </Card>
+      </Row>
+
     </div>
   );
 };
 
 export default Pictures;
+
+{ /* <div className=" display-exhibition">
+        {artwork.map((picture) => (
+          <Card className="card-picture" key={picture.slug}>
+            <Card.Img className="image-picture" src={picture.picture} alt={picture.slug} />
+            <div className="info-picture">
+              <Card.Title className="title-picture">{picture.title}</Card.Title>
+              <Card.Text className="description-picture">{picture.description}</Card.Text>
+            </div>
+          </Card>
+        ))}
+      </div> */ }

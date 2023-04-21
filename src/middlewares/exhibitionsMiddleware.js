@@ -6,7 +6,7 @@ import { FETCH_EXHIBITIONS, saveExhibitions } from '../actions/exhibitions';
 const exhibitionsMiddleware = (store) => (next) => (action) => {
   switch (action.type) {
     case FETCH_EXHIBITIONS:
-      axios.get('http://aurelia-perrier.vpnuser.lan:8000/api/exhibitions/homepage')
+      axios.get('http://aurelia-perrier.vpnuser.lan/Apotheose/projet-12-art-at-home-back/public/api/exhibitions/homepage')
         .then((response) => {
           store.dispatch(saveExhibitions(response.data));
         })
