@@ -2,8 +2,9 @@
 @use 'vars';
 
 @import '~bootstrap/scss/bootstrap';
+@import url(https://fonts.bunny.net/css?family=albert-sans:300%7Caveria-libre:300);
 
 body {
-  font-family: sans-serif;
+  font-family: 'Albert Sans', sans-serif; 
 }
 
