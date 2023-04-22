@@ -7,7 +7,7 @@ const Exhibitions = () => (
   <>
     <Header />
     <Page>
-    <ExhibitionsList />
+      <ExhibitionsList />
     </Page>
     <Footer />
   </>
