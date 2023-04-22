@@ -3,11 +3,13 @@ import Page from 'src/components/Page';
 import Footer from 'src/components/Footer';
 
 const Exhibitions = () => (
-  <Page>
+  <>
     <Header />
-    <div>PAGE EXHIBITION</div>
+    <Page>
+      <div>PAGE EXHIBITION</div>
+    </Page>
     <Footer />
-  </Page>
+  </>
 );
 
 export default Exhibitions;

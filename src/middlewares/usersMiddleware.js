@@ -23,7 +23,6 @@ const user = (store) => (next) => (action) => {
     case SUBMIT_LOGIN:
       axios
         .post(
-          // 'http://localhost:3001/login',
           'http://mathieu-zagar.vpnuser.lan:8000/api/login_check',
           {
             username: store.getState().users.email,
@@ -36,10 +35,6 @@ const user = (store) => (next) => (action) => {
           store.dispatch(resetFormFields());
           store.dispatch(changeLoginModalSate());
           store.dispatch(changeLoginFieldsValidation(false));
-
-          // test en local //
-          // store.dispatch(saveUserData(response.data));
-          // test en local //
 
           axios
             .get(

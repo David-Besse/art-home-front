@@ -42,7 +42,7 @@ const ExhibitionsManager = () => {
   };
 
   return (
-    <div className="mx-3 mb-3 mt-5">
+    <section className="mx-3 mb-3 mt-5">
       {/**
        * Modal for creating an exhibition
        */}
@@ -146,7 +146,7 @@ const ExhibitionsManager = () => {
           </div>
         </div>
 
-        <div className="mb-3 d-flex flex-wrap g-0">
+        <div className="mb-3 d-flex flex-wrap g-0 justify-content-center">
           {artworks.length > 0
           && artworks.map((artwork) => (
             <Form className="mb-3 col-lg-6" key={artwork.id} onSubmit={(event) => handleSubmitArtwork(event, artwork.id)}>
@@ -248,7 +248,7 @@ const ExhibitionsManager = () => {
         </div>
 
       </div>
-    </div>
+    </section>
   );
 };
 

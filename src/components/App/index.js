@@ -6,13 +6,13 @@ import Home from 'src/components/Home';
 import Exhibitions from 'src/components/Exhibitions';
 // import OneExhibition from 'src/components/OneExhibition';
 import Profile from 'src/components/Profile';
-// import Backoffice from 'src/components/Backoffice';
 import Disclaimer from 'src/components/Disclaimer';
 import Contact from 'src/components/Contact';
 import Error from 'src/components/Error';
 
-import './styles.scss';
 import { fetchExhibitions } from '../../actions/exhibitions';
+
+import './styles.scss';
 
 function App() {
   const dispatch = useDispatch();
@@ -23,7 +23,7 @@ function App() {
   }, []);
 
   return (
-    <div className="app">
+    <div className="app d-flex flex-column justify-content-between">
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/expositions" element={<Exhibitions />} />

@@ -28,7 +28,7 @@ const Header = () => {
   const handleNewAccountModal = () => dispatch(changeNewAccountModalSate());
 
   return (
-    <>
+    <header>
       <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
         <Container>
           <LinkContainer to="/">
@@ -97,7 +97,7 @@ const Header = () => {
       <LogModal show={isLogModalOpened} />
 
       <NewAccountModal show={isNewAccountModalOpened} />
-    </>
+    </header>
   );
 };
 

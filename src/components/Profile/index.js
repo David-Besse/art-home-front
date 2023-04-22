@@ -7,12 +7,14 @@ import ExhibitionsManager from './ExhibitionsManager';
 import './styles.scss';
 
 const Profile = () => (
-  <Page>
+  <>
     <Header />
-    <UserInformations />
-    <ExhibitionsManager />
+    <Page>
+      <UserInformations />
+      <ExhibitionsManager />
+    </Page>
     <Footer />
-  </Page>
+  </>
 );
 
 export default Profile;

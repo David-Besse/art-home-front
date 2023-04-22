@@ -38,13 +38,25 @@
 
   &::after {
     content: "";
-    height: 30%;
+    height: 0.2em;
     width: 100%;
     background-color: vars.$color;
     opacity: .3;
     position: absolute;
-    top: 75%;
+    top: calc(75% + 0.2em);
     left: 0;
     animation: load 1.5s infinite;
+  }
+
+  @media screen and (max-width: 767px) {
+    &::after {
+      top: calc(75% + 0.4em);
+    }
+  }
+
+  @media screen and (max-width: 424px) {
+    &::after {
+      top: calc(75% + 0.8em);
+    }
   }
 }

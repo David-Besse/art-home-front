@@ -3,8 +3,6 @@ import {
   FETCH_EXHIBITIONS, saveExhibitions, FETCH_USER_ARTWORKS, saveUserArtworks, UPDATE_USER_ARTWORK,
 } from '../actions/exhibitions';
 
-// Fetching the list of exhibition and putting them into the state
-
 const exhibitionsMiddleware = (store) => (next) => (action) => {
   switch (action.type) {
     case FETCH_EXHIBITIONS:

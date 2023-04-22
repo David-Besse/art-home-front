@@ -63,14 +63,14 @@ const userInformations = () => {
   }, [showAlert]);
 
   return (
-    <div className="mx-3 my-3 profil">
+    <section className="mx-3 my-3 profil">
       <Alert
         variant="warning"
         show={showAlert}
         onClose={handleAlert}
         dismissible
       >
-        Attention, suite à la modification de vos identifiants de connexion, veuillez vous reconnecter.
+        Information: suite à la modification de vos identifiants de connexion, vous allez être déconnecté.
       </Alert>
       <h2 className="mt-3 mb-3 text-center">Mon Profil</h2>
       <Form onSubmit={handleSubmit}>
@@ -268,7 +268,7 @@ const userInformations = () => {
           </div>
         </div>
       </Form>
-    </div>
+    </section>
   );
 };
 
