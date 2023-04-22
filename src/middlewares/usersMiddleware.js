@@ -6,6 +6,8 @@ import {
   resetFormFields,
   SUBMIT_NEW_ACCOUNT,
   SUBMIT_PROFILE_UPDATE,
+  SUBMIT_NEW_EXHIBITION,
+  saveUserExhibitionsList,
 } from '../actions/users';
 import {
   changeLoginFieldsValidation,
@@ -21,7 +23,6 @@ const user = (store) => (next) => (action) => {
     case SUBMIT_LOGIN:
       axios
         .post(
-          // 'http://localhost:3001/login',
           'http://mathieu-zagar.vpnuser.lan:8000/api/login_check',
           {
             username: store.getState().users.email,
@@ -34,10 +35,6 @@ const user = (store) => (next) => (action) => {
           store.dispatch(resetFormFields());
           store.dispatch(changeLoginModalSate());
           store.dispatch(changeLoginFieldsValidation(false));
-
-          // test en local //
-          // store.dispatch(saveUserData(response.data));
-          // test en local //
 
           axios
             .get(
@@ -111,6 +108,30 @@ const user = (store) => (next) => (action) => {
         )
         .then((response) => {
           console.log(response);
+        })
+        .catch((error) => {
+          console.warn(error);
+        });
+      break;
+    case SUBMIT_NEW_EXHIBITION:
+      axios
+        .put(
+          'http://mathieu-zagar.vpnuser.lan:8000/api/secure/exhibitions/new',
+          {
+            title: store.getState().users.exhibitionName,
+            description: store.getState().users.exhibitionDescription,
+            artist: '',
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${store.getState().users.token}`,
+              'Content-Type': 'application/json',
+            },
+          },
+        )
+        .then((response) => {
+          console.log(response);
+          store.dispatch(saveUserExhibitionsList(response.data));
         })
         .catch((error) => {
           console.warn(error);

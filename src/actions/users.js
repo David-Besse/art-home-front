@@ -6,6 +6,8 @@ export const SAVE_USER_DATA = 'SAVE_USER_DATA';
 export const HANDLE_LOGIN_OFF = 'HANDLE_LOGIN_OFF';
 export const SUBMIT_NEW_ACCOUNT = 'SUBMIT_NEW_ACCOUNT';
 export const SUBMIT_PROFILE_UPDATE = 'SUBMIT_PROFILE_UPDATE';
+export const SUBMIT_NEW_EXHIBITION = 'SUBMIT_NEW_EXHIBITION';
+export const SAVE_USER_EXHIBITIONS_LIST = 'SAVE_USER_EXHIBITIONS_LIST';
 
 export const changeLoginField = (newValue, fieldName) => ({
   type: CHANGE_LOGIN_FIELD,
@@ -45,6 +47,15 @@ export const saveUserData = ({
 
 export const submitProfileUpdate = () => ({
   type: SUBMIT_PROFILE_UPDATE,
+});
+
+export const submitNewExhibition = () => ({
+  type: SUBMIT_NEW_EXHIBITION,
+});
+
+export const saveUserExhibitionsList = (exhibitions) => ({
+  type: SAVE_USER_EXHIBITIONS_LIST,
+  exhibitions: exhibitions,
 });
 
 export const handleLoginOff = () => ({

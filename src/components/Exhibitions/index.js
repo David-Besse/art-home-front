@@ -4,11 +4,13 @@ import Footer from 'src/components/Footer';
 import ExhibitionsList from './ExhibitionsList';
 
 const Exhibitions = () => (
-  <Page>
+  <>
     <Header />
+    <Page>
     <ExhibitionsList />
+    </Page>
     <Footer />
-  </Page>
+  </>
 );
 
 export default Exhibitions;
