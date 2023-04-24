@@ -215,7 +215,7 @@ const userInformations = () => {
                     <Form.Control
                       type="date"
                       id="inputBirthday"
-                      value={birthday === '' ? '0000-00-00' : birthday}
+                      value={birthday}
                       onChange={(evt) => {
                         changeField(evt.target.value, 'birthday');
                       }}
