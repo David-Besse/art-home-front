@@ -1,4 +1,5 @@
-// Display one exhibition
+// Structure to display one exhibition
+
 import { Navigate, useParams } from 'react-router-dom';
 import { findExhibition } from 'src/selectors/pictures';
 import { useSelector } from 'react-redux';
@@ -7,8 +8,6 @@ import Page from 'src/components/Page';
 import Header from 'src/components/Header';
 import Footer from 'src/components/Footer';
 import Pictures from './Pictures';
-
-import './style.scss';
 
 const OneExhibition = () => {
 // Compare the slug
