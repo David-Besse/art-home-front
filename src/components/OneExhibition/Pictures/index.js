@@ -57,15 +57,3 @@ const Pictures = () => {
 };
 
 export default Pictures;
-
-{ /* <div className=" display-exhibition">
-        {artwork.map((picture) => (
-          <Card className="card-picture" key={picture.slug}>
-            <Card.Img className="image-picture" src={picture.picture} alt={picture.slug} />
-            <div className="info-picture">
-              <Card.Title className="title-picture">{picture.title}</Card.Title>
-              <Card.Text className="description-picture">{picture.description}</Card.Text>
-            </div>
-          </Card>
-        ))}
-      </div> */ }
