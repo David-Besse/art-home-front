@@ -5,6 +5,7 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { LinkContainer } from 'react-router-bootstrap';
+import { useNavigate } from 'react-router-dom';
 import LogModal from './LogModal';
 import NewAccountModal from './NewAccountModal';
 
@@ -17,12 +18,17 @@ const Header = () => {
   const { logged, nickname, role } = useSelector((state) => state.users);
 
   const dispatch = useDispatch();
-  const handleLogout = () => dispatch(handleLoginOff());
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    navigate('/');
+    dispatch(handleLoginOff());
+  };
   const handleLogModal = () => dispatch(changeLoginModalSate());
   const handleNewAccountModal = () => dispatch(changeNewAccountModalSate());
 
   return (
-    <>
+    <header>
       <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
         <Container>
           <LinkContainer to="/">
@@ -91,7 +97,7 @@ const Header = () => {
       <LogModal show={isLogModalOpened} />
 
       <NewAccountModal show={isNewAccountModalOpened} />
-    </>
+    </header>
   );
 };
 

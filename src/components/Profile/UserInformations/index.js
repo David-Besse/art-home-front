@@ -10,7 +10,7 @@ import {
   submitProfileUpdate,
   handleLoginOff,
 } from 'src/actions/users';
-import { useRef, useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const userInformations = () => {
@@ -30,11 +30,15 @@ const userInformations = () => {
   const dispatch = useDispatch();
   const prevEmail = useRef(email);
 
-  const handleProfilEditing = () => dispatch(toggleProfileEditing());
+  useEffect(() => {
+    prevEmail.current = email;
+  }, []);
+
   const updateProfile = () => dispatch(submitProfileUpdate());
   const logoutUser = () => dispatch(handleLoginOff());
   const changeField = (newValue, name) => dispatch(changeLoginField(newValue, name));
   const handleAlert = () => dispatch(toggleAlertAfterEmailModification());
+  const handleProfilEditing = () => dispatch(toggleProfileEditing());
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
@@ -53,22 +57,22 @@ const userInformations = () => {
         handleAlert();
         navigate('/');
         logoutUser();
-      }, 3000);
+      }, 3500);
     }
     return () => clearTimeout(timeoutId); // clean up the timer
   }, [showAlert]);
 
   return (
-    <div className="mx-3 my-3 profil">
+    <section className="mx-3 my-3 profil">
       <Alert
         variant="warning"
         show={showAlert}
         onClose={handleAlert}
         dismissible
       >
-        Attention, suite à la modification de vos identifiants de connexion, votre allez être redirigée vers la page d'accueil.
+        Information: suite à la modification de vos identifiants de connexion, vous allez être déconnecté.
       </Alert>
-      <h2 className="mt-3 mb-3">Mon Profil</h2>
+      <h2 className="mt-3 mb-3 text-center">Mon Profil</h2>
       <Form onSubmit={handleSubmit}>
         <div className="card p-2">
           <div className="row g-0">
@@ -147,7 +151,7 @@ const userInformations = () => {
                 )}
 
                 <p className="card-text fw-bold mb-0">
-                  Prénom :
+                  Prénom :{' '}
                   {!isProfileEditingActivated && (
                     <span className="fw-normal fst-italic fw-lighter">
                       {firstName}
@@ -200,7 +204,7 @@ const userInformations = () => {
                           : 'fw-normal fst-italic fw-lighter'
                       }
                     >
-                      {birthday === '' ? '0000-00-00' : birthday}
+                      { birthday }
                     </span>
                   )}
                 </p>
@@ -209,7 +213,7 @@ const userInformations = () => {
                     <Form.Control
                       type="date"
                       id="inputBirthday"
-                      value={birthday}
+                      value={birthday === '' ? '0000-00-00' : birthday}
                       onChange={(evt) => {
                         changeField(evt.target.value, 'birthday');
                       }}
@@ -264,7 +268,7 @@ const userInformations = () => {
           </div>
         </div>
       </Form>
-    </div>
+    </section>
   );
 };
 

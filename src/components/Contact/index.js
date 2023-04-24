@@ -3,11 +3,13 @@ import Page from 'src/components/Page';
 import Footer from 'src/components/Footer';
 
 const Contact = () => (
-  <Page>
+  <>
     <Header />
-    <div>PAGE CONTACT</div>
+    <Page>
+      <div>PAGE CONTACT</div>
+    </Page>
     <Footer />
-  </Page>
+  </>
 );
 
 export default Contact;

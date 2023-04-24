@@ -1,7 +1,9 @@
 import './style.scss';
 
 const Loading = () => (
-  <div className="loading">Les peintures sèches ...</div>
+  <section>
+    <p className="loading">Nos peintures sèchent ...</p>
+  </section>
 );
 
 export default Loading;

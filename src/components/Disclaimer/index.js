@@ -3,11 +3,13 @@ import Page from 'src/components/Page';
 import Footer from 'src/components/Footer';
 
 const Disclaimer = () => (
-  <Page>
+  <>
     <Header />
-    <div>PAGE Disclaimer</div>
+    <Page>
+      <div>PAGE Disclaimer</div>
+    </Page>
     <Footer />
-  </Page>
+  </>
 );
 
 export default Disclaimer;
