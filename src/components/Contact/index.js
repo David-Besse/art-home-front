@@ -7,8 +7,8 @@ const Contact = () => (
     <Header />
     <Page>
       <div>PAGE CONTACT</div>
-      <Footer />
     </Page>
+    <Footer />
   </>
 );
 

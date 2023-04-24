@@ -7,8 +7,8 @@ const Disclaimer = () => (
     <Header />
     <Page>
       <div>PAGE Disclaimer</div>
-      <Footer />
     </Page>
+    <Footer />
   </>
 );
 
