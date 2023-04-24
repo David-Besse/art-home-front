@@ -1,0 +1,15 @@
+.userInformations{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.userBoxTitle, .userBox{
+  width: 50%;
+}
+
+@media (max-width: 991px) {
+  .userBox, .userBoxTitle{
+    width: 95%;
+  }
+}

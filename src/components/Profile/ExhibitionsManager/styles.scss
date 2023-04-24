@@ -1,0 +1,17 @@
+.exhibitionManager {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.allExhibitions{
+  width:75%;
+  font-size: 1em;
+}
+
+@media (max-width: 1399px) {
+  .allExhibitions {
+    width: 95%;
+    font-size: 0.75em;
+  }
+}
