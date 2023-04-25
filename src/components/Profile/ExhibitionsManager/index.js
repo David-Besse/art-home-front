@@ -11,6 +11,8 @@ import {
   Modal,
 } from 'react-bootstrap';
 
+import './styles.scss';
+
 const ExhibitionsManager = () => {
   const { isAccountCreationModalOpened } = useSelector((state) => state.modals);
   const { exhibitions, exhibitionName, exhibitionDescription } = useSelector(
@@ -42,7 +44,7 @@ const ExhibitionsManager = () => {
   };
 
   return (
-    <section className="mx-3 mb-3 mt-5">
+    <section className="mb-3 mt-5 exhibitionManager">
       {/**
        * Modal for creating an exhibition
        */}
@@ -96,8 +98,8 @@ const ExhibitionsManager = () => {
       {/**
        * Show exhibition management
        */}
-      <div className="allExhibitions">
-        <div className="mt-3 mb-3 border-top border-bottom">
+      <div className="allExhibitions justify-content-center">
+        <div className="mt-3 mb-3 border-top border-bottom ">
           <div className="d-flex justify-content-between">
             <h3 className="mb-3 my-3">Mes expositions</h3>
 
@@ -146,7 +148,7 @@ const ExhibitionsManager = () => {
           </div>
         </div>
 
-        <div className="mb-3 d-flex flex-wrap g-0 justify-content-center">
+        <div className="mb-3 d-flex flex-wrap g-0">
           {artworks.length > 0
           && artworks.map((artwork) => (
             <Form className="mb-3 col-lg-6" key={artwork.id} onSubmit={(event) => handleSubmitArtwork(event, artwork.id)}>
@@ -238,7 +240,7 @@ const ExhibitionsManager = () => {
 
                     </div>
                   </div>
-                  <div className="col-lg-2 text-end">
+                  <div className="col-lg-2 text-center">
                     <Button type="submit">Editer</Button>
                   </div>
                 </div>

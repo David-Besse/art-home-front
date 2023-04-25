@@ -87,7 +87,7 @@ const user = (store) => (next) => (action) => {
     case SUBMIT_PROFILE_UPDATE:
       axios
         .put(
-          'http://mathieu-zagar.vpnuser.lan:8000/api/secure/users/edit',
+          'http://aurelia-perrier.vpnuser.lan:8000/api/secure/users/edit',
           {
             email: store.getState().users.email,
             lastname: store.getState().users.lastName,
@@ -116,7 +116,7 @@ const user = (store) => (next) => (action) => {
     case SUBMIT_NEW_EXHIBITION:
       axios
         .put(
-          'http://mathieu-zagar.vpnuser.lan:8000/api/secure/exhibitions/new',
+          'http://aurelia-perrier.vpnuser.lan:8000/api/secure/exhibitions/new',
           {
             title: store.getState().users.exhibitionName,
             description: store.getState().users.exhibitionDescription,

@@ -13,6 +13,8 @@ import {
 import { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import './styles.scss';
+
 const userInformations = () => {
   const {
     email,
@@ -63,7 +65,7 @@ const userInformations = () => {
   }, [showAlert]);
 
   return (
-    <section className="mx-3 my-3 profil">
+    <section className="my-3 userInformations">
       <Alert
         variant="warning"
         show={showAlert}
@@ -72,13 +74,13 @@ const userInformations = () => {
       >
         Information: suite à la modification de vos identifiants de connexion, vous allez être déconnecté.
       </Alert>
-      <h2 className="mt-3 mb-3 text-center">Mon Profil</h2>
-      <Form onSubmit={handleSubmit}>
+      <h2 className="mt-3 mb-3 text-center justify-content-center userBoxTitle">Mon Profil</h2>
+      <Form onSubmit={handleSubmit} className="userBox">
         <div className="card p-2">
           <div className="row g-0">
             <div className="col-lg-2 d-flex flex-column align-items-center justify-content-start">
               <img
-                src={avatar !== '' ? avatar : 'images/avatar/avatar.png'}
+                src={avatar !== '' ? 'images/avatar/avatar.png' : 'images/avatar/avatar.png'}
                 className="img-fluid rounded-start img-avatar"
                 alt="avatar"
               />
