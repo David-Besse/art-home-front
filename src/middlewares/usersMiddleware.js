@@ -113,7 +113,7 @@ const user = (store) => (next) => (action) => {
       break;
     case SUBMIT_NEW_EXHIBITION:
       axios
-        .put(
+        .post(
           'http://aurelia-perrier.vpnuser.lan:8000/api/secure/exhibitions/new',
           {
             title: store.getState().users.exhibitionName,

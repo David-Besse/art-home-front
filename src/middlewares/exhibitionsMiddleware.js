@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {
-  FETCH_EXHIBITIONS, saveExhibitions, FETCH_USER_ARTWORKS, saveUserArtworks, UPDATE_USER_ARTWORK, SUBMIT_NEW_ARTWORK,
+  FETCH_EXHIBITIONS, saveExhibitions, FETCH_USER_ARTWORKS, saveUserArtworks, UPDATE_USER_ARTWORK, SUBMIT_NEW_ARTWORK, DELETE_USER_ARTWORK,
 } from '../actions/exhibitions';
 
 const exhibitionsMiddleware = (store) => (next) => (action) => {
@@ -24,6 +24,7 @@ const exhibitionsMiddleware = (store) => (next) => (action) => {
         },
       )
         .then((response) => {
+          console.log(response);
           store.dispatch(saveUserArtworks(response.data));
         })
         .catch((error) => {
@@ -68,6 +69,24 @@ const exhibitionsMiddleware = (store) => (next) => (action) => {
         },
       )
         .then((response) => {
+          console.log(response.data);
+          store.dispatch(saveUserArtworks(response.data));
+        })
+        .catch((error) => {
+          console.warn(error);
+        });
+      break;
+    case DELETE_USER_ARTWORK:
+      axios.delete(
+        `http://aurelia-perrier.vpnuser.lan:8000/api/secure/artworks/${action.id}/delete`,
+        {
+          headers: {
+            Authorization: `Bearer ${store.getState().users.token}`,
+          },
+        },
+      )
+        .then((response) => {
+          console.log(response);
           store.dispatch(saveUserArtworks(response.data));
         })
         .catch((error) => {

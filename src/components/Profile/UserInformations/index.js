@@ -83,15 +83,15 @@ const userInformations = () => {
         onClose={handleAlert}
         dismissible
       >
-        Information: suite à une modification de votre identifiant de connexion, vous allez être déconnecté.
+        Suite à une modification de votre identifiant de connexion, vous allez être déconnecté.
       </Alert>
-      <h2 className="mt-3 mb-3 text-center justify-content-center userBoxTitle">Mon Profil</h2>
+      <h2 className="mt-3 mb-3 text-center justify-content-center userBoxTitle fw-bolder">Mon Profil</h2>
       <Form onSubmit={handleSubmit} className="userBox">
         <div className="card p-2">
           <div className="row g-0">
             <div className="col-lg-2 d-flex flex-column align-items-center justify-content-start">
               <img
-                src={avatar !== '' ? 'images/avatar/avatar.png' : 'images/avatar/avatar.png'}
+                src={avatar !== '' ? avatar : 'images/avatar/avatar.png'}
                 className="img-fluid rounded-start img-avatar"
                 alt="avatar"
               />
