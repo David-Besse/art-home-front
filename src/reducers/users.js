@@ -54,7 +54,7 @@ const reducer = (state = initialState, action = {}) => {
         firstName: action.firstName,
         nickname: action.nickname === null ? '' : action.nickname,
         avatar: action.avatar === null ? '' : action.avatar,
-        birthday: action.birthday === null ? '' : `${new Date(action.birthday).getDate()}/${new Date(action.birthday).getMonth() + 1}/${new Date(action.birthday).getFullYear()}`,
+        birthday: action.birthday === null ? '' : `${new Date(action.birthday).getDate()}-${new Date(action.birthday).getMonth() + 1}-${new Date(action.birthday).getFullYear()}`,
         presentation: action.presentation === null ? '' : action.presentation,
         role: action.role,
         exhibitions: action.exhibitions,

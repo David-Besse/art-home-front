@@ -28,13 +28,19 @@ const userInformations = () => {
   const { isProfileEditingActivated, showAlert } = useSelector(
     (state) => state.profile,
   );
+  const curState = useSelector((state) => ({
+    email: state.users.email,
+    nickname: state.users.nickname,
+    lastName: state.users.lastName,
+    firstName: state.users.firstName,
+    birthday: state.users.birthday,
+    presentation: state.users.presentation,
+    avatar: state.users.avatar,
+  }));
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const prevEmail = useRef(email);
-
-  useEffect(() => {
-    prevEmail.current = email;
-  }, []);
+  const stateFirstRender = useRef(curState);
 
   const updateProfile = () => dispatch(submitProfileUpdate());
   const logoutUser = () => dispatch(handleLoginOff());
@@ -42,12 +48,17 @@ const userInformations = () => {
   const handleAlert = () => dispatch(toggleAlertAfterEmailModification());
   const handleProfilEditing = () => dispatch(toggleProfileEditing());
 
+  const changedFields = (stateOne, stateTwo) => Object.keys(stateOne).filter((key) => stateOne[key] !== stateTwo[key]);
+
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    updateProfile();
     handleProfilEditing();
-    if (prevEmail.current !== email) {
+    const result = changedFields(stateFirstRender.current, curState);
+    if (result.length > 0 && result.includes('email')) {
       handleAlert();
+    }
+    if (result.length > 0) {
+      updateProfile();
     }
   };
 
@@ -59,7 +70,7 @@ const userInformations = () => {
         handleAlert();
         navigate('/');
         logoutUser();
-      }, 3500);
+      }, 4000);
     }
     return () => clearTimeout(timeoutId); // clean up the timer
   }, [showAlert]);
@@ -72,7 +83,7 @@ const userInformations = () => {
         onClose={handleAlert}
         dismissible
       >
-        Information: suite à la modification de vos identifiants de connexion, vous allez être déconnecté.
+        Information: suite à une modification de votre identifiant de connexion, vous allez être déconnecté.
       </Alert>
       <h2 className="mt-3 mb-3 text-center justify-content-center userBoxTitle">Mon Profil</h2>
       <Form onSubmit={handleSubmit} className="userBox">
@@ -206,7 +217,7 @@ const userInformations = () => {
                           : 'fw-normal fst-italic fw-lighter'
                       }
                     >
-                      { birthday }
+                      { new Date(birthday).toLocaleDateString('fr') }
                     </span>
                   )}
                 </p>
@@ -214,6 +225,7 @@ const userInformations = () => {
                   <Form.Group>
                     <Form.Control
                       type="date"
+                      locale="fr-FR"
                       id="inputBirthday"
                       value={birthday}
                       onChange={(evt) => {
