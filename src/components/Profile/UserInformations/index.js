@@ -28,13 +28,19 @@ const userInformations = () => {
   const { isProfileEditingActivated, showAlert } = useSelector(
     (state) => state.profile,
   );
+  const curState = useSelector((state) => ({
+    email: state.users.email,
+    nickname: state.users.nickname,
+    lastName: state.users.lastName,
+    firstName: state.users.firstName,
+    birthday: state.users.birthday,
+    presentation: state.users.presentation,
+    avatar: state.users.avatar,
+  }));
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const prevEmail = useRef(email);
-
-  useEffect(() => {
-    prevEmail.current = email;
-  }, []);
+  const stateFirstRender = useRef(curState);
 
   const updateProfile = () => dispatch(submitProfileUpdate());
   const logoutUser = () => dispatch(handleLoginOff());
@@ -42,12 +48,17 @@ const userInformations = () => {
   const handleAlert = () => dispatch(toggleAlertAfterEmailModification());
   const handleProfilEditing = () => dispatch(toggleProfileEditing());
 
+  const changedFields = (stateOne, stateTwo) => Object.keys(stateOne).filter((key) => stateOne[key] !== stateTwo[key]);
+
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    updateProfile();
     handleProfilEditing();
-    if (prevEmail.current !== email) {
+    const result = changedFields(stateFirstRender.current, curState);
+    if (result.length > 0 && result.includes('email')) {
       handleAlert();
+    }
+    if (result.length > 0) {
+      updateProfile();
     }
   };
 
@@ -59,7 +70,7 @@ const userInformations = () => {
         handleAlert();
         navigate('/');
         logoutUser();
-      }, 3500);
+      }, 4000);
     }
     return () => clearTimeout(timeoutId); // clean up the timer
   }, [showAlert]);
@@ -72,15 +83,15 @@ const userInformations = () => {
         onClose={handleAlert}
         dismissible
       >
-        Information: suite à la modification de vos identifiants de connexion, vous allez être déconnecté.
+        Suite à une modification de votre identifiant de connexion, vous allez être déconnecté.
       </Alert>
-      <h2 className="mt-3 mb-3 text-center justify-content-center userBoxTitle">Mon Profil</h2>
+      <h2 className="mt-3 mb-3 text-center justify-content-center userBoxTitle fw-bolder">Mon Profil</h2>
       <Form onSubmit={handleSubmit} className="userBox">
         <div className="card p-2">
           <div className="row g-0">
-            <div className="col-lg-2 d-flex flex-column align-items-center justify-content-start">
+            <div className="col-md-2 d-flex flex-column align-items-center justify-content-start">
               <img
-                src={avatar !== '' ? 'images/avatar/avatar.png' : 'images/avatar/avatar.png'}
+                src={avatar !== '' ? avatar : 'images/avatar/avatar.png'}
                 className="img-fluid rounded-start img-avatar"
                 alt="avatar"
               />
@@ -101,7 +112,7 @@ const userInformations = () => {
                 </Form.Group>
               )}
             </div>
-            <div className="col-lg-8">
+            <div className="col-md-8">
               <div className="card-body py-0">
                 <p className="card-text fw-bold mb-0">
                   Pseudo :{' '}
@@ -206,7 +217,7 @@ const userInformations = () => {
                           : 'fw-normal fst-italic fw-lighter'
                       }
                     >
-                      { birthday }
+                      { new Date(birthday).toLocaleDateString('fr') }
                     </span>
                   )}
                 </p>
@@ -214,8 +225,9 @@ const userInformations = () => {
                   <Form.Group>
                     <Form.Control
                       type="date"
+                      locale="fr-FR"
                       id="inputBirthday"
-                      value={birthday === '' ? '0000-00-00' : birthday}
+                      value={birthday}
                       onChange={(evt) => {
                         changeField(evt.target.value, 'birthday');
                       }}
@@ -254,17 +266,25 @@ const userInformations = () => {
                 )}
               </div>
             </div>
-            <div className="col-lg-2 text-end">
+            <div className="col-md-2 text-end">
               {!isProfileEditingActivated && (
                 <Button
                   variant="outline-secondary"
                   onClick={handleProfilEditing}
                 >
-                  Editer
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-pencil-square" viewBox="0 0 16 16">
+                    <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                    <path fillRule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+                  </svg>
                 </Button>
               )}
               {isProfileEditingActivated && (
-                <Button type="submit">Valider</Button>
+                <Button variant="success" type="submit">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-check-square" viewBox="0 0 16 16">
+                    <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
+                    <path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.235.235 0 0 1 .02-.022z" />
+                  </svg>
+                </Button>
               )}
             </div>
           </div>
