@@ -6,7 +6,7 @@ import {
 const exhibitionsMiddleware = (store) => (next) => (action) => {
   switch (action.type) {
     case FETCH_EXHIBITIONS:
-      axios.get('http://aurelia-perrier.vpnuser.lan:8000/api/exhibitions/homepage')
+      axios.get('http://mathieuzagar-server.eddi.cloud/projet-12-art-at-home-back/public/api/exhibitions/homepage')
         .then((response) => {
           store.dispatch(saveExhibitions(response.data));
         })
@@ -16,7 +16,7 @@ const exhibitionsMiddleware = (store) => (next) => (action) => {
       break;
     case FETCH_USER_ARTWORKS:
       axios.get(
-        `http://aurelia-perrier.vpnuser.lan:8000/api/secure/artworks/exhibitions/${action.payload}/profile`,
+        `http://mathieuzagar-server.eddi.cloud/projet-12-art-at-home-back/public/api/secure/artworks/exhibitions/${action.payload}/profile`,
         {
           headers: {
             Authorization: `Bearer ${store.getState().users.token}`,
@@ -25,7 +25,7 @@ const exhibitionsMiddleware = (store) => (next) => (action) => {
       )
         .then((response) => {
           console.log(response);
-          store.dispatch(saveUserArtworks(response.data));
+          setTimeout(() => store.dispatch(saveUserArtworks(response.data)), 3000);
         })
         .catch((error) => {
           console.warn(error);
@@ -33,7 +33,7 @@ const exhibitionsMiddleware = (store) => (next) => (action) => {
       break;
     case UPDATE_USER_ARTWORK:
       axios.patch(
-        `http://aurelia-perrier.vpnuser.lan:8000/api/secure/artworks/${action.artworkId}/edit`,
+        `http://mathieuzagar-server.eddi.cloud/projet-12-art-at-home-back/public/api/secure/artworks/${action.artworkId}/edit`,
         {
           title: action.data.title,
           description: action.data.description,
@@ -55,7 +55,7 @@ const exhibitionsMiddleware = (store) => (next) => (action) => {
       break;
     case SUBMIT_NEW_ARTWORK:
       axios.post(
-        'http://aurelia-perrier.vpnuser.lan:8000/api/secure/artworks/new',
+        'http://mathieuzagar-server.eddi.cloud/projet-12-art-at-home-back/public/api/secure/artworks/new',
         {
           title: action.payload.title,
           description: action.payload.description,
@@ -78,7 +78,7 @@ const exhibitionsMiddleware = (store) => (next) => (action) => {
       break;
     case DELETE_USER_ARTWORK:
       axios.delete(
-        `http://aurelia-perrier.vpnuser.lan:8000/api/secure/artworks/${action.id}/delete`,
+        `http://mathieuzagar-server.eddi.cloud/projet-12-art-at-home-back/public/api/secure/artworks/${action.id}/delete`,
         {
           headers: {
             Authorization: `Bearer ${store.getState().users.token}`,

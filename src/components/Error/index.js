@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button';
 
 const Error = () => (
   <Page>
-    <div>
+    <div className="d-flex flex-column align-items-center justify-content-center">
       <h1>Erreur</h1>
       <p>Nous sommes désolé, Une erreur s'est produite.</p>
       <LinkContainer to="/">

@@ -23,7 +23,7 @@ const user = (store) => (next) => (action) => {
     case SUBMIT_LOGIN:
       axios
         .post(
-          'http://aurelia-perrier.vpnuser.lan:8000/api/login_check',
+          'http://mathieuzagar-server.eddi.cloud/projet-12-art-at-home-back/public/api/login_check',
           {
             username: store.getState().users.email,
             password: store.getState().users.password,
@@ -38,7 +38,7 @@ const user = (store) => (next) => (action) => {
 
           axios
             .get(
-              'http://aurelia-perrier.vpnuser.lan:8000/api/secure/users/profile',
+              'http://mathieuzagar-server.eddi.cloud/projet-12-art-at-home-back/public/api/secure/users/profile',
               {
                 headers: {
                   Authorization: `Bearer ${store.getState().users.token}`,
@@ -60,7 +60,7 @@ const user = (store) => (next) => (action) => {
       break;
     case SUBMIT_NEW_ACCOUNT:
       axios
-        .post('http://aurelia-perrier.vpnuser.lan:8000/api/users/new', {
+        .post('http://mathieuzagar-server.eddi.cloud/projet-12-art-at-home-back/public/api/users/new', {
           email: store.getState().users.email,
           password: store.getState().users.password,
           lastname: store.getState().users.lastName,
@@ -87,7 +87,7 @@ const user = (store) => (next) => (action) => {
     case SUBMIT_PROFILE_UPDATE:
       axios
         .patch(
-          'http://aurelia-perrier.vpnuser.lan:8000/api/secure/users/edit',
+          'http://mathieuzagar-server.eddi.cloud/projet-12-art-at-home-back/public/api/secure/users/edit',
           {
             email: store.getState().users.email,
             lastname: store.getState().users.lastName,
@@ -114,7 +114,7 @@ const user = (store) => (next) => (action) => {
     case SUBMIT_NEW_EXHIBITION:
       axios
         .post(
-          'http://aurelia-perrier.vpnuser.lan:8000/api/secure/exhibitions/new',
+          'http://mathieuzagar-server.eddi.cloud/projet-12-art-at-home-back/public/api/secure/exhibitions/new',
           {
             title: store.getState().users.exhibitionName,
             description: store.getState().users.exhibitionDescription,

@@ -7,6 +7,7 @@ import {
 import {
   fetchUserArtworks, updateUserArtwork, submitNewArtwork, deleteUserArtwork,
 } from 'src/actions/exhibitions';
+import { showSelectedExhibition } from 'src/actions/profile';
 import {
   Button,
   Dropdown,
@@ -21,16 +22,25 @@ import './styles.scss';
 
 const ExhibitionsManager = () => {
   const { isAccountCreationModalOpened, isArtworkCreationModalOpened } = useSelector((state) => state.modals);
-  const { exhibitions, exhibitionName, exhibitionDescription } = useSelector(
-    (state) => state.users,
-  );
+  const { exhibitions, exhibitionName, exhibitionDescription } = useSelector((state) => state.users);
   const { artworks, isArtworksLoading } = useSelector((state) => state.exhibitions);
+  const { selectedExhibitionId } = useSelector((state) => state.profile);
+
+  const currentExhibition = exhibitions.find((exhib) => exhib.id === selectedExhibitionId);
 
   const dispatch = useDispatch();
-  const handleExhibitionCreationModal = () => dispatch(toggleExhibitionCreationModal());
-  const handleArtworkCreationModal = () => dispatch(toggleArtworkCreationModal());
-  const handleUpdateArtwork = (artworkId, data) => dispatch(updateUserArtwork(artworkId, data));
-  const changeField = (newValue, fieldName) => dispatch(changeLoginField(newValue, fieldName));
+  const handleExhibitionCreationModal = () => {
+    dispatch(toggleExhibitionCreationModal());
+  };
+  const handleArtworkCreationModal = () => {
+    dispatch(toggleArtworkCreationModal());
+  };
+  const handleUpdateUserArtwork = (artworkId, data) => {
+    dispatch(updateUserArtwork(artworkId, data));
+  };
+  const changeField = (newValue, fieldName) => {
+    dispatch(changeLoginField(newValue, fieldName));
+  };
 
   const handleSubmitExhibition = (event) => {
     event.preventDefault();
@@ -39,21 +49,33 @@ const ExhibitionsManager = () => {
   };
 
   const handleShowExhibition = (id) => {
+    dispatch(showSelectedExhibition(id));
     dispatch(fetchUserArtworks(id));
   };
 
-  const handleSubmitArtwork = (event, artworkId) => {
+  /** handle form submiting artwork
+   *
+   * @param {*} event
+   * @param {int} artworkId
+   */
+  const handleUpdateArtwork = (event, artworkId) => {
     event.preventDefault();
     const formData = new FormData(event.target); // we create a new object FormData
     const updateArtwork = Object.fromEntries(formData.entries()); // we retrieved data from formData
-    handleUpdateArtwork(artworkId, updateArtwork);
+    handleUpdateUserArtwork(artworkId, updateArtwork);
   };
 
   const handleSubmitNewArtwork = (event) => {
     event.preventDefault();
     const formData = new FormData(event.target); // we create a new object FormData
     const newArtwork = Object.fromEntries(formData.entries()); // we retrieved data from formData
+    handleArtworkCreationModal();
     dispatch(submitNewArtwork(newArtwork));
+  };
+
+  const handleDeleteArtwork = (event, artworkId) => {
+    event.preventDefault();
+    dispatch(deleteUserArtwork(artworkId));
   };
 
   return (
@@ -124,7 +146,7 @@ const ExhibitionsManager = () => {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form onSubmit={handleSubmitNewArtwork} className="text-center">
+          <Form onSubmit={(event) => handleSubmitNewArtwork(event)}>
             <Form.Group className="mb-3" controlId="inputExhibitionName">
               <FloatingLabel label="Titre de l'oeuvre" className="mb-3">
                 <Form.Control
@@ -150,7 +172,7 @@ const ExhibitionsManager = () => {
               <FloatingLabel label="Description de l'oeuvre">
                 <Form.Control
                   as="textarea"
-                  rows="3"
+                  style={{ height: '150px' }}
                   required
                   placeholder="Description de l'oeuvre"
                   name="description"
@@ -158,18 +180,19 @@ const ExhibitionsManager = () => {
               </FloatingLabel>
             </Form.Group>
             <Form.Group className="mb-3" controlId="selectExhibition">
-              <Form.Label>Choisir une exposition</Form.Label>
-              <Form.Control
-                as="select"
-                disabled={!exhibitions.length}
-                name="exhibition"
-              >
-                {exhibitions.map((exhibition) => (
-                  <option key={exhibition.id} value={exhibition.id}>
-                    {exhibition.title}
-                  </option>
-                ))}
-              </Form.Control>
+              <FloatingLabel label="Choisir une exposition">
+                <Form.Control
+                  as="select"
+                  disabled={!exhibitions.length}
+                  name="exhibition"
+                >
+                  {exhibitions.map((exhibition) => (
+                    <option key={exhibition.id} value={exhibition.id}>
+                      {exhibition.title}
+                    </option>
+                  ))}
+                </Form.Control>
+              </FloatingLabel>
             </Form.Group>
             <Button type="submit">Soumettre</Button>
           </Form>
@@ -231,17 +254,49 @@ const ExhibitionsManager = () => {
             </div>
           </div>
           <div className="d-flex flex-raw mb-3">
+
             {/**
              * button to select an exhibition
              */}
             <DropdownButton
+              className="d-flex"
               variant="primary"
               id="selectExhibition"
-              title={
-                exhibitions.length > 0
-                  ? 'Voir une exposition'
-                  : 'Aucune exposition trouvée'
-              }
+              title={currentExhibition
+                ? (
+                  <>
+                    {isArtworksLoading
+                    && (
+                      <Spinner
+                        as="span"
+                        animation="grow"
+                        size="sm"
+                        role="status"
+                        aria-hidden="true"
+                        className="me-2"
+                      />
+                    )}
+                    {currentExhibition.title}
+                  </>
+                )
+                : (
+                  <>
+                    {isArtworksLoading
+                    && (
+                      <Spinner
+                        as="span"
+                        animation="grow"
+                        size="sm"
+                        role="status"
+                        aria-hidden="true"
+                        className="me-2"
+                      />
+                    )}
+                    {exhibitions.length > 0
+                      ? ' Voir une exposition'
+                      : ' Aucune exposition trouvée'}
+                  </>
+                )}
               disabled={exhibitions.length === 0}
               size="sm"
             >
@@ -257,16 +312,7 @@ const ExhibitionsManager = () => {
                   </Dropdown.Item>
                 ))}
             </DropdownButton>
-            {' '}
-            {isArtworksLoading
-              && (
-                <>
-                  <Spinner variant="primary" animation="grow" size="sm" />
-                  <Spinner variant="primary" animation="grow" />
-                  <Spinner variant="primary" animation="grow" size="sm" />
-                  <Spinner variant="primary" animation="grow" />
-                </>
-              )}
+
           </div>
         </div>
 
@@ -276,7 +322,7 @@ const ExhibitionsManager = () => {
               <Form
                 className="my-3 col-lg-6"
                 key={artwork.id}
-                onSubmit={(event) => handleSubmitArtwork(event, artwork.id)}
+                onSubmit={(event) => handleUpdateArtwork(event, artwork.id)}
               >
                 <div className="card p-2 border-0 border-top">
                   <div className="row g-0">
@@ -375,17 +421,26 @@ const ExhibitionsManager = () => {
                         </Form.Group>
                       </div>
                     </div>
-                    <div className="col-lg-2 text-center">
-                      <Button type="submit" className="mb-3">Editer</Button>
+                    <div className="col-lg-2 text-center d-flex flex-lg-column justify-content-center align-items-lg-center">
+                      {/* {EDIT BUTTON} */}
+                      <Button
+                        type="submit"
+                        className="mb-lg-3 me-lg-0 me-3 mb-0"
+                      >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-pencil-square" viewBox="0 0 16 16">
+                          <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                          <path fillRule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+                        </svg>
+                      </Button>
+                      {/* {DELETE BUTTON} */}
                       <Button
                         type="button"
                         variant="danger"
-                        onClick={(event) => {
-                          event.preventDefault();
-                          event.stopPropagation();
-                          dispatch(deleteUserArtwork(artwork.id));
-                        }}
-                      >Supprimer
+                        onClick={(event) => handleDeleteArtwork(event, artwork.id)}
+                      >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-trash3" viewBox="0 0 16 16">
+                          <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z" />
+                        </svg>
                       </Button>
                     </div>
                   </div>
@@ -395,7 +450,7 @@ const ExhibitionsManager = () => {
           {(exhibitions.length > 0 && artworks.length === 0)
           && (
             <p className="fst-italic">
-              Sélectionner une exposition pour voir son contenu.
+              Aucunes oeuvres trouvées. Sélectionner une exposition.
             </p>
           )}
           {exhibitions.length === 0
