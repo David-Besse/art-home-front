@@ -1,72 +1,36 @@
-import Card from 'react-bootstrap/Card';
 import { useParams } from 'react-router-dom';
 import { findExhibition } from 'src/selectors/pictures';
 import { useSelector } from 'react-redux';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
-const ArtistPresentation = () => {
+import './styles.scss';
+
+const ArtistPresentation = (props) => {
   const { slug } = useParams();
   const { artist } = useSelector((state) => findExhibition(state.pictures.list, slug));
 
-  return (
-    <Card className="card-artist">
-      <Card.Img className="avatar" variant="top" src={artist.avatar} alt={artist.slug} />
-      <Card.Body className="body-artist">
-        <Card.Title className="nickname">{artist.nickname}</Card.Title>
-        <Card.Text className="realname">{artist.firstname} {artist.lastname}</Card.Text>
-        <Card.Text className="presentation">{artist.presentation}</Card.Text>
-      </Card.Body>
-    </Card>
-  );
-};
-
-export default ArtistPresentation;
-
-
-/* 
-
-
-function MyVerticallyCenteredModal(props) {
   return (
     <Modal
       {...props}
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"
       centered
+      className="artist-modal"
     >
       <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">
-          {artist.nickname}
-        </Modal.Title>
+        <Modal.Title id="contained-modal-title-vcenter" className="nickname">{artist.nickname}</Modal.Title> {/*  might need a condition in the cases where the artiste doesn't have a pseudo */}
       </Modal.Header>
-      <Modal.Body>
-        <img {artist.avatar} alt={artist.slug}
-        <h3>{artist.firstname} {artist.lastname}</h3>
-        <p>{artist.presentation}</p>
+      <Modal.Body className="d-flex flex-column align-items-center">
+        <img src={artist.avatar} alt={artist.slug} className="avatar" />
+        <h3 className="realname">de son véritable nom {artist.firstname} {artist.lastname}</h3>
+        <p className="presentation">{artist.presentation}</p>
       </Modal.Body>
-      <Modal.Footer>
-        <Button onClick={props.onHide}>Close</Button>
+      <Modal.Footer className="justify-content-center">
+        <Button onClick={props.onHide}>Retour à l'exposition</Button>
       </Modal.Footer>
     </Modal>
   );
-}
+};
 
-function App() {
-  const [modalShow, setModalShow] = React.useState(false);
-
-  return (
-    <>
-      <Button variant="primary" onClick={() => setModalShow(true)}>
-        Launch vertically centered modal
-      </Button>
-
-      <MyVerticallyCenteredModal
-        show={modalShow}
-        onHide={() => setModalShow(false)}
-      />
-    </>
-  );
-}
-
-render(<App />); */
+export default ArtistPresentation;

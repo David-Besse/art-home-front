@@ -8,7 +8,7 @@ import './styles.scss';
  * @returns JSX Elements
  */
 const Footer = () => (
-  <footer className="d-flex flex-wrap justify-content-between align-items-center py-3 border-top footer-socials bg-dark">
+  <footer className="d-flex flex-wrap justify-content-between align-items-center py-3 border-top footer-socials">
     <div className="col-md-4 d-flex align-items-center">
       <LinkContainer to="/">
         <a className="ms-3 text-muted text-decoration-none lh-1">
@@ -24,7 +24,7 @@ const Footer = () => (
           </svg>
         </a>
       </LinkContainer>
-      <span className="ms-3 text-muted">© 2023 Art@home</span>
+      <span className="ms-2 text-muted">© 2023 Art@home</span>
     </div>
     <ul className="col-md-4 d-flex d-none d-lg-flex justify-content-center align-items-center list-unstyled mb-0">
       <li className="justify-content-center me-3">

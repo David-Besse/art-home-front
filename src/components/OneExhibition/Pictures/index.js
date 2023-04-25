@@ -3,6 +3,7 @@
 import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
+import { Button } from 'react-bootstrap';
 
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
@@ -11,48 +12,39 @@ import { useSelector } from 'react-redux';
 
 import ArtistPresentation from '../ArtistPresentation';
 
-import './style.scss';
+import './styles.scss';
 
 const Pictures = () => {
   const { slug } = useParams();
   const {
     title, artwork, artist, description,
   } = useSelector((state) => findExhibition(state.pictures.list, slug));
-  const [isShown, setIsShown] = useState(false);
+  const [modalShow, setModalShow] = useState(false);
   return (
     <div className="exhibition">
-      {/* Presentation of the artist who created the exhibition */}
-
-      {isShown && (
-        <ArtistPresentation />
-      )}
-
-      {/* <Card className="card-artist">
-        <Card.Img className="avatar" variant="top" src={artist.avatar} alt={artist.slug} />
-        <Card.Body className="body-artist">
-          <Card.Title className="nickname">{artist.nickname}</Card.Title>
-          <Card.Text className="realname">{artist.firstname} {artist.lastname}</Card.Text>
-          <Card.Text className="presentation">{artist.presentation}</Card.Text>
-        </Card.Body>
-      </Card> */}
 
       {/* Information about the exhibition */}
       <Card className="card-exhibition">
         <Card.Body className="body-exhibtion">
           <Card.Title className="title">{title}</Card.Title>
-          <Card.Title
-            className="nickname"
-            onMouseEnter={() => setIsShown(true)}
-            onMouseLeave={() => setIsShown(false)}
-          >
-            {artist.nickname}
-          </Card.Title>
+          <Card.Title className="nickname">{artist.nickname}</Card.Title>
           <Card.Text className="description">{description}</Card.Text>
         </Card.Body>
       </Card>
 
+      {/* Presentation of the artist who created the exhibition */}
+      <div className="artist-button">
+        <Button variant="secondary" onClick={() => setModalShow(true)}>
+          Pour en savoir plus sur {artist.nickname}
+        </Button>
+      </div>
+      <ArtistPresentation
+        show={modalShow}
+        onHide={() => setModalShow(false)}
+      />
+
       {/* Showcase of all the picture included in the exhibiton */}
-      <Row xs={1} md={1} lg={2} className="g-4">
+      <Row xs={1} md={1} lg={2} className="g-4 picture-list">
         {artwork.map((picture) => (
           <Col className="col-picture" key={picture.slug}>
             <Card className="card-picture">
