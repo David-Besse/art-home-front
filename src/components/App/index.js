@@ -13,8 +13,6 @@ import Error from 'src/components/Error';
 import { fetchExhibitions } from '../../actions/exhibitions';
 import { fetchPictures } from '../../actions/pictures';
 
-import './styles.scss';
-
 function App() {
   const dispatch = useDispatch();
   const { logged } = useSelector((state) => state.users);
