@@ -10,6 +10,8 @@ import Disclaimer from 'src/components/Disclaimer';
 import Contact from 'src/components/Contact';
 import Error from 'src/components/Error';
 
+import './styles.scss';
+
 import { fetchExhibitions } from '../../actions/exhibitions';
 import { fetchPictures } from '../../actions/pictures';
 
@@ -23,7 +25,7 @@ function App() {
   }, []);
 
   return (
-    <div className="app d-flex flex-column justify-content-between">
+    <div className="app d-flex flex-column justify-content-around">
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/expositions" element={<Exhibitions />} />

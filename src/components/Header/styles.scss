@@ -1,6 +1,11 @@
+header {
+  display: flex;
+  flex-direction: column;
+  position:fixed;
+  top: 0%;
+  width: 100%;
+}
+
 .navbar {
   background-color: #211f18;
-  /* position:fixed;
-  top: 0%; */
 }
-// TODO Fixing the header to the top, to keep it visible when navigating in the exhibitions and when visiting one exhibition
