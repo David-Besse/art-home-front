@@ -1,32 +1,27 @@
+// Component gathering all the information needed to show the artixt information, the exhibiton information and all the artworks related to the exhibition
+
 import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row'
+import Row from 'react-bootstrap/Row';
+import { Button } from 'react-bootstrap';
+
+import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { findExhibition } from 'src/selectors/pictures';
 import { useSelector } from 'react-redux';
 
-import './style.scss';
+import ArtistPresentation from '../ArtistPresentation';
+
+import './styles.scss';
 
 const Pictures = () => {
   const { slug } = useParams();
   const {
     title, artwork, artist, description,
   } = useSelector((state) => findExhibition(state.pictures.list, slug));
-
+  const [modalShow, setModalShow] = useState(false);
   return (
-
-  // TODO create an onMouseOVer event to display the information about and artist
-  // might need to be isolated in it's own file
     <div className="exhibition">
-      {/* Presentation of the artist who created the exhibition */}
-      <Card className="card-artist">
-        <Card.Img className="avatar" variant="top" src={artist.avatar} alt={artist.slug} />
-        <Card.Body className="body-artist">
-          <Card.Title className="nickname">{artist.nickname}</Card.Title>
-          <Card.Text className="realname">{artist.firstname} {artist.lastname}</Card.Text>
-          <Card.Text className="presentation">{artist.presentation}</Card.Text>
-        </Card.Body>
-      </Card>
 
       {/* Information about the exhibition */}
       <Card className="card-exhibition">
@@ -37,35 +32,29 @@ const Pictures = () => {
         </Card.Body>
       </Card>
 
+      {/* Presentation of the artist who created the exhibition */}
+      <div className="artist-button">
+        <Button className="button" onClick={() => setModalShow(true)}>
+          Pour en savoir plus sur {artist.nickname}
+        </Button>
+      </div>
+      <ArtistPresentation show={modalShow} onHide={() => setModalShow(false)} />
+
       {/* Showcase of all the picture included in the exhibiton */}
-      <Row xs={1} md={1} lg={2} className="g-4">
+      <section className="picture-list">
         {artwork.map((picture) => (
-          <Col className="col-picture" key={picture.slug}>
-            <Card className="card-picture" >
-              <Card.Img className="image-picture" src={picture.picture} alt={picture.slug} />
-              <Card.Body className="body-picture">
-                <Card.Title className="title-picture">{picture.title}</Card.Title>
-                <Card.Text className="description-picture">{picture.description}</Card.Text>
-              </Card.Body>
-            </Card>
-          </Col>
+          <Card className="card-picture" key={picture.slug}>
+            <Card.Img className="image-picture" src={picture.picture} alt={picture.slug} />
+            <Card.Body className="body-picture">
+              <Card.Title className="title-picture">{picture.title}</Card.Title>
+              <Card.Text className="description-picture">{picture.description}</Card.Text>
+            </Card.Body>
+          </Card>
         ))}
-      </Row>
+      </section>
 
     </div>
   );
 };
 
 export default Pictures;
-
-{ /* <div className=" display-exhibition">
-        {artwork.map((picture) => (
-          <Card className="card-picture" key={picture.slug}>
-            <Card.Img className="image-picture" src={picture.picture} alt={picture.slug} />
-            <div className="info-picture">
-              <Card.Title className="title-picture">{picture.title}</Card.Title>
-              <Card.Text className="description-picture">{picture.description}</Card.Text>
-            </div>
-          </Card>
-        ))}
-      </div> */ }
