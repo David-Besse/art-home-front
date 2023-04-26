@@ -1,4 +1,4 @@
-export const CHANGE_LOGIN_FIELD = 'CHANGE_LOGIN_FIELD';
+export const CHANGE_INPUT_FIELD = 'CHANGE_INPUT_FIELD';
 export const RESET_FORM_FIELDS = 'RESET_FORM_FIELDS';
 export const SUBMIT_LOGIN = 'SUBMIT_LOGIN';
 export const SAVE_AUTH_DATA = 'SAVE_AUTH_DATA';
@@ -9,8 +9,8 @@ export const SUBMIT_PROFILE_UPDATE = 'SUBMIT_PROFILE_UPDATE';
 export const SUBMIT_NEW_EXHIBITION = 'SUBMIT_NEW_EXHIBITION';
 export const SAVE_USER_EXHIBITIONS_LIST = 'SAVE_USER_EXHIBITIONS_LIST';
 
-export const changeLoginField = (newValue, fieldName) => ({
-  type: CHANGE_LOGIN_FIELD,
+export const changeInputField = (newValue, fieldName) => ({
+  type: CHANGE_INPUT_FIELD,
   newValue: newValue,
   fieldName: fieldName,
 });
@@ -19,8 +19,10 @@ export const resetFormFields = () => ({
   type: RESET_FORM_FIELDS,
 });
 
-export const submitLogin = () => ({
+export const submitLogin = (userDataLogin, formRef) => ({
   type: SUBMIT_LOGIN,
+  payload: userDataLogin,
+  loginForm: formRef,
 });
 export const saveAuthData = (token) => ({
   type: SAVE_AUTH_DATA,

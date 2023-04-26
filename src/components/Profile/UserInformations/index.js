@@ -6,7 +6,7 @@ import {
   toggleAlertAfterEmailModification,
 } from 'src/actions/profile';
 import {
-  changeLoginField,
+  changeInputField,
   submitProfileUpdate,
   handleLoginOff,
 } from 'src/actions/users';
@@ -44,7 +44,7 @@ const userInformations = () => {
 
   const updateProfile = () => dispatch(submitProfileUpdate());
   const logoutUser = () => dispatch(handleLoginOff());
-  const changeField = (newValue, name) => dispatch(changeLoginField(newValue, name));
+  const changeField = (newValue, name) => dispatch(changeInputField(newValue, name));
   const handleAlert = () => dispatch(toggleAlertAfterEmailModification());
   const handleProfilEditing = () => dispatch(toggleProfileEditing());
 

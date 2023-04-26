@@ -1,23 +1,25 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { changeLoginField, submitLogin } from 'src/actions/users';
-import { changeLoginModalSate, changeLoginFieldsValidation } from 'src/actions/modals';
+import { submitLogin } from 'src/actions/users';
+import { toggleLoginModalSate } from 'src/actions/modals';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
+import { useRef } from 'react';
 
 /**
  * Modal Login
  * @returns {JSX.Element}
  */
 const LogModal = () => {
-  const { email, password } = useSelector((state) => state.users);
   const { isLogModalOpened, isLogFormValidated } = useSelector((state) => state.modals);
 
   const dispatch = useDispatch();
-  const changeField = (newValue, name) => dispatch(changeLoginField(newValue, name));
+
+  const formRef = useRef(null);
+
   const handleLogModal = () => {
-    dispatch(changeLoginModalSate());
+    dispatch(toggleLoginModalSate());
   };
 
   const handleSubmit = (event) => {
@@ -25,11 +27,10 @@ const LogModal = () => {
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
       event.stopPropagation();
-      dispatch(changeLoginFieldsValidation(true));
     }
-    else {
-      dispatch(submitLogin());
-    }
+    const formData = new FormData(event.target); // we create a new object FormData
+    const userDataLogin = Object.fromEntries(formData.entries()); // we retrieved data from formData
+    dispatch(submitLogin(userDataLogin, formRef));
   };
 
   return (
@@ -44,18 +45,15 @@ const LogModal = () => {
         <Modal.Title id="contained-modal-title-vcenter">Se connecter</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Form noValidate validated={isLogFormValidated} onSubmit={handleSubmit} className="text-center">
+        <Form onSubmit={handleSubmit} className="text-center login_form d-flex flex-column" ref={formRef}>
           <Form.Group className="mb-3" controlId="inputLogin">
-            <FloatingLabel label="Adresse mail" className="mb-3">
+            <FloatingLabel label="Adresse mail">
               <Form.Control
                 type="email"
                 autoFocus
                 required
                 placeholder="Adresse mail"
-                value={email}
-                onChange={(evt) => {
-                  changeField(evt.target.value, 'email');
-                }}
+                name="email"
               />
             </FloatingLabel>
           </Form.Group>
@@ -65,17 +63,17 @@ const LogModal = () => {
                 type="password"
                 required
                 placeholder="Mot de passe"
-                value={password}
-                onChange={(evt) => {
-                  changeField(evt.target.value, 'password');
-                }}
+                name="password"
               />
-              <Form.Control.Feedback type="invalid">
-                email / mot de passe non valide.
-              </Form.Control.Feedback>
             </FloatingLabel>
           </Form.Group>
           <Button type="submit">Soumettre</Button>
+          {isLogFormValidated
+              && (
+              <Form.Text className="text-danger fw-2">
+                email / mot de passe non valide.
+              </Form.Text>
+              )}
         </Form>
       </Modal.Body>
     </Modal>

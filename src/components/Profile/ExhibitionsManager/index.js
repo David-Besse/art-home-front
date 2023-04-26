@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { submitNewExhibition, changeLoginField } from 'src/actions/users';
+import { submitNewExhibition, changeInputField } from 'src/actions/users';
 import {
   toggleExhibitionCreationModal,
   toggleArtworkCreationModal,
@@ -39,7 +39,7 @@ const ExhibitionsManager = () => {
     dispatch(updateUserArtwork(artworkId, data));
   };
   const changeField = (newValue, fieldName) => {
-    dispatch(changeLoginField(newValue, fieldName));
+    dispatch(changeInputField(newValue, fieldName));
   };
 
   const handleSubmitExhibition = (event) => {
