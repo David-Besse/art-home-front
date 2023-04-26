@@ -30,7 +30,7 @@ const Header = () => {
   const handleNewAccountModal = () => dispatch(changeNewAccountModalSate());
 
   return (
-    <>
+    <header>
       <Navbar collapseOnSelect expand="lg" variant="dark">
         <Container>
           <LinkContainer to="/">
