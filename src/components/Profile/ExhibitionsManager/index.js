@@ -73,9 +73,8 @@ const ExhibitionsManager = () => {
     console.log('result :', result);
     if (result.length > 0) {
       handleUpdateUserArtwork(artwork.id, updateArtwork);
-      // handleShowExhibition(currentExhibition.id);
+      handleShowExhibition(artwork.exhibition.id);
       dispatch(showSelectedExhibition(currentExhibition.id));
-      dispatch(fetchUserArtworks(currentExhibition.id));
     }
 
     handleArtworkEditing();
@@ -312,10 +311,12 @@ const ExhibitionsManager = () => {
             </DropdownButton>
           </div>
           <div className="d-flex flex-raw mb-3 border-top">
-            <h2 className="py-1 px-1">{currentExhibition
+            <h2 className="py-1 px-1">
+              {currentExhibition
             && currentExhibition.title}
             </h2>
-            <p className="fw-2 py-1 px-1 text-center align-self-center">{currentExhibition
+            <p className="fw-2 py-1 px-1 text-center align-self-center">
+              {currentExhibition
             && currentExhibition.description}
             </p>
           </div>
