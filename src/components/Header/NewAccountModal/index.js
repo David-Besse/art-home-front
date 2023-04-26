@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { changeLoginField, submitNewAccount } from 'src/actions/users';
+import { changeInputField, submitNewAccount } from 'src/actions/users';
 import {
   changeNewAccountModalSate,
   changeNewAccountFieldsValidation,
@@ -32,7 +32,7 @@ const NewAccountModal = () => {
   } = useSelector((state) => state.modals);
 
   const dispatch = useDispatch();
-  const changeField = (newValue, name) => dispatch(changeLoginField(newValue, name));
+  const changeField = (newValue, name) => dispatch(changeInputField(newValue, name));
 
   const handleLogModal = () => {
     dispatch(changeNewAccountModalSate());

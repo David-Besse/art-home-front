@@ -1,5 +1,5 @@
 import {
-  CHANGE_LOGIN_MODAL_STATE, CHANGE_LOGIN_FIELDS_VALIDATION,
+  TOGGLE_LOGIN_MODAL_STATE, CHANGE_INPUT_FIELDS_VALIDATION,
   CHANGE_NEW_ACCOUNT_MODAL_STATE, CHANGE_NEW_ACCOUNT_FIELDS_VALIDATION,
   TOGGLE_NEW_ACCOUNT_MODAL_STATE, TOGGLE_TERM_OF_USES_BOX,
   TOGGLE_EXHIBITION_CREATION_MODAL, TOGGLE_ARTWORK_CREATION_MODAL,
@@ -18,12 +18,12 @@ export const initialState = {
 
 const reducer = (state = initialState, action = {}) => {
   switch (action.type) {
-    case CHANGE_LOGIN_MODAL_STATE:
+    case TOGGLE_LOGIN_MODAL_STATE:
       return {
         ...state,
         isLogModalOpened: !state.isLogModalOpened,
       };
-    case CHANGE_LOGIN_FIELDS_VALIDATION:
+    case CHANGE_INPUT_FIELDS_VALIDATION:
       return {
         ...state,
         isLogFormValidated: action.payload,

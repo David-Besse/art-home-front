@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { handleLoginOff } from 'src/actions/users';
-import { changeLoginModalSate, changeNewAccountModalSate } from 'src/actions/modals';
+import { toggleLoginModalSate, changeNewAccountModalSate } from 'src/actions/modals';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -24,7 +24,7 @@ const Header = () => {
     navigate('/');
     dispatch(handleLoginOff());
   };
-  const handleLogModal = () => dispatch(changeLoginModalSate());
+  const handleLogModal = () => dispatch(toggleLoginModalSate());
   const handleNewAccountModal = () => dispatch(changeNewAccountModalSate());
 
   return (
