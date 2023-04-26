@@ -1,4 +1,4 @@
-import { SAVE_EXHIBITIONS, SAVE_USER_ARTWORKS } from '../actions/exhibitions';
+import { SAVE_EXHIBITIONS, SAVE_USER_ARTWORKS, FETCH_USER_ARTWORKS } from '../actions/exhibitions';
 
 export const initialState = {
   // list of all exhibition available at the moment
@@ -6,7 +6,7 @@ export const initialState = {
   // indicate if all exhibitions are loaded
   isExhibitionsLoaded: false,
   artworks: [],
-  isArtworksLoaded: false,
+  isArtworksLoading: false,
   artwork: { title: '', description: '', picture: '' },
 };
 
@@ -22,7 +22,12 @@ const reducer = (state = initialState, action = {}) => {
       return {
         ...state,
         artworks: action.artworks,
-        isArtworksLoaded: true,
+        isArtworksLoading: false,
+      };
+    case FETCH_USER_ARTWORKS:
+      return {
+        ...state,
+        isArtworksLoading: true,
       };
     default:
       return state;

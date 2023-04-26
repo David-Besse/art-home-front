@@ -23,7 +23,7 @@ const user = (store) => (next) => (action) => {
     case SUBMIT_LOGIN:
       axios
         .post(
-          'http://mathieu-zagar.vpnuser.lan:8000/api/login_check',
+          'http://mathieuzagar-server.eddi.cloud/projet-12-art-at-home-back/public/api/login_check',
           {
             username: store.getState().users.email,
             password: store.getState().users.password,
@@ -38,7 +38,7 @@ const user = (store) => (next) => (action) => {
 
           axios
             .get(
-              'http://mathieu-zagar.vpnuser.lan:8000/api/secure/users/profile',
+              'http://mathieuzagar-server.eddi.cloud/projet-12-art-at-home-back/public/api/secure/users/profile',
               {
                 headers: {
                   Authorization: `Bearer ${store.getState().users.token}`,
@@ -60,7 +60,7 @@ const user = (store) => (next) => (action) => {
       break;
     case SUBMIT_NEW_ACCOUNT:
       axios
-        .post('http://mathieu-zagar.vpnuser.lan:8000/api/users/new', {
+        .post('http://mathieuzagar-server.eddi.cloud/projet-12-art-at-home-back/public/api/users/new', {
           email: store.getState().users.email,
           password: store.getState().users.password,
           lastname: store.getState().users.lastName,
@@ -86,18 +86,16 @@ const user = (store) => (next) => (action) => {
       break;
     case SUBMIT_PROFILE_UPDATE:
       axios
-        .put(
-          'http://aurelia-perrier.vpnuser.lan:8000/api/secure/users/edit',
+        .patch(
+          'http://mathieuzagar-server.eddi.cloud/projet-12-art-at-home-back/public/api/secure/users/edit',
           {
             email: store.getState().users.email,
             lastname: store.getState().users.lastName,
             firstname: store.getState().users.firstName,
             nickname: store.getState().users.nickname,
             avatar: store.getState().users.avatar,
-            dateOfBirth: store.getState().users.birthday,
+            dateOfBirth: new Date(store.getState().users.birthday),
             presentation: store.getState().users.presentation,
-            password: ' ',
-            roles: ['ROLE_ARTIST'],
           },
           {
             headers: {
@@ -115,8 +113,8 @@ const user = (store) => (next) => (action) => {
       break;
     case SUBMIT_NEW_EXHIBITION:
       axios
-        .put(
-          'http://aurelia-perrier.vpnuser.lan:8000/api/secure/exhibitions/new',
+        .post(
+          'http://mathieuzagar-server.eddi.cloud/projet-12-art-at-home-back/public/api/secure/exhibitions/new',
           {
             title: store.getState().users.exhibitionName,
             description: store.getState().users.exhibitionDescription,
