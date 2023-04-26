@@ -21,13 +21,11 @@ INFO EXHIBITION
   align-items: center;
 
     .body-exhibtion {
-      // background-color: beige;
       margin-bottom: 1rem;
       width: 95%;
     
         .title {
           color: goldenrod;
-          font-family: 'Averia Libre', display;
           font-variant-caps: all-small-caps;
           font-weight: bold;
           font-size: 3.5rem;
@@ -44,9 +42,6 @@ INFO EXHIBITION
         }
 
         .description {
-          color: rgb(29, 26, 16);
-          border: goldenrod ridge 4px;
-          border-radius: 5px;
           font-size: 0.93rem;
           padding: 1rem;
         }
@@ -58,24 +53,24 @@ PICTURES EXHIBITION
 */
 
 .picture-list{
-  margin-top: 0;
-}
-
-.col-picture {
-  padding: 0;
-}
-
-.display-exhibition {
-  width: 90%;
+  display: flex;
   flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 0;
+  padding: 1rem;
 }
+
+/* .col-picture {
+  padding: 0;
+  height: auto;
+} */
 
 .card-picture {
   align-items: center;
-  // background-color: aqua;
   display: flex;
   margin: 0;
-  padding: 1rem;
+  flex-wrap: wrap;
+  height: min-content;
 }
 
 .image-picture {
@@ -90,18 +85,35 @@ PICTURES EXHIBITION
   text-align: center;
 }
 
-@media screen and  (max-width: 576px){
+/************
+MEDIA QUERIES
+************/
+
+@media screen and  (max-width: 768px){
   .title-picture {
-  font-size: 1rem;
+  font-size: 1.2rem;
   }
-.description-picture{
-  font-size: 0.8rem;
+
+  .description-picture{
+    font-size: 0.93rem;
   }
-.card-picture {
-  padding: 0.5rem;
-}
-.card-body {
-  padding: 0.5rem;
+
+  .card-body {
+    padding: 0.5rem;
+  }
+
 }
 
+@media screen and  (min-width: 1024px){
+  .card-picture {
+    padding: 0.5rem;
+    width: 50%;
+  }
+}
+
+@media screen and  (min-width: 1440px){
+  .card-picture {
+    padding: 0.5rem;
+    width: 33.3333333%;
+  }
 }

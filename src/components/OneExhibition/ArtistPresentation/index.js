@@ -27,7 +27,7 @@ const ArtistPresentation = (props) => {
         <p className="presentation">{artist.presentation}</p>
       </Modal.Body>
       <Modal.Footer className="justify-content-center">
-        <Button onClick={props.onHide}>Retour à l'exposition</Button>
+        <Button className="button" onClick={props.onHide}>Retour à l'exposition</Button>
       </Modal.Footer>
     </Modal>
   );

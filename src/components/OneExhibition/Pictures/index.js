@@ -34,29 +34,24 @@ const Pictures = () => {
 
       {/* Presentation of the artist who created the exhibition */}
       <div className="artist-button">
-        <Button variant="secondary" onClick={() => setModalShow(true)}>
+        <Button className="button" onClick={() => setModalShow(true)}>
           Pour en savoir plus sur {artist.nickname}
         </Button>
       </div>
-      <ArtistPresentation
-        show={modalShow}
-        onHide={() => setModalShow(false)}
-      />
+      <ArtistPresentation show={modalShow} onHide={() => setModalShow(false)} />
 
       {/* Showcase of all the picture included in the exhibiton */}
-      <Row xs={1} md={1} lg={2} className="g-4 picture-list">
+      <section className="picture-list">
         {artwork.map((picture) => (
-          <Col className="col-picture" key={picture.slug}>
-            <Card className="card-picture">
-              <Card.Img className="image-picture" src={picture.picture} alt={picture.slug} />
-              <Card.Body className="body-picture">
-                <Card.Title className="title-picture">{picture.title}</Card.Title>
-                <Card.Text className="description-picture">{picture.description}</Card.Text>
-              </Card.Body>
-            </Card>
-          </Col>
+          <Card className="card-picture" key={picture.slug}>
+            <Card.Img className="image-picture" src={picture.picture} alt={picture.slug} />
+            <Card.Body className="body-picture">
+              <Card.Title className="title-picture">{picture.title}</Card.Title>
+              <Card.Text className="description-picture">{picture.description}</Card.Text>
+            </Card.Body>
+          </Card>
         ))}
-      </Row>
+      </section>
 
     </div>
   );
