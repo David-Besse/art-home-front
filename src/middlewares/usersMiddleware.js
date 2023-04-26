@@ -10,8 +10,8 @@ import {
   saveUserExhibitionsList,
 } from '../actions/users';
 import {
-  changeLoginFieldsValidation,
-  changeLoginModalSate,
+  changeInputFieldsValidation,
+  toggleLoginModalSate,
   changeNewAccountFieldsValidation,
   changeNewAccountModalSate,
   toggleNewAccountModalSate,
@@ -25,17 +25,15 @@ const user = (store) => (next) => (action) => {
         .post(
           'http://mathieuzagar-server.eddi.cloud/projet-12-art-at-home-back/public/api/login_check',
           {
-            username: store.getState().users.email,
-            password: store.getState().users.password,
+            username: action.payload.email,
+            password: action.payload.password,
           },
         )
         .then((response) => {
           store.dispatch(saveAuthData(response.data.token));
-
-          store.dispatch(resetFormFields());
-          store.dispatch(changeLoginModalSate());
-          store.dispatch(changeLoginFieldsValidation(false));
-
+          action.loginForm.current.reset();
+          store.dispatch(changeInputFieldsValidation(false));
+          store.dispatch(toggleLoginModalSate());
           axios
             .get(
               'http://mathieuzagar-server.eddi.cloud/projet-12-art-at-home-back/public/api/secure/users/profile',
@@ -49,13 +47,15 @@ const user = (store) => (next) => (action) => {
               store.dispatch(saveUserData(res.data));
             })
             .catch((error) => {
-              console.warn(error);
+              console.warn('Une erreur est survenu lors de la récupération du token', error);
             });
         })
-        .catch((error) => {
-          console.warn(error);
-          store.dispatch(resetFormFields());
-          store.dispatch(changeLoginFieldsValidation(true));
+        .catch(() => {
+          action.loginForm.current.reset();
+          store.dispatch(changeInputFieldsValidation(true));
+          setTimeout(() => {
+            store.dispatch(changeInputFieldsValidation(false));
+          }, 2000);
         });
       break;
     case SUBMIT_NEW_ACCOUNT:
