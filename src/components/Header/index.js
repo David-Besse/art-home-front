@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { handleLoginOff } from 'src/actions/users';
-import { toggleLoginModalSate, changeNewAccountModalSate } from 'src/actions/modals';
+import { toggleLoginModal, toggleNewAccountModal } from 'src/actions/modals';
+import { wipeData } from 'src/actions/exhibitions';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -23,9 +24,10 @@ const Header = () => {
   const handleLogout = () => {
     navigate('/');
     dispatch(handleLoginOff());
+    dispatch(wipeData());
   };
-  const handleLogModal = () => dispatch(toggleLoginModalSate());
-  const handleNewAccountModal = () => dispatch(changeNewAccountModalSate());
+  const handleLoginModal = () => dispatch(toggleLoginModal());
+  const handleNewAccountModal = () => dispatch(toggleNewAccountModal());
 
   return (
     <header>
@@ -85,7 +87,7 @@ const Header = () => {
               {!logged && (
               <Nav.Link
                 eventKey={7}
-                onClick={handleLogModal}
+                onClick={handleLoginModal}
               >Se connecter
               </Nav.Link>
               )}

@@ -1,6 +1,9 @@
 import axios from 'axios';
 import {
-  FETCH_EXHIBITIONS, saveExhibitions, FETCH_USER_ARTWORKS, saveUserArtworks, UPDATE_USER_ARTWORK, SUBMIT_NEW_ARTWORK, DELETE_USER_ARTWORK,
+  FETCH_EXHIBITIONS, saveExhibitions,
+  FETCH_USER_ARTWORKS, saveUserArtworks,
+  UPDATE_USER_ARTWORK, SUBMIT_NEW_ARTWORK,
+  DELETE_USER_ARTWORK,
 } from '../actions/exhibitions';
 
 const exhibitionsMiddleware = (store) => (next) => (action) => {
@@ -24,8 +27,7 @@ const exhibitionsMiddleware = (store) => (next) => (action) => {
         },
       )
         .then((response) => {
-          console.log(response);
-          setTimeout(() => store.dispatch(saveUserArtworks(response.data)), 3000);
+          store.dispatch(saveUserArtworks(response.data));
         })
         .catch((error) => {
           console.warn(error);
@@ -47,7 +49,7 @@ const exhibitionsMiddleware = (store) => (next) => (action) => {
         },
       )
         .then((response) => {
-          console.log(response);
+          console.log(response.data);
         })
         .catch((error) => {
           console.warn(error);

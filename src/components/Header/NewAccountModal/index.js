@@ -1,10 +1,9 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { changeInputField, submitNewAccount } from 'src/actions/users';
+import { submitNewAccount } from 'src/actions/users';
 import {
-  changeNewAccountModalSate,
-  changeNewAccountFieldsValidation,
-  toggleNewAccountModalSate,
-  toggleTermOfUseBox,
+  showMessageInformation,
+  toggleAccountCreatedModal,
+  toggleNewAccountModal,
 } from 'src/actions/modals';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
@@ -12,6 +11,7 @@ import Form from 'react-bootstrap/Form';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
+import { useRef } from 'react';
 
 /**
  * Modal New Account
@@ -19,50 +19,41 @@ import Row from 'react-bootstrap/Row';
  */
 const NewAccountModal = () => {
   const {
-    email,
-    password,
-    firstName,
-    lastName,
-  } = useSelector((state) => state.users);
-  const {
+    isMessageModalOpened,
+    isMessageDisplayed,
+    message,
     isNewAccountModalOpened,
-    isNewAccountFormValidated,
-    isNewAccountModalStateOpened,
-    isCheckedTermOfUsesBox,
   } = useSelector((state) => state.modals);
 
   const dispatch = useDispatch();
-  const changeField = (newValue, name) => dispatch(changeInputField(newValue, name));
 
-  const handleLogModal = () => {
-    dispatch(changeNewAccountModalSate());
+  const formRef = useRef(null);
+
+  const handleNewAccountModal = () => {
+    dispatch(toggleNewAccountModal());
   };
 
-  const handleNewAccountModalSate = () => {
-    dispatch(toggleNewAccountModalSate());
-    dispatch(changeNewAccountFieldsValidation(false));
+  const handleAccountCreatedModal = () => {
+    dispatch(toggleAccountCreatedModal());
+    dispatch(showMessageInformation(false));
   };
-
-  const toggleCheckBox = () => dispatch(toggleTermOfUseBox());
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const form = event.currentTarget;
-
     if (form.checkValidity() === false) {
       event.stopPropagation();
-      dispatch(changeNewAccountFieldsValidation(true));
     }
-    else {
-      dispatch(submitNewAccount());
-    }
+    const formData = new FormData(event.target); // we create a new object FormData
+    const newAccountData = Object.fromEntries(formData.entries()); // we retrieved data from formData
+    dispatch(submitNewAccount(newAccountData, formRef));
   };
 
   return (
     <>
       <Modal
         show={isNewAccountModalOpened}
-        onHide={handleLogModal}
+        onHide={handleNewAccountModal}
         size="lg"
         aria-labelledby="new-account-modal"
         backdrop="static"
@@ -71,7 +62,7 @@ const NewAccountModal = () => {
           <Modal.Title id="contained-modal-title-vcenter">Créer un compte</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form noValidate validated={isNewAccountFormValidated} onSubmit={handleSubmit} style={{ textAlign: 'center' }}>
+          <Form onSubmit={handleSubmit} style={{ textAlign: 'center' }} ref={formRef}>
             <Row className="mb-3">
               <Form.Group as={Col} controlId="inputLastName">
                 <FloatingLabel label="Nom" className="mb-3">
@@ -79,10 +70,7 @@ const NewAccountModal = () => {
                     type="text"
                     placeholder="Nom"
                     required
-                    value={lastName}
-                    onChange={(evt) => {
-                      changeField(evt.target.value, 'lastName');
-                    }}
+                    name="lastName"
                   />
                   <Form.Control.Feedback type="invalid">
                     Votre nom est manquant.
@@ -95,10 +83,7 @@ const NewAccountModal = () => {
                     type="text"
                     placeholder="Prénom"
                     required
-                    value={firstName}
-                    onChange={(evt) => {
-                      changeField(evt.target.value, 'firstName');
-                    }}
+                    name="firstName"
                   />
                   <Form.Control.Feedback type="invalid">
                     prénom manquant.
@@ -112,10 +97,7 @@ const NewAccountModal = () => {
                   type="email"
                   placeholder="Email"
                   required
-                  value={email}
-                  onChange={(evt) => {
-                    changeField(evt.target.value, 'email');
-                  }}
+                  name="email"
                 />
                 <Form.Control.Feedback type="invalid">
                   email invalide.
@@ -128,10 +110,7 @@ const NewAccountModal = () => {
                   type="password"
                   placeholder="Mot de passe"
                   required
-                  value={password}
-                  onChange={(evt) => {
-                    changeField(evt.target.value, 'password');
-                  }}
+                  name="password"
                 />
                 <Form.Control.Feedback type="invalid">
                   mot de passe manquant.
@@ -141,8 +120,6 @@ const NewAccountModal = () => {
             <Form.Group className="mb-3 text-start">
               <Form.Check
                 required
-                checked={isCheckedTermOfUsesBox}
-                onChange={toggleCheckBox}
                 label="Vous êtes d'accord avec nos conditions d'utilisations."
                 feedback="* vous devez accepter nos conditions d'utilisations."
                 feedbackType="invalid"
@@ -153,19 +130,14 @@ const NewAccountModal = () => {
         </Modal.Body>
       </Modal>
 
-      <Modal show={isNewAccountModalStateOpened} onHide={handleNewAccountModalSate}>
+      <Modal show={isMessageModalOpened} onHide={handleAccountCreatedModal}>
         <Modal.Header closeButton>
           <Modal.Title>Information</Modal.Title>
         </Modal.Header>
-        {!isNewAccountFormValidated
-        && <Modal.Body>Compte créé, vous pouvez vous connecter !</Modal.Body>}
-        {isNewAccountFormValidated
-        && <Modal.Body className="text-danger">Une erreur inatendue est survenue !</Modal.Body>}
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleNewAccountModalSate}>
-            Close
-          </Button>
-        </Modal.Footer>
+        {!isMessageDisplayed
+        && <Modal.Body>{message}</Modal.Body>}
+        {isMessageDisplayed
+        && <Modal.Body className="text-danger">{message}</Modal.Body>}
       </Modal>
     </>
   );

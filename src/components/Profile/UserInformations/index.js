@@ -48,7 +48,7 @@ const userInformations = () => {
   const handleAlert = () => dispatch(toggleAlertAfterEmailModification());
   const handleProfilEditing = () => dispatch(toggleProfileEditing());
 
-  const changedFields = (stateOne, stateTwo) => Object.keys(stateOne).filter((key) => stateOne[key] !== stateTwo[key]);
+  const changedFields = (elOne, elTwo) => Object.keys(elOne).filter((key) => elOne[key] !== elTwo[key]);
 
   const handleSubmit = (evt) => {
     evt.preventDefault();

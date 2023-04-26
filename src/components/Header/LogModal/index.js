@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { submitLogin } from 'src/actions/users';
-import { toggleLoginModalSate } from 'src/actions/modals';
+import { toggleLoginModal } from 'src/actions/modals';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
@@ -18,8 +18,8 @@ const LogModal = () => {
 
   const formRef = useRef(null);
 
-  const handleLogModal = () => {
-    dispatch(toggleLoginModalSate());
+  const handleNewAccountModal = () => {
+    dispatch(toggleLoginModal());
   };
 
   const handleSubmit = (event) => {
@@ -36,7 +36,7 @@ const LogModal = () => {
   return (
     <Modal
       show={isLogModalOpened}
-      onHide={handleLogModal}
+      onHide={handleNewAccountModal}
       size="sm"
       aria-labelledby="contained-modal-title-vcenter"
       backdrop="static"

@@ -5,6 +5,7 @@ export const SAVE_USER_ARTWORKS = 'SAVE_USER_ARTWORKS';
 export const UPDATE_USER_ARTWORK = 'UPDATE_USER_ARTWORK';
 export const SUBMIT_NEW_ARTWORK = 'SUBMIT_NEW_ARTWORK';
 export const DELETE_USER_ARTWORK = 'DELETE_USER_ARTWORK';
+export const WIPE_DATA = 'WIPE_DATA';
 
 export const fetchExhibitions = () => ({
   type: FETCH_EXHIBITIONS,
@@ -39,4 +40,8 @@ export const submitNewArtwork = (data) => ({
 export const deleteUserArtwork = (artworkId) => ({
   type: DELETE_USER_ARTWORK,
   id: artworkId,
+});
+
+export const wipeData = () => ({
+  type: WIPE_DATA,
 });

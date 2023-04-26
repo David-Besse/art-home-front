@@ -1,9 +1,10 @@
-import { SAVE_EXHIBITIONS, SAVE_USER_ARTWORKS, FETCH_USER_ARTWORKS } from '../actions/exhibitions';
+import {
+  SAVE_EXHIBITIONS, SAVE_USER_ARTWORKS, FETCH_USER_ARTWORKS, WIPE_DATA,
+} from '../actions/exhibitions';
 
 export const initialState = {
   // list of all exhibition occuring at the moment
   list: [],
-  // indicate if all exhibitions are loaded
   isExhibitionsLoaded: false,
   artworks: [],
   isArtworksLoading: false,
@@ -28,6 +29,13 @@ const reducer = (state = initialState, action = {}) => {
       return {
         ...state,
         isArtworksLoading: true,
+      };
+    case WIPE_DATA:
+      return {
+        ...state,
+        artworks: [],
+        isArtworksLoading: false,
+        artwork: { title: '', description: '', picture: '' },
       };
     default:
       return state;

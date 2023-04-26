@@ -29,9 +29,12 @@ export const saveAuthData = (token) => ({
   token: token,
 });
 
-export const submitNewAccount = () => ({
+export const submitNewAccount = (newAccountData, formRef) => ({
   type: SUBMIT_NEW_ACCOUNT,
+  payload: newAccountData,
+  newAccountForm: formRef,
 });
+
 export const saveUserData = ({
   nickname, lastname, firstname, avatar, dateOfBirth, presentation, role, email, exhibitions,
 }) => ({

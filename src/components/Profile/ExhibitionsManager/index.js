@@ -7,7 +7,7 @@ import {
 import {
   fetchUserArtworks, updateUserArtwork, submitNewArtwork, deleteUserArtwork,
 } from 'src/actions/exhibitions';
-import { showSelectedExhibition } from 'src/actions/profile';
+import { showSelectedExhibition, toggleArtworkEditing } from 'src/actions/profile';
 import {
   Button,
   Dropdown,
@@ -24,16 +24,22 @@ const ExhibitionsManager = () => {
   const { isAccountCreationModalOpened, isArtworkCreationModalOpened } = useSelector((state) => state.modals);
   const { exhibitions, exhibitionName, exhibitionDescription } = useSelector((state) => state.users);
   const { artworks, isArtworksLoading } = useSelector((state) => state.exhibitions);
-  const { selectedExhibitionId } = useSelector((state) => state.profile);
+  const { selectedExhibitionId, isArtworkEditingActivated } = useSelector((state) => state.profile);
 
   const currentExhibition = exhibitions.find((exhib) => exhib.id === selectedExhibitionId);
 
   const dispatch = useDispatch();
+  const handleArtworkEditing = () => dispatch(toggleArtworkEditing());
+
   const handleExhibitionCreationModal = () => {
     dispatch(toggleExhibitionCreationModal());
   };
   const handleArtworkCreationModal = () => {
     dispatch(toggleArtworkCreationModal());
+  };
+  const handleShowExhibition = (id) => {
+    dispatch(showSelectedExhibition(id));
+    dispatch(fetchUserArtworks(id));
   };
   const handleUpdateUserArtwork = (artworkId, data) => {
     dispatch(updateUserArtwork(artworkId, data));
@@ -48,21 +54,31 @@ const ExhibitionsManager = () => {
     dispatch(submitNewExhibition());
   };
 
-  const handleShowExhibition = (id) => {
-    dispatch(showSelectedExhibition(id));
-    dispatch(fetchUserArtworks(id));
-  };
+  const changedFields = (elOne, elTwo) => Object.keys(elOne).filter((key) => elOne[key] !== elTwo[key]);
 
-  /** handle form submiting artwork
+  /** handle form update artwork
    *
    * @param {*} event
-   * @param {int} artworkId
+   * @param {int} artwork
    */
-  const handleUpdateArtwork = (event, artworkId) => {
+  const handleUpdateArtwork = (event, artwork) => {
     event.preventDefault();
     const formData = new FormData(event.target); // we create a new object FormData
     const updateArtwork = Object.fromEntries(formData.entries()); // we retrieved data from formData
-    handleUpdateUserArtwork(artworkId, updateArtwork);
+    const currentArtwork = {
+      title: artwork.title, description: artwork.description, picture: artwork.picture, exhibition: (artwork.exhibition.id).toString(),
+    };
+
+    const result = changedFields(updateArtwork, currentArtwork);
+    console.log('result :', result);
+    if (result.length > 0) {
+      handleUpdateUserArtwork(artwork.id, updateArtwork);
+      // handleShowExhibition(currentExhibition.id);
+      dispatch(showSelectedExhibition(currentExhibition.id));
+      dispatch(fetchUserArtworks(currentExhibition.id));
+    }
+
+    handleArtworkEditing();
   };
 
   const handleSubmitNewArtwork = (event) => {
@@ -112,12 +128,12 @@ const ExhibitionsManager = () => {
               </FloatingLabel>
             </Form.Group>
             <Form.Group className="mb-3" controlId="inputExhibitionDescription">
-              <FloatingLabel label="Description">
+              <FloatingLabel label="Description de l'exposition">
                 <Form.Control
                   as="textarea"
-                  rows="3"
+                  style={{ height: '100px' }}
                   required
-                  placeholder="Description"
+                  placeholder="Description de l'exposition"
                   value={exhibitionDescription}
                   onChange={(evt) => {
                     changeField(evt.target.value, 'exhibitionDescription');
@@ -130,8 +146,8 @@ const ExhibitionsManager = () => {
         </Modal.Body>
       </Modal>
 
-      {/**
-       * Modal for adding an artwork
+      {/* Modal for adding an artwork
+       *
        */}
       <Modal
         show={isArtworkCreationModalOpened}
@@ -173,7 +189,6 @@ const ExhibitionsManager = () => {
                 <Form.Control
                   as="textarea"
                   style={{ height: '150px' }}
-                  required
                   placeholder="Description de l'oeuvre"
                   name="description"
                 />
@@ -260,43 +275,26 @@ const ExhibitionsManager = () => {
              */}
             <DropdownButton
               className="d-flex"
-              variant="primary"
+              variant="secondary"
               id="selectExhibition"
-              title={currentExhibition
-                ? (
-                  <>
-                    {isArtworksLoading
-                    && (
-                      <Spinner
-                        as="span"
-                        animation="grow"
-                        size="sm"
-                        role="status"
-                        aria-hidden="true"
-                        className="me-2"
-                      />
-                    )}
-                    {currentExhibition.title}
-                  </>
-                )
-                : (
-                  <>
-                    {isArtworksLoading
-                    && (
-                      <Spinner
-                        as="span"
-                        animation="grow"
-                        size="sm"
-                        role="status"
-                        aria-hidden="true"
-                        className="me-2"
-                      />
-                    )}
-                    {exhibitions.length > 0
-                      ? ' Voir une exposition'
-                      : ' Aucune exposition trouvée'}
-                  </>
-                )}
+              title={(
+                <>
+                  {isArtworksLoading
+                  && (
+                    <Spinner
+                      as="span"
+                      animation="grow"
+                      size="sm"
+                      role="status"
+                      aria-hidden="true"
+                      className="me-2"
+                    />
+                  )}
+                  {(exhibitions.length > 0
+                    ? ' Voir une exposition'
+                    : ' Aucune exposition trouvée')}
+                </>
+              )}
               disabled={exhibitions.length === 0}
               size="sm"
             >
@@ -312,7 +310,14 @@ const ExhibitionsManager = () => {
                   </Dropdown.Item>
                 ))}
             </DropdownButton>
-
+          </div>
+          <div className="d-flex flex-raw mb-3 border-top">
+            <h2 className="py-1 px-1">{currentExhibition
+            && currentExhibition.title}
+            </h2>
+            <p className="fw-2 py-1 px-1 text-center align-self-center">{currentExhibition
+            && currentExhibition.description}
+            </p>
           </div>
         </div>
 
@@ -322,7 +327,7 @@ const ExhibitionsManager = () => {
               <Form
                 className="my-3 col-lg-6"
                 key={artwork.id}
-                onSubmit={(event) => handleUpdateArtwork(event, artwork.id)}
+                onSubmit={(event) => handleUpdateArtwork(event, artwork)}
               >
                 <div className="card p-2 border-0 border-top">
                   <div className="row g-0">
@@ -332,6 +337,7 @@ const ExhibitionsManager = () => {
                         className="img-fluid rounded-start img-avatar"
                         alt="artwork"
                       />
+                      {isArtworkEditingActivated.editingActivated && (
                       <Form.Group>
                         <Form.Control
                           defaultValue={artwork.picture}
@@ -341,10 +347,12 @@ const ExhibitionsManager = () => {
                           name="picture"
                         />
                       </Form.Group>
+                      )}
                     </div>
 
                     <div className="col-lg-6">
                       <div className="card-body py-0">
+
                         <p className="card-text fw-bold mb-0">
                           Titre de l'oeuvre :{' '}
                           <span
@@ -359,6 +367,7 @@ const ExhibitionsManager = () => {
                               : artwork.title}
                           </span>
                         </p>
+                        {isArtworkEditingActivated.editingActivated && (
                         <Form.Group>
                           <Form.Control
                             defaultValue={artwork.title}
@@ -368,6 +377,7 @@ const ExhibitionsManager = () => {
                             name="title"
                           />
                         </Form.Group>
+                        )}
 
                         <p className="card-text fw-bold mb-0">
                           Résumé de l'oeuvre :{' '}
@@ -378,11 +388,13 @@ const ExhibitionsManager = () => {
                                 : 'fw-normal fst-italic fw-lighter'
                             }
                           >
-                            {artwork.description === ''
-                              ? 'non communiqué'
-                              : artwork.description}
+                            {!isArtworkEditingActivated.editingActivated && (
+                              artwork.description === ''
+                                ? 'non communiqué'
+                                : artwork.description)}
                           </span>
                         </p>
+                        {isArtworkEditingActivated.editingActivated && (
                         <Form.Group>
                           <Form.Control
                             as="textarea"
@@ -393,45 +405,75 @@ const ExhibitionsManager = () => {
                             name="description"
                           />
                         </Form.Group>
+                        )}
 
+                        <p className="card-text fw-bold mb-0">
+                          Exposition :{' '}
+                          <span
+                            className={
+                              artwork.exhibition.title === ''
+                                ? 'fw-normal text-muted fst-italic fw-lighter'
+                                : 'fw-normal fst-italic fw-lighter'
+                            }
+                          >
+                            {!isArtworkEditingActivated.editingActivated && (
+                              artwork.exhibition.title === ''
+                                ? 'non communiqué'
+                                : artwork.exhibition.title)}
+                          </span>
+                        </p>
+                        {isArtworkEditingActivated.editingActivated && (
                         <Form.Group
                           controlId="selectExhibition"
                           className="mb-3"
                         >
-                          <Form.Label className="fw-bold">
-                            Sélectionner une exposition pour cette oeuvre :
-                          </Form.Label>
                           <Form.Control
                             as="select"
                             size="sm"
                             name="exhibition"
-                            required
+                            defaultValue={artwork.exhibition.id}
                           >
                             {exhibitions.length > 0
                               && exhibitions.map((exhibition) => (
                                 <option
                                   key={exhibition.id}
                                   value={exhibition.id}
-                                  defaultValue={exhibition.id === 1}
                                 >
                                   {exhibition.title}
                                 </option>
                               ))}
                           </Form.Control>
                         </Form.Group>
+                        )}
                       </div>
                     </div>
                     <div className="col-lg-2 text-center d-flex flex-lg-column justify-content-center align-items-lg-center">
                       {/* {EDIT BUTTON} */}
+                      {!isArtworkEditingActivated.editingActivated && (
                       <Button
-                        type="submit"
+                        type="button"
                         className="mb-lg-3 me-lg-0 me-3 mb-0"
+                        variant="secondary"
+                        onClick={handleArtworkEditing}
                       >
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-pencil-square" viewBox="0 0 16 16">
                           <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
                           <path fillRule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
                         </svg>
                       </Button>
+                      )}
+                      {isArtworkEditingActivated.editingActivated && (
+                      <Button
+                        type="submit"
+                        className="mb-lg-3 me-lg-0 me-3 mb-0"
+                        variant="success"
+                      >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-check-square" viewBox="0 0 16 16">
+                          <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
+                          <path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.235.235 0 0 1 .02-.022z" />
+                        </svg>
+                      </Button>
+                      )}
                       {/* {DELETE BUTTON} */}
                       <Button
                         type="button"

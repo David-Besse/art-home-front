@@ -11,10 +11,10 @@ import {
 } from '../actions/users';
 import {
   changeInputFieldsValidation,
-  toggleLoginModalSate,
-  changeNewAccountFieldsValidation,
-  changeNewAccountModalSate,
-  toggleNewAccountModalSate,
+  toggleLoginModal,
+  showMessageInformation,
+  toggleNewAccountModal,
+  toggleAccountCreatedModal,
   toggleTermOfUseBox,
 } from '../actions/modals';
 
@@ -33,7 +33,7 @@ const user = (store) => (next) => (action) => {
           store.dispatch(saveAuthData(response.data.token));
           action.loginForm.current.reset();
           store.dispatch(changeInputFieldsValidation(false));
-          store.dispatch(toggleLoginModalSate());
+          store.dispatch(toggleLoginModal());
           axios
             .get(
               'http://mathieuzagar-server.eddi.cloud/projet-12-art-at-home-back/public/api/secure/users/profile',
@@ -61,27 +61,34 @@ const user = (store) => (next) => (action) => {
     case SUBMIT_NEW_ACCOUNT:
       axios
         .post('http://mathieuzagar-server.eddi.cloud/projet-12-art-at-home-back/public/api/users/new', {
-          email: store.getState().users.email,
-          password: store.getState().users.password,
-          lastname: store.getState().users.lastName,
-          firstname: store.getState().users.firstName,
+          email: action.payload.email,
+          password: action.payload.password,
+          lastname: action.payload.lastName,
+          firstname: action.payload.firstName,
           roles: ['ROLE_ARTIST'],
         })
-        .then((response) => {
-          console.log(response);
-          store.dispatch(changeNewAccountModalSate());
-          store.dispatch(resetFormFields());
-          store.dispatch(toggleTermOfUseBox());
-          store.dispatch(changeNewAccountFieldsValidation(false));
-          store.dispatch(toggleNewAccountModalSate());
+        .then(() => {
+          action.newAccountForm.current.reset();
+          store.dispatch(toggleNewAccountModal());
+          store.dispatch(showMessageInformation(false, 'Le compte a été créé !'));
+          store.dispatch(toggleAccountCreatedModal());
         })
         .catch((error) => {
           console.warn(error);
-          store.dispatch(changeNewAccountModalSate());
-          store.dispatch(resetFormFields());
-          store.dispatch(toggleTermOfUseBox());
-          store.dispatch(changeNewAccountFieldsValidation(true));
-          store.dispatch(toggleNewAccountModalSate());
+          action.newAccountForm.current.reset();
+          store.dispatch(toggleNewAccountModal());
+
+          if (error.response.data.status === 500) {
+            store.dispatch(showMessageInformation(true, 'Erreur interne du serveur.'));
+          }
+          else {
+            const errorMessageObj = error.response.data;
+            const errorMessageKeys = Object.keys(errorMessageObj);
+            const errorMessageName = errorMessageKeys[0];
+            store.dispatch(showMessageInformation(true, `${errorMessageObj[errorMessageName]}`));
+          }
+
+          store.dispatch(toggleAccountCreatedModal());
         });
       break;
     case SUBMIT_PROFILE_UPDATE:

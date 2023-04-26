@@ -1,7 +1,7 @@
 import {
-  TOGGLE_LOGIN_MODAL_STATE, CHANGE_INPUT_FIELDS_VALIDATION,
-  CHANGE_NEW_ACCOUNT_MODAL_STATE, CHANGE_NEW_ACCOUNT_FIELDS_VALIDATION,
-  TOGGLE_NEW_ACCOUNT_MODAL_STATE, TOGGLE_TERM_OF_USES_BOX,
+  TOGGLE_LOGIN_MODAL, CHANGE_INPUT_FIELDS_VALIDATION,
+  TOGGLE_NEW_ACCOUNT_MODAL, SHOW_MESSAGE_INFORMATION,
+  TOGGLE_ACCOUNT_CREATED_MODAL, TOGGLE_TERM_OF_USES_BOX,
   TOGGLE_EXHIBITION_CREATION_MODAL, TOGGLE_ARTWORK_CREATION_MODAL,
 } from '../actions/modals';
 
@@ -9,8 +9,9 @@ export const initialState = {
   isLogModalOpened: false,
   isLogFormValidated: false,
   isNewAccountModalOpened: false,
-  isNewAccountFormValidated: false,
-  isNewAccountModalStateOpened: false,
+  isMessageModalOpened: false,
+  isMessageDisplayed: false,
+  message: '',
   isCheckedTermOfUsesBox: false,
   isAccountCreationModalOpened: false,
   isArtworkCreationModalOpened: false,
@@ -18,7 +19,7 @@ export const initialState = {
 
 const reducer = (state = initialState, action = {}) => {
   switch (action.type) {
-    case TOGGLE_LOGIN_MODAL_STATE:
+    case TOGGLE_LOGIN_MODAL:
       return {
         ...state,
         isLogModalOpened: !state.isLogModalOpened,
@@ -28,20 +29,21 @@ const reducer = (state = initialState, action = {}) => {
         ...state,
         isLogFormValidated: action.payload,
       };
-    case CHANGE_NEW_ACCOUNT_MODAL_STATE:
+    case TOGGLE_NEW_ACCOUNT_MODAL:
       return {
         ...state,
         isNewAccountModalOpened: !state.isNewAccountModalOpened,
       };
-    case CHANGE_NEW_ACCOUNT_FIELDS_VALIDATION:
+    case SHOW_MESSAGE_INFORMATION:
       return {
         ...state,
-        isNewAccountFormValidated: action.payload,
+        isMessageDisplayed: action.display,
+        message: action.message,
       };
-    case TOGGLE_NEW_ACCOUNT_MODAL_STATE:
+    case TOGGLE_ACCOUNT_CREATED_MODAL:
       return {
         ...state,
-        isNewAccountModalStateOpened: !state.isNewAccountModalStateOpened,
+        isMessageModalOpened: !state.isMessageModalOpened,
       };
     case TOGGLE_TERM_OF_USES_BOX:
       return {

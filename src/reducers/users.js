@@ -63,18 +63,19 @@ const reducer = (state = initialState, action = {}) => {
       return {
         ...state,
         logged: false,
-        token: '',
         email: '',
         password: '',
+        nickname: '',
+        token: '',
+        role: '',
         lastName: '',
         firstName: '',
-        nickname: '',
-        avatar: '',
-        role: '',
         birthday: '',
         presentation: '',
+        avatar: '',
         exhibitions: [],
-        exhibition: [],
+        exhibitionName: '',
+        exhibitionDescription: '',
       };
     case SAVE_USER_EXHIBITIONS_LIST:
       return {
