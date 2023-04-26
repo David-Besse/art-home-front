@@ -5,7 +5,7 @@
   font-size: 106px;
   font-family: 'Catamaran', sans-serif;
   font-weight: 800;
-  margin: 70px 15px;
+  margin: 40px 70px;
 }
 .error-container > span {
   display: inline-block;
@@ -18,7 +18,7 @@
   background:
     linear-gradient(140deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.07) 43%, transparent 44%, transparent 100%),
     linear-gradient(105deg, transparent 0%, transparent 40%, rgba(0, 0, 0, 0.06) 41%, rgba(0, 0, 0, 0.07) 76%, transparent 77%, transparent 100%),
-    linear-gradient(to right, #7B7870, #c49509);
+    linear-gradient(to right, #7B7870, #cc920d);
 }
 .error-container > span.four:before,
 .error-container > span.four:after {
@@ -117,10 +117,13 @@ body {
 .app {
   height: 100vh;
 }
+.error-div{
+  height: 100vh;
+}
 
 html, button, input, select, textarea {
-    font-family: 'Montserrat', Helvetica, sans-serif;
-    color: #bbb;
+  font-family: 'Montserrat', Helvetica, sans-serif;
+  color: #bbb;
 }
 h1 {
   text-align: center;
@@ -138,15 +141,24 @@ h1 {
 a.more-link {
   text-transform: uppercase;
   font-size: 13px;
-    background-color: #de7e85;
-    padding: 10px 15px;
-    border-radius: 0;
-    color: #fff;
-    display: inline-block;
-    margin-right: 5px;
-    margin-bottom: 5px;
-    line-height: 1.5;
-    text-decoration: none;
+  background-color: #de7e85;
+  padding: 10px 15px;
+  border-radius: 0;
+  color: #fff;
+  display: inline-block;
+  margin-right: 5px;
+  margin-bottom: 5px;
+  line-height: 1.5;
+  text-decoration: none;
   margin-top: 50px;
   letter-spacing: 1px;
+}
+
+.button {
+  transition: background-color 0.8s, border-radius 1s, color 1s;
+}
+
+.button:hover{
+  background-color: #cc920d;
+  color:#211F18;
 }
