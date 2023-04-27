@@ -111,6 +111,21 @@ const NewAccountModal = () => {
                   placeholder="Mot de passe"
                   required
                   name="password"
+                  pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&\*()_+]{8,}$"
+                />
+                <Form.Control.Feedback type="invalid">
+                  mot de passe manquant.
+                </Form.Control.Feedback>
+              </FloatingLabel>
+            </Form.Group>
+            <Form.Group controlId="inputConfirmPassword">
+              <FloatingLabel label="Confirmer le mot de passe" className="mb-3">
+                <Form.Control
+                  type="password"
+                  placeholder="Confirmer le mot de passe"
+                  required
+                  name="password"
+                  pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&\*()_+]{8,}$"
                 />
                 <Form.Control.Feedback type="invalid">
                   mot de passe manquant.
@@ -123,7 +138,6 @@ const NewAccountModal = () => {
                 label="Vous êtes d'accord avec nos conditions d'utilisations."
                 feedback="* vous devez accepter nos conditions d'utilisations."
                 feedbackType="invalid"
-                pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$"
               />
             </Form.Group>
             <Button type="submit">Soumettre</Button>
