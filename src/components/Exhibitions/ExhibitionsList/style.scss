@@ -1,32 +1,67 @@
-.page-title {
-  font-size:2.5rem;
-  font-variant-caps: all-small-caps;
-  font-weight:  bold;
-  text-align: center;
+.all-exhibitions {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+.exhibition-container {
+  gap: 0.5rem;
 }
 .card-info {
-  align-items: flex-end;
-  border-radius: 0px;
-  display: flex;
-  width: 96%;
+  border: none;
+  height: 70vh;
+  margin-bottom: 1rem;
+  width: 95vw;
+}
 
-    .image-info {
-      border-radius: 0px;
-      object-fit: cover;
-    }    
+.image-info {
+  object-fit: cover;
+  overflow: hidden;
+  height: 65%;
+}
+
+.exhibition-info {
+  border-radius: 5px;
+  height: 35%;
+  margin-top: 0.5rem;
+  padding: 1rem;
+  overflow: scroll;
   
-    .exhibition-info {
-      background-color: rgba(0, 0, 0, 0.5);
-      border-radius: 0px;
-      display: flex;
-      flex-direction: column;
-      height: 40%;
-      justify-content: flex-start;
-      overflow: hidden;
-        
-          .title-info{
-            font-size: 1.8rem;
-            font-variant-caps: all-small-caps;
-          }
+}
+
+.title-info {
+  font-size: 1.2rem;
+  margin-bottom: 0.3rem;
+}
+
+.nickname-info {
+  color: black;
+  margin-bottom: 0.3rem;
+}
+
+.description-info {
+  color: black;
+  font-size: 0.92rem;
+}
+
+@media screen and (min-width:768px){
+  .card-info {
+    height: 70vh;
+    margin-bottom: 1rem;
+    width: 45vw;
+  }
+}
+
+@media screen and (min-width:1024px){
+  .card-info {
+    height: 70vh;
+    margin-bottom: 1rem;
+    width: 30vw;
+  }
+  .exhibition-info{
+    margin-top: 1rem;
+    width: 95%;
+      &:hover{
+      box-shadow: rgb(123, 120, 112, 0.5) 0px 0px 5PX 10px;
     }
+  }
 }
