@@ -73,8 +73,9 @@ const ExhibitionsManager = () => {
 
     if (result.length > 0) {
       handleUpdateUserArtwork(artwork.id, updateArtwork);
-      handleShowExhibition(artwork.exhibition.id);
-      dispatch(showSelectedExhibition(currentExhibition.id));
+      handleShowExhibition(currentArtwork.exhibition);
+      handleShowExhibition(currentArtwork.exhibition);
+      // dispatch(showSelectedExhibition(currentArtwork.exhibition));
     }
 
     handleArtworkEditing();
