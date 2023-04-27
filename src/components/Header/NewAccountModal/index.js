@@ -123,6 +123,7 @@ const NewAccountModal = () => {
                 label="Vous êtes d'accord avec nos conditions d'utilisations."
                 feedback="* vous devez accepter nos conditions d'utilisations."
                 feedbackType="invalid"
+                pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$"
               />
             </Form.Group>
             <Button type="submit">Soumettre</Button>
