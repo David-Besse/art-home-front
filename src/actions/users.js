@@ -1,5 +1,4 @@
 export const CHANGE_INPUT_FIELD = 'CHANGE_INPUT_FIELD';
-export const RESET_FORM_FIELDS = 'RESET_FORM_FIELDS';
 export const SUBMIT_LOGIN = 'SUBMIT_LOGIN';
 export const SAVE_AUTH_DATA = 'SAVE_AUTH_DATA';
 export const SAVE_USER_DATA = 'SAVE_USER_DATA';
@@ -13,10 +12,6 @@ export const changeInputField = (newValue, fieldName) => ({
   type: CHANGE_INPUT_FIELD,
   newValue: newValue,
   fieldName: fieldName,
-});
-
-export const resetFormFields = () => ({
-  type: RESET_FORM_FIELDS,
 });
 
 export const submitLogin = (userDataLogin, formRef) => ({

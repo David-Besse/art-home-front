@@ -3,7 +3,6 @@ import {
   SUBMIT_LOGIN,
   saveAuthData,
   saveUserData,
-  resetFormFields,
   SUBMIT_NEW_ACCOUNT,
   SUBMIT_PROFILE_UPDATE,
   SUBMIT_NEW_EXHIBITION,
@@ -15,7 +14,6 @@ import {
   showMessageInformation,
   toggleNewAccountModal,
   toggleAccountCreatedModal,
-  toggleTermOfUseBox,
 } from '../actions/modals';
 
 const user = (store) => (next) => (action) => {

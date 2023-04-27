@@ -7,9 +7,11 @@ import Form from 'react-bootstrap/Form';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import { useRef } from 'react';
 
-/**
- * Modal Login
- * @returns {JSX.Element}
+import './styles.scss';
+
+/** Modal Login: use to login to your account.
+ *
+ * @returns {JSX}
  */
 const LogModal = () => {
   const { isLogModalOpened, isLogFormValidated } = useSelector((state) => state.modals);
@@ -40,12 +42,14 @@ const LogModal = () => {
       size="sm"
       aria-labelledby="contained-modal-title-vcenter"
       backdrop="static"
+      className="loginModal"
+      centered
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">Se connecter</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Form onSubmit={handleSubmit} className="text-center login_form d-flex flex-column" ref={formRef}>
+        <Form onSubmit={handleSubmit} className="text-center" ref={formRef}>
           <Form.Group className="mb-3" controlId="inputLogin">
             <FloatingLabel label="Adresse mail">
               <Form.Control
@@ -57,7 +61,7 @@ const LogModal = () => {
               />
             </FloatingLabel>
           </Form.Group>
-          <Form.Group className="mb-3" controlId="inputPassword">
+          <Form.Group className="mb-1" controlId="inputPassword">
             <FloatingLabel label="Mot de passe">
               <Form.Control
                 type="password"
@@ -67,13 +71,13 @@ const LogModal = () => {
               />
             </FloatingLabel>
           </Form.Group>
-          <Button type="submit">Soumettre</Button>
           {isLogFormValidated
               && (
               <Form.Text className="text-danger fw-2">
                 email / mot de passe non valide.
               </Form.Text>
               )}
+          <Button type="submit" className="mt-3" id="submitLoginBtn">Soumettre</Button>
         </Form>
       </Modal.Body>
     </Modal>

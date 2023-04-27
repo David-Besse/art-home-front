@@ -1,0 +1,19 @@
+@use 'src/styles/vars';
+
+.loginModal .modal-content {
+  background-color: vars.$eggshell;
+  border-color: vars.$ochre;
+}
+
+#submitLoginBtn {
+  background-color: vars.$eggshell;
+  border-color: vars.$ochre;
+  color: vars.$ochre;
+  font-weight: bold;
+
+  &:hover, &:active{
+    background-color: vars.$ochre;
+    border-color: vars.$ochre;
+    color: vars.$eggshell;
+  }
+}
