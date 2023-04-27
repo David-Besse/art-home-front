@@ -2,6 +2,7 @@ import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import { useSelector } from 'react-redux';
+import { LinkContainer } from 'react-router-bootstrap';
 
 import './style.scss';
 
@@ -19,7 +20,9 @@ const ExhibitionsList = () => {
           {list.map((exhibition) => (
             <Col className="col-picture d-flex justify-content-center p-0" key={exhibition.slug}>
               <Card className="text-white card-info">
-                <Card.Img className="image-info" src={exhibition.picture} alt="Card image" />
+                <LinkContainer to={`/expositions/${exhibition.slug}`}>
+                  <Card.Img className="image-info" src={exhibition.picture} alt="Card image" />
+                </LinkContainer>
                 <Card.ImgOverlay className="exhibition-info">
                   <Card.Title className="title-info">{exhibition.title}</Card.Title>
                   <Card.Text className="description-info">Artistname</Card.Text>
