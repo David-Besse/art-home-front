@@ -4,15 +4,16 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import Home from 'src/components/Home';
 import Exhibitions from 'src/components/Exhibitions';
-// import OneExhibition from 'src/components/OneExhibition';
+import OneExhibition from 'src/components/OneExhibition';
 import Profile from 'src/components/Profile';
 import Disclaimer from 'src/components/Disclaimer';
 import Contact from 'src/components/Contact';
 import Error from 'src/components/Error';
 
-import { fetchExhibitions } from '../../actions/exhibitions';
-
 import './styles.scss';
+
+import { fetchExhibitions } from '../../actions/exhibitions';
+import { fetchPictures } from '../../actions/pictures';
 
 function App() {
   const dispatch = useDispatch();
@@ -20,14 +21,15 @@ function App() {
 
   useEffect(() => {
     dispatch(fetchExhibitions());
+    dispatch(fetchPictures());
   }, []);
 
   return (
-    <div className="app d-flex flex-column justify-content-between">
+    <div className="app d-flex flex-column justify-content-around">
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/expositions" element={<Exhibitions />} />
-        {/* <Route path="/expositions/{:slug}" element={<OneExhibition />} */}
+        <Route path="/expositions/:slug" element={<OneExhibition />} />
         {logged && <Route path="/profil" element={<Profile />} />}
         <Route path="/mentions-legales" element={<Disclaimer />} />
         <Route path="/contact" element={<Contact />} />

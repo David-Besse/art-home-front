@@ -1,10 +1,21 @@
 @use 'reset';
 @use 'vars';
-
+@import url(https://fonts.bunny.net/css?family=albert-sans:300|averia-libre:300);
 @import '~bootstrap/scss/bootstrap';
 @import url(https://fonts.bunny.net/css?family=albert-sans:300%7Caveria-libre:300);
 
 body {
-  font-family: 'Albert Sans', sans-serif; 
+  font-family: 'Albert Sans', sans-serif;
+  color: #211f18;
 }
 
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Averia Libre', display;
+  color: #cc920d;
+}
+
+.button {
+  background-color: #d0b9ae;
+  border: none;
+  color: #211f18;
+}

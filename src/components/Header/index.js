@@ -10,6 +10,8 @@ import { useNavigate } from 'react-router-dom';
 import LogModal from './LogModal';
 import NewAccountModal from './NewAccountModal';
 
+import './styles.scss';
+
 /**
  * Navbar
  * @returns {JSX.Element}
@@ -31,7 +33,7 @@ const Header = () => {
 
   return (
     <header>
-      <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+      <Navbar collapseOnSelect expand="lg" variant="dark">
         <Container>
           <LinkContainer to="/">
             <Navbar.Brand>Art@home</Navbar.Brand>

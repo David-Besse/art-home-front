@@ -3,7 +3,7 @@ import {
 } from '../actions/exhibitions';
 
 export const initialState = {
-  // list of all exhibition occuring at the moment
+  // list of all exhibition available at the moment
   list: [],
   isExhibitionsLoaded: false,
   artworks: [],

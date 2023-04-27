@@ -1,4 +1,5 @@
 import { LinkContainer } from 'react-router-bootstrap';
+import './styles.scss';
 
 /**
  * Footer with socials links
@@ -8,7 +9,7 @@ import { LinkContainer } from 'react-router-bootstrap';
  */
 const Footer = () => (
   <footer className="d-md-block d-none">
-    <div className="d-flex flex-wrap justify-content-between align-items-center py-3 border-top bg-dark footer-socials">
+    <div className="d-flex flex-wrap justify-content-between align-items-center py-3 border-top footer-socials">
       <div className="col-md-4 d-flex align-items-center">
         <LinkContainer to="/">
           <a className="ms-3 text-muted text-decoration-none lh-1">

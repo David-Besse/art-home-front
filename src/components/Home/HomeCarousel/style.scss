@@ -8,12 +8,10 @@
 }
 
 .carousel-title {
-  color: goldenrod; 
   font-weight: bold;
   font-variant-caps:all-small-caps;
   font-size:4rem;
-  font-family: 'Akshar', sans-serif;
-  //font-family: 'Allerta Stencil', sans-serif;
+  line-height: 0.8;
   margin-bottom: 0;
   text-align: center;
 }
@@ -23,7 +21,7 @@
 } 
 
 .carousel-caption{
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.65);
   padding-left: 1rem;
   padding-right: 1rem;
   bottom: 2%;
@@ -33,7 +31,7 @@
 }
 
 @media screen and  (orientation: portrait){
-  img {
+  .image-cover {
   height: 55vh;
 }
   .carousel-caption{
@@ -48,13 +46,13 @@
 }
 
 @media screen and  (min-width: 768px) and (max-width:1199px){
-  img {
+  .image-cover {
     height: 65vh;
   }
 }
 
 @media screen and  (min-width: 1200px){
-  img {
+  .image-cover {
   height: 75vh;
 }
 }
