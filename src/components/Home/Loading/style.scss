@@ -32,7 +32,7 @@
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  color: vars.$color;
+  color: vars.$ochre;
   font-size: 2em;
   animation: fade .75s infinite alternate;
 
@@ -40,7 +40,7 @@
     content: "";
     height: 0.2em;
     width: 100%;
-    background-color: vars.$color;
+    background-color: vars.$ochre;
     opacity: .3;
     position: absolute;
     top: calc(75% + 0.2em);
