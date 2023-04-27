@@ -11,7 +11,9 @@ const exhibitionsMiddleware = (store) => (next) => (action) => {
     case FETCH_EXHIBITIONS:
       axios.get('http://mathieuzagar-server.eddi.cloud/projet-12-art-at-home-back/public/api/exhibitions/homepage')
         .then((response) => {
-          store.dispatch(saveExhibitions(response.data));
+          setTimeout(() => {
+            store.dispatch(saveExhibitions(response.data));
+          }, 1500);
         })
         .catch((error) => {
           console.warn(error);
