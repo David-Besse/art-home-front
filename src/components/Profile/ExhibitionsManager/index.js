@@ -70,7 +70,7 @@ const ExhibitionsManager = () => {
     };
 
     const result = changedFields(updateArtwork, currentArtwork);
-    console.log('result :', result);
+
     if (result.length > 0) {
       handleUpdateUserArtwork(artwork.id, updateArtwork);
       handleShowExhibition(artwork.exhibition.id);
