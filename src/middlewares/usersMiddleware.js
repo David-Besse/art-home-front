@@ -15,6 +15,7 @@ import {
   toggleNewAccountModal,
   toggleInformationModal,
 } from '../actions/modals';
+import { saveUserToLocalStorage } from '../utils/localStorage';
 
 const user = (store) => (next) => (action) => {
   switch (action.type) {
@@ -43,6 +44,7 @@ const user = (store) => (next) => (action) => {
             )
             .then((res) => {
               store.dispatch(saveUserData(res.data));
+              saveUserToLocalStorage(store.getState().users);
             })
             .catch((error) => {
               console.warn('Une erreur est survenu lors de la récupération du token', error);

@@ -3,6 +3,7 @@ import {
   SAVE_AUTH_DATA, SAVE_USER_DATA,
   HANDLE_LOGIN_OFF,
   SAVE_USER_EXHIBITIONS_LIST,
+  SAVE_USER_DATA_FROM_LOCALSTORAGE,
 } from '../actions/users';
 
 export const initialState = {
@@ -74,6 +75,23 @@ const reducer = (state = initialState, action = {}) => {
         exhibitions: action.exhibitions,
         exhibitionName: '',
         exhibitionDescription: '',
+      };
+    case SAVE_USER_DATA_FROM_LOCALSTORAGE:
+      return {
+        ...state,
+        nickname: action.nickname,
+        lastName: action.lastName,
+        firstName: action.firstName,
+        avatar: action.avatar,
+        birthday: action.birthday,
+        presentation: action.presentation,
+        role: action.role,
+        email: action.email,
+        logged: action.logged,
+        exhibitionDescription: action.exhibitionDescription,
+        exhibitionName: action.exhibitionName,
+        exhibitions: action.exhibitions,
+        token: action.token,
       };
     default:
       return state;

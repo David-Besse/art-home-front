@@ -14,6 +14,8 @@ import './styles.scss';
 
 import { fetchExhibitions } from '../../actions/exhibitions';
 import { fetchPictures } from '../../actions/pictures';
+import { getUserFromLocalStorage } from '../../utils/localStorage';
+import { saveUserDataFromLocalStorage } from '../../actions/users';
 
 function App() {
   const dispatch = useDispatch();
@@ -22,6 +24,13 @@ function App() {
   useEffect(() => {
     dispatch(fetchExhibitions());
     dispatch(fetchPictures());
+  }, []);
+
+  useEffect(() => {
+    const userFromLocalStorage = getUserFromLocalStorage();
+    if (userFromLocalStorage !== null) {
+      dispatch(saveUserDataFromLocalStorage(userFromLocalStorage));
+    }
   }, []);
 
   return (
