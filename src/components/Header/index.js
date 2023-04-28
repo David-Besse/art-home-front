@@ -12,6 +12,7 @@ import LogModal from './LogModal';
 import NewAccountModal from './NewAccountModal';
 
 import './styles.scss';
+import Logo from '../../../public/images/logo/logo.png';
 
 /**
  * Navbar
@@ -37,7 +38,7 @@ const Header = () => {
       <Navbar collapseOnSelect expand="lg">
         <Container>
           <div className="d-flex align-items-center">
-            <Image src="images/logo/logo.png" alt="logo art at home" className="me-2 imageLogo" />
+            <Image src={Logo} alt="logo art at home" className="me-2 imageLogo" />
             <LinkContainer to="/">
               <Navbar.Brand>Art@home</Navbar.Brand>
             </LinkContainer>
