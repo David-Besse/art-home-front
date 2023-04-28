@@ -36,8 +36,8 @@ const Header = () => {
     <header>
       <Navbar collapseOnSelect expand="lg">
         <Container>
-          <div>
-            <Image src="images/logo/logo.png" alt="logo art at home" fluid className="imageLogo" />
+          <div className="d-flex align-items-center">
+            <Image src="images/logo/logo.png" alt="logo art at home" className="me-2 imageLogo" />
             <LinkContainer to="/">
               <Navbar.Brand>Art@home</Navbar.Brand>
             </LinkContainer>

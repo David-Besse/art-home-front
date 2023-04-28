@@ -35,6 +35,7 @@ const NewAccountModal = () => {
 
   const handleNewAccountModal = () => {
     dispatch(toggleNewAccountModal());
+    setFormValidated(false);
   };
 
   const handleAccountCreatedModal = () => {
