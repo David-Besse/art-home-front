@@ -50,12 +50,16 @@
 }
 
 @media screen and (min-width:768px){
+  .all-exhibitions {
+    overflow: scroll;
+  }
   .card-info {
     // height: 70vh;
     margin-bottom: 1rem;
     width: 45vw;
   }
 }
+
 
 @media screen and (min-width:1024px){
   .page-title {
