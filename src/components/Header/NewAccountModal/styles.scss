@@ -15,6 +15,10 @@
   border-color: vars.$ochre;
 }
 
+.informationModal .modal-content{
+  background-color: vars.$eggshell;
+}
+
 #submitNewAccountBtn {
   background-color: vars.$eggshell;
   border-color: vars.$ochre;
@@ -27,3 +31,8 @@
     color: vars.$eggshell;
   }
 }
+
+#passwordHelpBlock{
+  font-size: 0.7em;
+}
+

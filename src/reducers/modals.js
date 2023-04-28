@@ -1,7 +1,7 @@
 import {
   TOGGLE_LOGIN_MODAL, CHANGE_INPUT_FIELDS_VALIDATION,
   TOGGLE_NEW_ACCOUNT_MODAL, SHOW_MESSAGE_INFORMATION,
-  TOGGLE_ACCOUNT_CREATED_MODAL,
+  TOGGLE_INFORMATION_MODAL,
   TOGGLE_EXHIBITION_CREATION_MODAL, TOGGLE_ARTWORK_CREATION_MODAL,
 } from '../actions/modals';
 
@@ -39,7 +39,7 @@ const reducer = (state = initialState, action = {}) => {
         isMessageDisplayed: action.display,
         message: action.message,
       };
-    case TOGGLE_ACCOUNT_CREATED_MODAL:
+    case TOGGLE_INFORMATION_MODAL:
       return {
         ...state,
         isMessageModalOpened: !state.isMessageModalOpened,

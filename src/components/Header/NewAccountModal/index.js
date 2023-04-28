@@ -2,7 +2,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { submitNewAccount } from 'src/actions/users';
 import {
   showMessageInformation,
-  toggleAccountCreatedModal,
+  toggleInformationModal,
   toggleNewAccountModal,
 } from 'src/actions/modals';
 import Modal from 'react-bootstrap/Modal';
@@ -38,8 +38,8 @@ const NewAccountModal = () => {
   };
 
   const handleAccountCreatedModal = () => {
-    dispatch(toggleAccountCreatedModal());
-    dispatch(showMessageInformation(false));
+    dispatch(toggleInformationModal());
+    dispatch(showMessageInformation(false, 'Le compte a été créé, vous pouvez vous connecter'));
   };
 
   const handleSubmit = (event) => {
@@ -48,16 +48,15 @@ const NewAccountModal = () => {
     const form = event.currentTarget;
     const formData = new FormData(event.target); // we create a new object FormData
     const newAccountData = Object.fromEntries(formData.entries()); // we retrieved data from formData
-    console.log(newAccountData);
 
-    if (newAccountData.password !== newAccountData.confirmPassword) {
-      dispatch(toggleAccountCreatedModal());
-      dispatch(showMessageInformation(true, 'Les mots de passe ne correspondent pas.'));
-      event.stopPropagation();
-    }
-    else if (!form.reportValidity()) {
+    if (!form.reportValidity()) {
       event.stopPropagation();
       setFormValidated(true);
+    }
+    else if (newAccountData.password !== newAccountData.confirmPassword) {
+      dispatch(toggleInformationModal());
+      dispatch(showMessageInformation(true, 'Les mots de passe ne correspondent pas.'));
+      event.stopPropagation();
     }
     else {
       dispatch(showMessageInformation(false));
@@ -70,7 +69,7 @@ const NewAccountModal = () => {
       <Modal
         show={isNewAccountModalOpened}
         onHide={handleNewAccountModal}
-        size="lg"
+        size="md"
         aria-labelledby="new-account-modal"
         backdrop="static"
         centered
@@ -80,7 +79,7 @@ const NewAccountModal = () => {
           <Modal.Title id="contained-modal-title-vcenter">Créer un compte</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form noValidate validated={formValidated} onSubmit={handleSubmit} style={{ textAlign: 'center' }} ref={formRef}>
+          <Form noValidate validated={formValidated} onSubmit={handleSubmit} ref={formRef} className="d-flex flex-column">
             <Row className="mb-3">
               <Form.Group as={Col} controlId="inputLastName">
                 <FloatingLabel label="Nom" className="mb-3">
@@ -116,6 +115,7 @@ const NewAccountModal = () => {
                   type="email"
                   placeholder="Email"
                   name="email"
+                  pattern="^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+.[a-z]{2,4}$"
                 />
                 <Form.Control.Feedback type="invalid">
                   Email invalide / manquant.
@@ -123,13 +123,14 @@ const NewAccountModal = () => {
               </FloatingLabel>
             </Form.Group>
             <Form.Group controlId="inputPassword">
-              <FloatingLabel label="Mot de passe" className="mb-3">
+              <FloatingLabel label="Mot de passe*" className="mb-3">
                 <Form.Control
                   required
                   type="password"
                   placeholder="Mot de passe"
                   name="password"
-                  pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&\*()_+]{8,}$"
+                  pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$"
+                  aria-describedby="passwordHelpBlock"
                 />
                 <Form.Control.Feedback type="invalid">
                   Mot de passe invalide.
@@ -137,13 +138,13 @@ const NewAccountModal = () => {
               </FloatingLabel>
             </Form.Group>
             <Form.Group controlId="inputConfirmPassword">
-              <FloatingLabel label="Confirmer le mot de passe" className="mb-3">
+              <FloatingLabel label="Confirmer le mot de passe*" className="mb-3">
                 <Form.Control
                   required
                   type="password"
                   placeholder="Confirmer le mot de passe"
                   name="confirmPassword"
-                  pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&\*()_+]{8,}$"
+                  pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$"
                 />
                 <Form.Control.Feedback type="invalid">
                   Mot de passe invalide.
@@ -158,12 +159,17 @@ const NewAccountModal = () => {
                 feedbackType="invalid"
               />
             </Form.Group>
-            <Button type="submit" id="submitNewAccountBtn">Soumettre</Button>
+            <Button type="submit" id="submitNewAccountBtn" className="align-self-center">Soumettre</Button>
           </Form>
         </Modal.Body>
+        <Modal.Footer>
+          <Form.Text id="passwordHelpBlock" muted>
+            * Le mot de passe doit contenir au moins 8 charactères, au moins une lettre en majuscule, au moins un chiffre, au moins un charactère spécial [ !@#$%^&*()_+ ] et ne doit pas contenir d'espace.
+          </Form.Text>
+        </Modal.Footer>
       </Modal>
 
-      <Modal show={isMessageModalOpened} onHide={handleAccountCreatedModal}>
+      <Modal show={isMessageModalOpened} onHide={handleAccountCreatedModal} className="informationModal">
         {!isMessageDisplayed
         && <Modal.Body className="normalInformation text-center">{message}</Modal.Body>}
         {isMessageDisplayed
