@@ -5,6 +5,7 @@ import { wipeData } from 'src/actions/exhibitions';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
+import { Image } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import LogModal from './LogModal';
@@ -33,11 +34,14 @@ const Header = () => {
 
   return (
     <header>
-      <Navbar collapseOnSelect expand="lg" variant="dark">
+      <Navbar collapseOnSelect expand="lg">
         <Container>
-          <LinkContainer to="/">
-            <Navbar.Brand>Art@home</Navbar.Brand>
-          </LinkContainer>
+          <div>
+            <Image src="images/logo/logo.png" alt="logo art at home" fluid className="imageLogo" />
+            <LinkContainer to="/">
+              <Navbar.Brand>Art@home</Navbar.Brand>
+            </LinkContainer>
+          </div>
           {nickname !== ''
             && (
             <Navbar.Text className="d-lg-none">
@@ -76,7 +80,7 @@ const Header = () => {
 
               {logged && (
               <Nav.Link eventKey={7} onClick={handleLogout} className="d-flex align-items-center">
-                <Navbar.Text className="d-none d-lg-flex text-white me-2">
+                <Navbar.Text className="d-none d-lg-flex me-2 welcomeMessage">
                   Bienvenue {role} {nickname}
                 </Navbar.Text>
                 <svg xmlns="http://www.w3.org/2000/svg" width="1.6em" height="1.6em" fill="currentColor" className="bi bi-box-arrow-right" viewBox="0 0 16 16">

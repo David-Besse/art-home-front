@@ -8,15 +8,21 @@ body {
   font-family: 'Albert Sans', sans-serif;
   color: #211f18;
   margin-bottom: 0;
+  background-color: vars.$eggshell;
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Averia Libre', display;
-  color: #cc920d;
+  color: vars.$ochre;
 }
 
 .button {
   background-color: #d0b9ae;
   border: none;
   color: #211f18;
+}
+
+.form-control:focus {
+  border-color: vars.$ochre;
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 8px rgba(204, 146, 13, 0.5);
 }

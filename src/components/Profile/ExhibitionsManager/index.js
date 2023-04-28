@@ -75,7 +75,6 @@ const ExhibitionsManager = () => {
       handleUpdateUserArtwork(artwork.id, updateArtwork);
       handleShowExhibition(currentArtwork.exhibition);
       handleShowExhibition(currentArtwork.exhibition);
-      // dispatch(showSelectedExhibition(currentArtwork.exhibition));
     }
 
     handleArtworkEditing();
@@ -266,6 +265,7 @@ const ExhibitionsManager = () => {
                   </Button>
                 </>
               )}
+
             </div>
           </div>
           <div className="d-flex flex-raw mb-3">
@@ -310,15 +310,16 @@ const ExhibitionsManager = () => {
                   </Dropdown.Item>
                 ))}
             </DropdownButton>
+
           </div>
           <div className="d-flex flex-raw mb-3 border-top">
-            <h2 className="py-1 px-1">
+            <h2 className="py-1 px-1 w-25">
               {currentExhibition
             && currentExhibition.title}
             </h2>
-            <p className="fw-2 py-1 px-1 text-center align-self-center">
+            <p className="fw-2 py-1 px-1 text-center w-75">
               {currentExhibition
-            && currentExhibition.description}
+                  && currentExhibition.description}
             </p>
           </div>
         </div>

@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,600,700');
 @import url('https://fonts.googleapis.com/css?family=Catamaran:400,800');
+
 .error-container {
   text-align: center;
   font-size: 106px;
@@ -105,38 +106,26 @@
 }
 
 /* demo stuff */
-* {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-}
-body {
-  background-color: #FDFAF5;
-}
-.app {
-  height: 100vh;
-}
 .error-div{
   height: 100vh;
 }
 
-html, button, input, select, textarea {
-  font-family: 'Montserrat', Helvetica, sans-serif;
-  color: #bbb;
-}
-h1 {
+.h1Error {
   text-align: center;
   margin: 30px 15px;
 }
+
 .zoom-area { 
   max-width: 490px;
   margin: 30px auto 30px;
   font-size: 19px;
   text-align: center;
 }
+
 .link-container {
   text-align: center;
 }
+
 a.more-link {
   text-transform: uppercase;
   font-size: 13px;
@@ -153,11 +142,24 @@ a.more-link {
   letter-spacing: 1px;
 }
 
-.button {
-  transition: background-color 0.8s, border-radius 1s, color 1s;
+#buttonError {
+  transition: background-color 0.4s, color 0.4s;
+  background-color: #d0b9ae;
+  border: none;
+  color:#211F18;
 }
 
-.button:hover{
+#buttonError:hover{
   background-color: #cc920d;
-  color:#211F18;
+  color: white;
+}
+
+@media screen and  (max-width: 767px){
+  .h1Error {
+    margin: 1em;
+  }
+
+  .error-container{
+    margin: 0 0.7em 0 0.7em;
+  }
 }

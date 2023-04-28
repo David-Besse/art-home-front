@@ -2,7 +2,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { submitNewAccount } from 'src/actions/users';
 import {
   showMessageInformation,
-  toggleAccountCreatedModal,
+  toggleInformationModal,
   toggleNewAccountModal,
 } from 'src/actions/modals';
 import Modal from 'react-bootstrap/Modal';
@@ -11,7 +11,9 @@ import Form from 'react-bootstrap/Form';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
+
+import './styles.scss';
 
 /**
  * Modal New Account
@@ -29,24 +31,37 @@ const NewAccountModal = () => {
 
   const formRef = useRef(null);
 
+  const [formValidated, setFormValidated] = useState(false);
+
   const handleNewAccountModal = () => {
     dispatch(toggleNewAccountModal());
   };
 
   const handleAccountCreatedModal = () => {
-    dispatch(toggleAccountCreatedModal());
-    dispatch(showMessageInformation(false));
+    dispatch(toggleInformationModal());
+    dispatch(showMessageInformation(false, 'Le compte a été créé, vous pouvez vous connecter'));
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
     const form = event.currentTarget;
-    if (form.checkValidity() === false) {
-      event.stopPropagation();
-    }
     const formData = new FormData(event.target); // we create a new object FormData
     const newAccountData = Object.fromEntries(formData.entries()); // we retrieved data from formData
-    dispatch(submitNewAccount(newAccountData, formRef));
+
+    if (!form.reportValidity()) {
+      event.stopPropagation();
+      setFormValidated(true);
+    }
+    else if (newAccountData.password !== newAccountData.confirmPassword) {
+      dispatch(toggleInformationModal());
+      dispatch(showMessageInformation(true, 'Les mots de passe ne correspondent pas.'));
+      event.stopPropagation();
+    }
+    else {
+      dispatch(showMessageInformation(false));
+      dispatch(submitNewAccount(newAccountData, formRef));
+    }
   };
 
   return (
@@ -54,39 +69,41 @@ const NewAccountModal = () => {
       <Modal
         show={isNewAccountModalOpened}
         onHide={handleNewAccountModal}
-        size="lg"
+        size="md"
         aria-labelledby="new-account-modal"
         backdrop="static"
+        centered
+        className="newAccountModal"
       >
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">Créer un compte</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form onSubmit={handleSubmit} style={{ textAlign: 'center' }} ref={formRef}>
+          <Form noValidate validated={formValidated} onSubmit={handleSubmit} ref={formRef} className="d-flex flex-column">
             <Row className="mb-3">
               <Form.Group as={Col} controlId="inputLastName">
                 <FloatingLabel label="Nom" className="mb-3">
                   <Form.Control
+                    required
                     type="text"
                     placeholder="Nom"
-                    required
                     name="lastName"
                   />
                   <Form.Control.Feedback type="invalid">
-                    Votre nom est manquant.
+                    Votre nom est nécessaire.
                   </Form.Control.Feedback>
                 </FloatingLabel>
               </Form.Group>
               <Form.Group as={Col} controlId="inputFirstName">
                 <FloatingLabel label="Prénom" className="mb-3">
                   <Form.Control
+                    required
                     type="text"
                     placeholder="Prénom"
-                    required
                     name="firstName"
                   />
                   <Form.Control.Feedback type="invalid">
-                    prénom manquant.
+                    Votre prénom est nécessaire.
                   </Form.Control.Feedback>
                 </FloatingLabel>
               </Form.Group>
@@ -94,26 +111,43 @@ const NewAccountModal = () => {
             <Form.Group controlId="inputEmail">
               <FloatingLabel label="Email" className="mb-3">
                 <Form.Control
+                  required
                   type="email"
                   placeholder="Email"
-                  required
                   name="email"
+                  pattern="^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+.[a-z]{2,4}$"
                 />
                 <Form.Control.Feedback type="invalid">
-                  email invalide.
+                  Email invalide / manquant.
                 </Form.Control.Feedback>
               </FloatingLabel>
             </Form.Group>
             <Form.Group controlId="inputPassword">
-              <FloatingLabel label="Mot de passe" className="mb-3">
+              <FloatingLabel label="Mot de passe*" className="mb-3">
                 <Form.Control
+                  required
                   type="password"
                   placeholder="Mot de passe"
-                  required
                   name="password"
+                  pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$"
+                  aria-describedby="passwordHelpBlock"
                 />
                 <Form.Control.Feedback type="invalid">
-                  mot de passe manquant.
+                  Mot de passe invalide.
+                </Form.Control.Feedback>
+              </FloatingLabel>
+            </Form.Group>
+            <Form.Group controlId="inputConfirmPassword">
+              <FloatingLabel label="Confirmer le mot de passe*" className="mb-3">
+                <Form.Control
+                  required
+                  type="password"
+                  placeholder="Confirmer le mot de passe"
+                  name="confirmPassword"
+                  pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$"
+                />
+                <Form.Control.Feedback type="invalid">
+                  Mot de passe invalide.
                 </Form.Control.Feedback>
               </FloatingLabel>
             </Form.Group>
@@ -123,22 +157,23 @@ const NewAccountModal = () => {
                 label="Vous êtes d'accord avec nos conditions d'utilisations."
                 feedback="* vous devez accepter nos conditions d'utilisations."
                 feedbackType="invalid"
-                pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$"
               />
             </Form.Group>
-            <Button type="submit">Soumettre</Button>
+            <Button type="submit" id="submitNewAccountBtn" className="align-self-center">Soumettre</Button>
           </Form>
         </Modal.Body>
+        <Modal.Footer>
+          <Form.Text id="passwordHelpBlock" muted>
+            * Le mot de passe doit contenir au moins 8 charactères, au moins une lettre en majuscule, au moins un chiffre, au moins un charactère spécial [ !@#$%^&*()_+ ] et ne doit pas contenir d'espace.
+          </Form.Text>
+        </Modal.Footer>
       </Modal>
 
-      <Modal show={isMessageModalOpened} onHide={handleAccountCreatedModal}>
-        <Modal.Header closeButton>
-          <Modal.Title>Information</Modal.Title>
-        </Modal.Header>
+      <Modal show={isMessageModalOpened} onHide={handleAccountCreatedModal} className="informationModal">
         {!isMessageDisplayed
-        && <Modal.Body>{message}</Modal.Body>}
+        && <Modal.Body className="normalInformation text-center">{message}</Modal.Body>}
         {isMessageDisplayed
-        && <Modal.Body className="text-danger">{message}</Modal.Body>}
+        && <Modal.Body className="importantInformation text-danger text-center">{message}</Modal.Body>}
       </Modal>
     </>
   );

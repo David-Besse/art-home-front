@@ -3,7 +3,6 @@ import {
   SUBMIT_LOGIN,
   saveAuthData,
   saveUserData,
-  resetFormFields,
   SUBMIT_NEW_ACCOUNT,
   SUBMIT_PROFILE_UPDATE,
   SUBMIT_NEW_EXHIBITION,
@@ -14,8 +13,7 @@ import {
   toggleLoginModal,
   showMessageInformation,
   toggleNewAccountModal,
-  toggleAccountCreatedModal,
-  toggleTermOfUseBox,
+  toggleInformationModal,
 } from '../actions/modals';
 
 const user = (store) => (next) => (action) => {
@@ -23,7 +21,7 @@ const user = (store) => (next) => (action) => {
     case SUBMIT_LOGIN:
       axios
         .post(
-          'http://mathieuzagar-server.eddi.cloud/projet-12-art-at-home-back/public/api/login_check',
+          'http://aurelia-perrier.vpnuser.lan/Apotheose/projet-12-art-at-home-back/public/api/login_check',
           {
             username: action.payload.email,
             password: action.payload.password,
@@ -36,7 +34,7 @@ const user = (store) => (next) => (action) => {
           store.dispatch(toggleLoginModal());
           axios
             .get(
-              'http://mathieuzagar-server.eddi.cloud/projet-12-art-at-home-back/public/api/secure/users/profile',
+              'http://aurelia-perrier.vpnuser.lan/Apotheose/projet-12-art-at-home-back/public/api/secure/users/profile',
               {
                 headers: {
                   Authorization: `Bearer ${store.getState().users.token}`,
@@ -60,7 +58,7 @@ const user = (store) => (next) => (action) => {
       break;
     case SUBMIT_NEW_ACCOUNT:
       axios
-        .post('http://mathieuzagar-server.eddi.cloud/projet-12-art-at-home-back/public/api/users/new', {
+        .post('http://aurelia-perrier.vpnuser.lan/Apotheose/projet-12-art-at-home-back/public/api/users/new', {
           email: action.payload.email,
           password: action.payload.password,
           lastname: action.payload.lastName,
@@ -71,7 +69,7 @@ const user = (store) => (next) => (action) => {
           action.newAccountForm.current.reset();
           store.dispatch(toggleNewAccountModal());
           store.dispatch(showMessageInformation(false, 'Le compte a été créé !'));
-          store.dispatch(toggleAccountCreatedModal());
+          store.dispatch(toggleInformationModal());
         })
         .catch((error) => {
           console.warn(error);
@@ -88,13 +86,13 @@ const user = (store) => (next) => (action) => {
             store.dispatch(showMessageInformation(true, `${errorMessageObj[errorMessageName]}`));
           }
 
-          store.dispatch(toggleAccountCreatedModal());
+          store.dispatch(toggleInformationModal());
         });
       break;
     case SUBMIT_PROFILE_UPDATE:
       axios
         .patch(
-          'http://mathieuzagar-server.eddi.cloud/projet-12-art-at-home-back/public/api/secure/users/edit',
+          'http://aurelia-perrier.vpnuser.lan/Apotheose/projet-12-art-at-home-back/public/api/secure/users/edit',
           {
             email: store.getState().users.email,
             lastname: store.getState().users.lastName,
@@ -121,7 +119,7 @@ const user = (store) => (next) => (action) => {
     case SUBMIT_NEW_EXHIBITION:
       axios
         .post(
-          'http://mathieuzagar-server.eddi.cloud/projet-12-art-at-home-back/public/api/secure/exhibitions/new',
+          'http://aurelia-perrier.vpnuser.lan/Apotheose/projet-12-art-at-home-back/public/api/secure/exhibitions/new',
           {
             title: store.getState().users.exhibitionName,
             description: store.getState().users.exhibitionDescription,

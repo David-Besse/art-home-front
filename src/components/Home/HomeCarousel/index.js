@@ -10,20 +10,20 @@ const HomeCarousel = () => {
   const { list } = useSelector((state) => state.exhibitions);
 
   return (
-    <section className="home-carousel">
-      <Carousel fade className="carousel">
+    <section className="sectionCarousel">
+      <Carousel fade interval={4000}>
         {list.map((exhibition) => (
-          <Carousel.Item key={exhibition.id} interval={4000}>
+          <Carousel.Item key={exhibition.id}>
             <h1 className="carousel-title">{exhibition.title}</h1>
             <p className="carousel-artist">{exhibition.nickname}</p>
             <LinkContainer to={`/expositions/${exhibition.slug}`}>
               <img
-                className="d-block w-100 image-cover"
+                className="carousel-image"
                 src={exhibition.picture}
                 alt={exhibition.slug}
               />
             </LinkContainer>
-            <Carousel.Caption className="carousel-caption">
+            <Carousel.Caption>
               <p>{exhibition.description}</p>
             </Carousel.Caption>
           </Carousel.Item>

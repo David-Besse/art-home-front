@@ -1,0 +1,38 @@
+@use 'src/styles/vars';
+
+.modal-content .importantInformation{
+  border: 1px solid red;
+  border-radius: 5px;
+}
+
+.modal-content .normalInformation{
+  border: 1px solid green;
+  border-radius: 5px;
+}
+
+.newAccountModal .modal-content{
+  background-color: vars.$eggshell;
+  border-color: vars.$ochre;
+}
+
+.informationModal .modal-content{
+  background-color: vars.$eggshell;
+}
+
+#submitNewAccountBtn {
+  background-color: vars.$eggshell;
+  border-color: vars.$ochre;
+  color: vars.$ochre;
+  font-weight: bold;
+
+  &:hover, &:active {
+    background-color: vars.$ochre;
+    border-color: vars.$ochre;
+    color: vars.$eggshell;
+  }
+}
+
+#passwordHelpBlock{
+  font-size: 0.7em;
+}
+
