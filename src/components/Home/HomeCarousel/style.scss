@@ -9,29 +9,26 @@
 
 .carousel {
   width: 80%;
-  // padding-bottom: 2em;
+  display: flex;
+  flex-direction: column;
+}
+
+.carousel-indicators {
+  margin-bottom: 2rem;
+  top: 5em;
 }
 
 .carousel-inner {
   height: 100%;
   width: 100%;
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
-  border: 2px solid black;
 }
 
 .carousel-item {
   height: 100%;
-  width: auto;
-  border: 2px solid black;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  width: 100%;
 }
 
 .carousel-title {
-  // display: none;
-  height: 5%;
   font-weight: bold;
   font-variant-caps: all-small-caps;
   font-size: 3em;
@@ -41,33 +38,31 @@
 }
 
 .carousel-artist {
-  // display: none;
-  height: 2%;
   text-align: center;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 0;
 }
 
 .carousel-image {
-  // display: none;
-  height: 93%;
+  height: 89%;
   width: 98%;
+  position: relative;
+  left: 1%;
   object-fit: cover;
-  border-top-right-radius: 5px;
-  border-top-left-radius: 5px;
+  border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
 .carousel-caption {
-  display: none;
+  // display: none;
   background-color: rgba(0, 0, 0, 0.5);
   padding: 0.5em;
   bottom: 0.5em;
   text-align: center;
   border: 1px solid vars.$eggshell;
   border-radius: 10px;
-  right: 0.5em;
-  left: 0.5em;
+  right: 2em;
+  left: 2em;
+  bottom: 3em;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 
   & p {
@@ -76,8 +71,19 @@
 }
 
 @media screen and (max-width: 1023px) {
+  .sectionCarousel {
+    height: 100%;
+    width: 100%;
+  }
+
   .carousel {
     width: 100%;
     padding-bottom: 0;
+  }
+
+  .carousel-indicators {
+    margin-bottom: 0;
+    top: unset;
+    bottom: 1em;
   }
 }
