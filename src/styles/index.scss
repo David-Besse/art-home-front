@@ -11,15 +11,28 @@ body {
   background-color: vars.$eggshell;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: 'Averia Libre', display;
   color: vars.$ochre;
 }
 
-.button {
-  background-color: #d0b9ae;
-  border: none;
-  color: #211f18;
+.customButton {
+  background-color: vars.$eggshell;
+  border-color: vars.$ochre;
+  color: vars.$ochre;
+  font-weight: bold;
+
+  &:hover,
+  &:active {
+    background-color: vars.$ochre;
+    border-color: vars.$ochre;
+    color: vars.$eggshell;
+  }
 }
 
 .form-control:focus {

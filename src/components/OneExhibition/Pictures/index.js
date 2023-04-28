@@ -34,7 +34,7 @@ const Pictures = () => {
 
       {/* Presentation of the artist who created the exhibition */}
       <div className="artist-button">
-        <Button className="button" onClick={() => setModalShow(true)}>
+        <Button className="button customButton" onClick={() => setModalShow(true)}>
           Pour en savoir plus sur {artist.nickname}
         </Button>
       </div>

@@ -77,7 +77,7 @@ const LogModal = () => {
                 email / mot de passe non valide.
               </Form.Text>
               )}
-          <Button type="submit" className="mt-3" id="submitLoginBtn">Soumettre</Button>
+          <Button type="submit" className="mt-3 customButton" id="submitLoginBtn">Soumettre</Button>
         </Form>
       </Modal.Body>
     </Modal>
