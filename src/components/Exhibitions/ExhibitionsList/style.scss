@@ -14,7 +14,9 @@
 }
 .card-info {
   border:none;
-  height: 70vh;
+  border-radius: 5px;
+  box-shadow: 0 0 5px 5px rgba(33, 31, 24, 0.3);
+  // height: 70vh;
   margin-bottom: 1rem;
   padding: 0.5rem;
   width: 95vw;
@@ -37,38 +39,37 @@
 }
     
 .exhibition-info {
+  border-top: vars.$dark-light solid 1px;
   height: 35%;
+  padding-top: 0.3rem;
   overflow: auto;
   
 }
 .description-info {
   color: vars.$dark;
-  font-size: 0.92rem;
+  font-size: 0.85rem;
 }
 
 @media screen and (min-width:768px){
   .card-info {
-    height: 70vh;
+    // height: 70vh;
     margin-bottom: 1rem;
     width: 45vw;
   }
 }
 
 @media screen and (min-width:1024px){
+  .page-title {
+    font-size: 3.2rem;
+  }
   .card-info {
-    height: 70vh;
+    height: 74vh;
     margin-bottom: 1rem;
     width: 30vw;
-    transition: all 1.5s, linear;
+    transition: all 1.5s, ease-in-out;
       &:hover {
-        transform: scale(1.05);
+        transform: scale(0.95);
       }
   }
-/*   .exhibition-info{
-    margin-top: 1rem;
-      &:hover{
-      box-shadow: rgba(123, 120, 112, 0.5) 0px 0px 5PX 10px;
-    } 
-  }*/
-  
+
 }
