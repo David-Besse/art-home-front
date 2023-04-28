@@ -3,6 +3,7 @@
 import { useSelector } from 'react-redux';
 import { LinkContainer } from 'react-router-bootstrap';
 import Carousel from 'react-bootstrap/Carousel';
+import Image from 'react-bootstrap/Image';
 
 import './style.scss';
 
@@ -17,7 +18,7 @@ const HomeCarousel = () => {
             <h1 className="carousel-title">{exhibition.title}</h1>
             <p className="carousel-artist">{exhibition.nickname}</p>
             <LinkContainer to={`/expositions/${exhibition.slug}`}>
-              <img
+              <Image
                 className="carousel-image"
                 src={exhibition.picture}
                 alt={exhibition.slug}
