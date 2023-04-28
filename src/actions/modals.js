@@ -2,7 +2,7 @@ export const TOGGLE_LOGIN_MODAL = 'TOGGLE_LOGIN_MODAL';
 export const CHANGE_INPUT_FIELDS_VALIDATION = 'CHANGE_INPUT_FIELDS_VALIDATION';
 export const TOGGLE_NEW_ACCOUNT_MODAL = 'TOGGLE_NEW_ACCOUNT_MODAL';
 export const SHOW_MESSAGE_INFORMATION = 'SHOW_MESSAGE_INFORMATION';
-export const TOGGLE_ACCOUNT_CREATED_MODAL = 'TOGGLE_ACCOUNT_CREATED_MODAL';
+export const TOGGLE_INFORMATION_MODAL = 'TOGGLE_INFORMATION_MODAL';
 export const TOGGLE_EXHIBITION_CREATION_MODAL = 'TOGGLE_EXHIBITION_CREATION_MODAL';
 export const TOGGLE_ARTWORK_CREATION_MODAL = 'TOGGLE_ARTWORK_CREATION_MODAL';
 
@@ -25,8 +25,8 @@ export const showMessageInformation = (display, text) => ({
   message: text,
 });
 
-export const toggleAccountCreatedModal = () => ({
-  type: TOGGLE_ACCOUNT_CREATED_MODAL,
+export const toggleInformationModal = () => ({
+  type: TOGGLE_INFORMATION_MODAL,
 });
 
 export const toggleExhibitionCreationModal = () => ({

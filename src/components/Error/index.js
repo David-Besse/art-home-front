@@ -12,9 +12,9 @@ const Error = () => (
         <span className="zero"><span className="screen-reader-text">0</span></span>
         <span className="four"><span className="screen-reader-text">4</span></span>
       </section>
-      <h1>Serait-ce un syndrome de la page blanche ?</h1>
+      <h1 className="h1Error">Serait-ce un syndrome de la page blanche ?</h1>
       <LinkContainer to="/">
-        <Button className="button">Retourner vers la page d'accueil</Button>
+        <Button id="buttonError">Retourner vers la page d'accueil</Button>
       </LinkContainer>
     </div>
   </Page>

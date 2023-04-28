@@ -1,59 +1,83 @@
-.image-cover {
- object-fit: cover;
+@use 'src/styles/vars';
+
+.sectionCarousel {
+  height: calc(100vh - 16vh);
+  width: 100vw;
+  display: flex;
+  justify-content: center;
 }
 
-.carousel{
-  margin-top: .5rem;
-  margin-bottom: 1rem;
+.carousel {
+  width: 80%;
+  // padding-bottom: 2em;
+}
+
+.carousel-inner {
+  height: 100%;
+  width: 100%;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border: 2px solid black;
+}
+
+.carousel-item {
+  height: 100%;
+  width: auto;
+  border: 2px solid black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .carousel-title {
+  // display: none;
+  height: 5%;
   font-weight: bold;
-  font-variant-caps:all-small-caps;
-  font-size:4rem;
+  font-variant-caps: all-small-caps;
+  font-size: 3em;
   line-height: 0.8;
   margin-bottom: 0;
   text-align: center;
 }
+
 .carousel-artist {
+  // display: none;
+  height: 2%;
   text-align: center;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-} 
+  margin: 0;
+}
 
-.carousel-caption{
-  background-color: rgba(0, 0, 0, 0.65);
-  padding-left: 1rem;
-  padding-right: 1rem;
-  bottom: 2%;
-  left: 0%; 
-  right: 0%;
+.carousel-image {
+  // display: none;
+  height: 93%;
+  width: 98%;
+  object-fit: cover;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.carousel-caption {
+  display: none;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 0.5em;
+  bottom: 0.5em;
   text-align: center;
-}
+  border: 1px solid vars.$eggshell;
+  border-radius: 10px;
+  right: 0.5em;
+  left: 0.5em;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 
-@media screen and  (orientation: portrait){
-  .image-cover {
-  height: 55vh;
-}
-  .carousel-caption{
-  font-size: 0.8rem;
-}
-}
-
-@media screen and  (min-width: 768px){
-  .carousel-caption{
-    font-size: 1rem;
+  & p {
+    margin-bottom: 0;
   }
 }
 
-@media screen and  (min-width: 768px) and (max-width:1199px){
-  .image-cover {
-    height: 65vh;
+@media screen and (max-width: 1023px) {
+  .carousel {
+    width: 100%;
+    padding-bottom: 0;
   }
 }
-
-@media screen and  (min-width: 1200px){
-  .image-cover {
-  height: 75vh;
-}
-}
-

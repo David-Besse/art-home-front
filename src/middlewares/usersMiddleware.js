@@ -13,7 +13,7 @@ import {
   toggleLoginModal,
   showMessageInformation,
   toggleNewAccountModal,
-  toggleAccountCreatedModal,
+  toggleInformationModal,
 } from '../actions/modals';
 
 const user = (store) => (next) => (action) => {
@@ -69,7 +69,7 @@ const user = (store) => (next) => (action) => {
           action.newAccountForm.current.reset();
           store.dispatch(toggleNewAccountModal());
           store.dispatch(showMessageInformation(false, 'Le compte a été créé !'));
-          store.dispatch(toggleAccountCreatedModal());
+          store.dispatch(toggleInformationModal());
         })
         .catch((error) => {
           console.warn(error);
@@ -86,7 +86,7 @@ const user = (store) => (next) => (action) => {
             store.dispatch(showMessageInformation(true, `${errorMessageObj[errorMessageName]}`));
           }
 
-          store.dispatch(toggleAccountCreatedModal());
+          store.dispatch(toggleInformationModal());
         });
       break;
     case SUBMIT_PROFILE_UPDATE:
