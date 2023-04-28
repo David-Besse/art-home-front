@@ -160,7 +160,7 @@ const NewAccountModal = () => {
                 feedbackType="invalid"
               />
             </Form.Group>
-            <Button type="submit" id="submitNewAccountBtn" className="align-self-center">Soumettre</Button>
+            <Button type="submit" id="submitNewAccountBtn" className="align-self-center customButton">Soumettre</Button>
           </Form>
         </Modal.Body>
         <Modal.Footer>

@@ -14,7 +14,7 @@ const Error = () => (
       </section>
       <h1 className="h1Error">Serait-ce un syndrome de la page blanche ?</h1>
       <LinkContainer to="/">
-        <Button id="buttonError">Retourner vers la page d'accueil</Button>
+        <Button className="customButton" id="buttonError">Retourner vers la page d'accueil</Button>
       </LinkContainer>
     </div>
   </Page>
