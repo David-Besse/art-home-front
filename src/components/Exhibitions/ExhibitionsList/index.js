@@ -8,12 +8,12 @@ const ExhibitionsList = () => {
   const { list } = useSelector((state) => state.exhibitions);
 
   return (
-    <div className="all-exhibitions d-flex flex-column">
+    <div className="all-exhibitions">
 
-      <h1 className="page-title my-3">NOS EXPOSITIONS</h1>
+      <h1 className="page-title mb-5 mt-3">NOS EXPOSITIONS</h1>
 
       {/* Showcase of all the picture included in the exhibiton */}
-      <div className="mb-4 d-flex flex-wrap justify-content-around exhibition-container">
+      <div className="exhibition-container mb-4">
         {list.map((exhibition) => (
           <LinkContainer to={`/expositions/${exhibition.slug}`} key={exhibition.slug}>
             <Card className="text-white card-info">

@@ -1,83 +1,139 @@
 @use 'src/styles/vars';
 
+
+// hide browser scrollbar without disabling its functionality
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  background-color: transparent;
+}
+body {
+  scrollbar-width: thin;
+}
+// --------------------------
+
 .all-exhibitions {
-  margin-left: 1rem;
-  margin-right: 1rem;
-}
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
 
-.page-title{
-  font-weight: bold;
-  text-align: center;
-}
-
-.exhibition-container {
-  gap: 0.5rem;
-}
-.card-info {
-  border:none;
-  border-radius: 5px;
-  box-shadow: 0 0 5px 5px rgba(33, 31, 24, 0.3);
-  margin-bottom: 1rem;
-  padding: 0.5rem;
-  width: 95vw;
-
-    .image-info {
-      object-fit: cover;
-      overflow: hidden;
-      height: 65%;
-      margin-bottom: 0.4rem;
-    }
-
-    .title-info {
-      font-size: 1.2rem;
-      margin-bottom: 0.3rem;
-    }
-    .nickname-info {
-      color: vars.$dark;
-      margin-bottom: 0.3rem;
-    }
-}
-    
-.exhibition-info {
-  border-top: vars.$dark-light solid 1px;
-  padding-top: 0.3rem;
-  
-}
-.description-info {
-  color: vars.$dark;
-  font-size: 0.95rem;
-}
-
-@media screen and (min-width:768px){
-  .all-exhibitions {
-    overflow: scroll;
-  }
-  .page-title{
-    font-size: 2.5rem;
-  }
-  .card-info {
-    // height: 70vh;
-    margin-bottom: 1rem;
-    width: 45vw;
-  }
-}
-
-
-@media screen and (min-width:1024px){
   .page-title {
-    font-size: 3.2rem;
+    font-weight: bold;
+    text-align: center;
   }
-  .card-info {
-    height: 74vh;
-    margin-bottom: 1rem;
-    width: 30vw;
-    transition: all 1.5s, ease-in-out;
-      &:hover {
-        transform: scale(0.95);
+
+  .exhibition-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5em;
+
+    .card-info {
+      box-sizing: border-box;
+      min-height: auto;
+      max-width: 90%;
+      border: none;
+      border-radius: 5px;
+      box-shadow: 0 0 5px 5px rgb(208, 185, 174, 0.3);
+      margin-bottom: 2em;
+      padding: 0.5em;
+
+      .image-info {
+        object-fit: cover;
+        height: 65%;
+        margin-bottom: 0.4em;
       }
+
+      .title-info {
+        font-size: 1.2em;
+        margin-bottom: 0.3em;
+      }
+
+      .nickname-info {
+        color: vars.$dark;
+        margin-bottom: 0.3em;
+      }
+
+      .exhibition-info {
+        border-top: 1px solid vars.$dark-light;
+        padding-top: 0.3em;
+
+      }
+
+      .description-info {
+        color: vars.$dark;
+        font-size: 0.95em;
+      }
+    }
   }
-  .exhibition-info {
-    height: 35%;
-    overflow: auto;
+}
+
+@media screen and (min-width:768px) {
+  .exhibition-container {
+    gap: 1.5em;
+
+    .page-title {
+      font-size: 2em;
+    }
+
+    .card-info {
+      margin-bottom: 0em;
+      width: calc(45vw - 1em);
+      height: calc(45vw * 1.5);
+      margin-bottom: 0;
+
+      .image-info {
+        min-height: 60%;
+        max-height: 60%;
+        margin-bottom: 0.4em;
+      }
+
+      .card-text {
+        font-size: 0.8em;
+      }
+
+      .card-body {
+        overflow: auto;
+      }
+    }
+  }
+}
+
+@media screen and (min-width:1024px) {
+  .page-title {
+    font-size: 2.5em;
+  }
+
+  .exhibition-container {
+    gap: 2em;
+
+    .card-info {
+      width: 20vw;
+      height: calc(20vw * 1.5);
+      transition: all 1.5s, ease-in-out;
+  
+      .card-text {
+        font-size: 0.9em;
+      }
+  
+      &:hover {
+        transform: scale(1.05);
+        z-index: 500;
+        box-shadow: 0 0 5px 5px rgba(33, 31, 24, 0.25);
+      }
+    }
+  }
+}
+
+@media screen and (min-width:1440px) {
+  .page-title {
+    font-size: 2.5em;
+  }
+
+  .card-info {
+    height: calc(20vw * 1.8);
   }
 }
