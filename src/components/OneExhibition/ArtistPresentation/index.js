@@ -1,7 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { findExhibition } from 'src/selectors/pictures';
 import { useSelector } from 'react-redux';
-import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
 import './styles.scss';
@@ -13,9 +12,8 @@ const ArtistPresentation = (props) => {
   return (
     <Modal
       {...props}
-      size="lg"
+      size="md"
       aria-labelledby="contained-modal-title-vcenter"
-      centered
       className="artist-modal"
     >
       <Modal.Header closeButton>
@@ -24,11 +22,8 @@ const ArtistPresentation = (props) => {
       <Modal.Body className="d-flex flex-column align-items-center">
         <img src={artist.avatar} alt={artist.slug} className="avatar" />
         <h3 className="realname">de son véritable nom {artist.firstname} {artist.lastname}</h3>
-        <p className="presentation">{artist.presentation}</p>
+        <p className="presentation">&laquo; {artist.presentation} &raquo;</p>
       </Modal.Body>
-      <Modal.Footer className="justify-content-center">
-        <Button className="button customButton" onClick={props.onHide}>Retour à l'exposition</Button>
-      </Modal.Footer>
     </Modal>
   );
 };

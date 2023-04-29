@@ -4,14 +4,44 @@
   align-items: center;
 }
 
-.allExhibitions{
-  width:75%;
-  font-size: 1em;
+.allExhibitions {
+  width: 90%;
+  max-height: 100%;
+
+  .artwork-box{
+    font-size: 0.85em;
+  }
 }
 
-@media (max-width: 1399px) {
-  .allExhibitions {
-    width: 95%;
-    font-size: 0.75em;
+#validationBtn {
+  background-color: green;
+  color: white;
+  border: none;
+}
+
+@media (min-width: 768px) {
+  .artwork-image{
+    width: 60%;
+  }
+}
+
+@media (min-width: 1023px) {
+  .artworks-zone{
+    justify-content: center;
+    gap: 1em;
+  }
+
+  .artwork-box{
+    width: 80vw;
+    height: auto;
+    font-size: 0.7em;
+  }
+}
+
+@media (min-width: 1440px) {
+  .artwork-box{
+    width: 40vw;
+    height: auto;
+    font-size: 0.7em;
   }
 }

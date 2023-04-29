@@ -21,7 +21,7 @@ const exhibitionsMiddleware = (store) => (next) => (action) => {
       break;
     case FETCH_USER_ARTWORKS:
       axios.get(
-        `http://http://aurelia-perrier.vpnuser.lan:8000/api/secure/artworks/exhibitions/${action.payload}/profile`,
+        `http://aurelia-perrier.vpnuser.lan:8000/api/secure/artworks/exhibitions/${action.payload}/profile`,
         {
           headers: {
             Authorization: `Bearer ${store.getState().users.token}`,
@@ -32,12 +32,15 @@ const exhibitionsMiddleware = (store) => (next) => (action) => {
           store.dispatch(saveUserArtworks(response.data));
         })
         .catch((error) => {
-          console.warn(error);
+          // console.warn(error);
+          if (error.response.data.message === 'Expired JWT Token') {
+            alert("Impossible d'exécuter la demande, la session a expirée. Veuillez vous reconnecter.");
+          }
         });
       break;
     case UPDATE_USER_ARTWORK:
       axios.patch(
-        `http://http://aurelia-perrier.vpnuser.lan:8000/api/secure/artworks/${action.artworkId}/edit`,
+        `http://aurelia-perrier.vpnuser.lan:8000/api/secure/artworks/${action.artworkId}/edit`,
         {
           title: action.data.title,
           description: action.data.description,
@@ -50,8 +53,7 @@ const exhibitionsMiddleware = (store) => (next) => (action) => {
           },
         },
       )
-        .then((response) => {
-          console.log(response.data);
+        .then(() => {
         })
         .catch((error) => {
           console.warn(error);
@@ -59,7 +61,7 @@ const exhibitionsMiddleware = (store) => (next) => (action) => {
       break;
     case SUBMIT_NEW_ARTWORK:
       axios.post(
-        'http://http://aurelia-perrier.vpnuser.lan:8000/api/secure/artworks/new',
+        'http://aurelia-perrier.vpnuser.lan:8000/api/secure/artworks/new',
         {
           title: action.payload.title,
           description: action.payload.description,
@@ -73,7 +75,6 @@ const exhibitionsMiddleware = (store) => (next) => (action) => {
         },
       )
         .then((response) => {
-          console.log(response.data);
           store.dispatch(saveUserArtworks(response.data));
         })
         .catch((error) => {
@@ -82,7 +83,7 @@ const exhibitionsMiddleware = (store) => (next) => (action) => {
       break;
     case DELETE_USER_ARTWORK:
       axios.delete(
-        `http://http://aurelia-perrier.vpnuser.lan:8000/api/secure/artworks/${action.id}/delete`,
+        `http://aurelia-perrier.vpnuser.lan:8000/api/secure/artworks/${action.id}/delete`,
         {
           headers: {
             Authorization: `Bearer ${store.getState().users.token}`,
@@ -90,7 +91,6 @@ const exhibitionsMiddleware = (store) => (next) => (action) => {
         },
       )
         .then((response) => {
-          console.log(response);
           store.dispatch(saveUserArtworks(response.data));
         })
         .catch((error) => {

@@ -22,7 +22,7 @@ const user = (store) => (next) => (action) => {
     case SUBMIT_LOGIN:
       axios
         .post(
-          'http://http://aurelia-perrier.vpnuser.lan:8000/api/login_check',
+          'http://aurelia-perrier.vpnuser.lan:8000/api/login_check',
           {
             username: action.payload.email,
             password: action.payload.password,
@@ -35,7 +35,7 @@ const user = (store) => (next) => (action) => {
           store.dispatch(toggleLoginModal());
           axios
             .get(
-              'http://http://aurelia-perrier.vpnuser.lan:8000/api/secure/users/profile',
+              'http://aurelia-perrier.vpnuser.lan:8000/api/secure/users/profile',
               {
                 headers: {
                   Authorization: `Bearer ${store.getState().users.token}`,
@@ -60,7 +60,7 @@ const user = (store) => (next) => (action) => {
       break;
     case SUBMIT_NEW_ACCOUNT:
       axios
-        .post('http://http://aurelia-perrier.vpnuser.lan:8000/api/users/new', {
+        .post('http://aurelia-perrier.vpnuser.lan:8000/api/users/new', {
           email: action.payload.email,
           password: action.payload.password,
           lastname: action.payload.lastName,
@@ -94,7 +94,7 @@ const user = (store) => (next) => (action) => {
     case SUBMIT_PROFILE_UPDATE:
       axios
         .patch(
-          'http://http://aurelia-perrier.vpnuser.lan:8000/api/secure/users/edit',
+          'http://aurelia-perrier.vpnuser.lan:8000/api/secure/users/edit',
           {
             email: store.getState().users.email,
             lastname: store.getState().users.lastName,
@@ -111,8 +111,8 @@ const user = (store) => (next) => (action) => {
             },
           },
         )
-        .then((response) => {
-          console.log(response);
+        .then(() => {
+          saveUserToLocalStorage(store.getState().users);
         })
         .catch((error) => {
           console.warn(error);
@@ -121,7 +121,7 @@ const user = (store) => (next) => (action) => {
     case SUBMIT_NEW_EXHIBITION:
       axios
         .post(
-          'http://http://aurelia-perrier.vpnuser.lan:8000/api/secure/exhibitions/new',
+          'http://aurelia-perrier.vpnuser.lan:8000/api/secure/exhibitions/new',
           {
             title: store.getState().users.exhibitionName,
             description: store.getState().users.exhibitionDescription,
@@ -135,7 +135,6 @@ const user = (store) => (next) => (action) => {
           },
         )
         .then((response) => {
-          console.log(response);
           store.dispatch(saveUserExhibitionsList(response.data));
         })
         .catch((error) => {

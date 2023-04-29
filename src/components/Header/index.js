@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { handleLoginOff } from 'src/actions/users';
+import { handleLoginOff, wipeUserData } from 'src/actions/users';
 import { toggleLoginModal, toggleNewAccountModal } from 'src/actions/modals';
 import { wipeData } from 'src/actions/exhibitions';
 import Container from 'react-bootstrap/Container';
@@ -10,6 +10,7 @@ import { LinkContainer } from 'react-router-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import LogModal from './LogModal';
 import NewAccountModal from './NewAccountModal';
+import { saveUserToLocalStorage } from '../../utils/localStorage';
 
 import './styles.scss';
 import Logo from '../../../public/images/logo/logo.png';
@@ -21,13 +22,19 @@ import Logo from '../../../public/images/logo/logo.png';
 const Header = () => {
   const { isLogModalOpened, isNewAccountModalOpened } = useSelector((state) => state.modals);
   const { logged, nickname, role } = useSelector((state) => state.users);
+  const curUser = useSelector((state) => state.users);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleLogout = () => {
     navigate('/');
+
+    curUser.logged = false;
+    saveUserToLocalStorage(curUser);
+
     dispatch(handleLoginOff());
+    dispatch(wipeUserData());
     dispatch(wipeData());
   };
   const handleLoginModal = () => dispatch(toggleLoginModal());

@@ -92,7 +92,7 @@ const userInformations = () => {
             <div className="col-md-2 d-flex flex-column align-items-center justify-content-start">
               <img
                 src={avatar !== '' ? avatar : 'images/avatar/avatar.png'}
-                className="img-fluid rounded-start img-avatar"
+                className="img-fluid rounded img-avatar"
                 alt="avatar"
               />
               {isProfileEditingActivated && (
@@ -112,7 +112,7 @@ const userInformations = () => {
                 </Form.Group>
               )}
             </div>
-            <div className="col-md-8">
+            <div className="col-md-8 my-3 my-md-0">
               <div className="card-body py-0">
                 <p className="card-text fw-bold mb-0">
                   Pseudo :{' '}

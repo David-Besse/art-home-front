@@ -4,6 +4,7 @@ import {
   HANDLE_LOGIN_OFF,
   SAVE_USER_EXHIBITIONS_LIST,
   SAVE_USER_DATA_FROM_LOCALSTORAGE,
+  WIPE_USER_DATA,
 } from '../actions/users';
 
 export const initialState = {
@@ -46,7 +47,7 @@ const reducer = (state = initialState, action = {}) => {
         firstName: action.firstName,
         nickname: action.nickname === null ? '' : action.nickname,
         avatar: action.avatar === null ? '' : action.avatar,
-        birthday: action.birthday === null ? '' : `${new Date(action.birthday).getDate()}-${new Date(action.birthday).getMonth() + 1}-${new Date(action.birthday).getFullYear()}`,
+        birthday: action.birthday === null ? '1900-01-01' : new Date(action.birthday).toLocaleDateString('en'),
         presentation: action.presentation === null ? '' : action.presentation,
         role: action.role,
         exhibitions: action.exhibitions,
@@ -55,6 +56,10 @@ const reducer = (state = initialState, action = {}) => {
       return {
         ...state,
         logged: false,
+      };
+    case WIPE_USER_DATA:
+      return {
+        ...state,
         email: '',
         password: '',
         nickname: '',

@@ -324,20 +324,20 @@ const ExhibitionsManager = () => {
           </div>
         </div>
 
-        <div className="mb-3 d-flex flex-wrap g-0">
+        <div className="artworks-zone mb-3 d-flex flex-wrap">
           {artworks.length > 0
             && artworks.map((artwork) => (
               <Form
-                className="my-3 col-lg-6"
+                className="artwork-box my-2 my-lg-0 col-lg-6"
                 key={artwork.id}
                 onSubmit={(event) => handleUpdateArtwork(event, artwork)}
               >
-                <div className="card p-2 border-0 border-top">
+                <div className="card p-2 border h-100">
                   <div className="row g-0">
                     <div className="col-lg-4 d-flex flex-column align-items-center justify-content-start">
                       <img
                         src={artwork.picture}
-                        className="img-fluid rounded-start img-avatar"
+                        className="img-fluid rounded-start artwork-image"
                         alt="artwork"
                       />
                       {isArtworkEditingActivated.editingActivated && (
@@ -353,7 +353,7 @@ const ExhibitionsManager = () => {
                       )}
                     </div>
 
-                    <div className="col-lg-6">
+                    <div className="col-lg-6 my-3">
                       <div className="card-body py-0">
 
                         <p className="card-text fw-bold mb-0">
@@ -361,8 +361,8 @@ const ExhibitionsManager = () => {
                           <span
                             className={
                               artwork.title === ''
-                                ? 'fw-normal text-muted fst-italic fw-lighter'
-                                : 'fw-normal fst-italic fw-lighter'
+                                ? ' text-muted fst-italic fw-lighter'
+                                : ' fst-italic fw-lighter'
                             }
                           >
                             {artwork.title === ''
@@ -387,8 +387,8 @@ const ExhibitionsManager = () => {
                           <span
                             className={
                               artwork.description === ''
-                                ? 'fw-normal text-muted fst-italic fw-lighter'
-                                : 'fw-normal fst-italic fw-lighter'
+                                ? ' text-muted fst-italic fw-lighter'
+                                : ' fst-italic fw-lighter'
                             }
                           >
                             {!isArtworkEditingActivated.editingActivated && (
@@ -415,8 +415,8 @@ const ExhibitionsManager = () => {
                           <span
                             className={
                               artwork.exhibition.title === ''
-                                ? 'fw-normal text-muted fst-italic fw-lighter'
-                                : 'fw-normal fst-italic fw-lighter'
+                                ? ' text-muted fst-italic fw-lighter'
+                                : ' fst-italic fw-lighter'
                             }
                           >
                             {!isArtworkEditingActivated.editingActivated && (
@@ -450,7 +450,7 @@ const ExhibitionsManager = () => {
                         )}
                       </div>
                     </div>
-                    <div className="col-lg-2 text-center d-flex flex-lg-column justify-content-center align-items-lg-center">
+                    <div className="col-lg-2 text-center d-flex flex-lg-column justify-content-end justify-content-lg-start align-items-lg-center">
                       {/* {EDIT BUTTON} */}
                       {!isArtworkEditingActivated.editingActivated && (
                       <Button
@@ -468,8 +468,8 @@ const ExhibitionsManager = () => {
                       {isArtworkEditingActivated.editingActivated && (
                       <Button
                         type="submit"
+                        id="validationBtn"
                         className="mb-lg-3 me-lg-0 me-3 mb-0 customButton"
-                        variant="success"
                       >
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-check-square" viewBox="0 0 16 16">
                           <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
@@ -478,6 +478,7 @@ const ExhibitionsManager = () => {
                       </Button>
                       )}
                       {/* {DELETE BUTTON} */}
+                      {isArtworkEditingActivated.editingActivated && (
                       <Button
                         type="button"
                         variant="danger"
@@ -487,6 +488,7 @@ const ExhibitionsManager = () => {
                           <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z" />
                         </svg>
                       </Button>
+                      )}
                     </div>
                   </div>
                 </div>

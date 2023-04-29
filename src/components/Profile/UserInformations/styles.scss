@@ -8,14 +8,27 @@
   width: 50%;
 }
 
-@media (max-width: 1023px) {
-  .userBox, .userBoxTitle{
-    width: 70%;
-  }
-}
-
 @media (max-width: 767px) {
   .userBox, .userBoxTitle{
     width: 95%;
+  }
+
+  .img-avatar{
+    width: 60%;
+  }
+}
+
+@media (min-width: 768px) {
+  .userBoxTitle, .userBox{
+    width: 80%;
+  }
+  .img-avatar{
+    width: 100%;
+  }
+}
+
+@media (min-width: 1023px) {
+  .userBox, .userBoxTitle{
+    width: 70%;
   }
 }

@@ -28,7 +28,7 @@ function App() {
 
   useEffect(() => {
     const userFromLocalStorage = getUserFromLocalStorage();
-    if (userFromLocalStorage !== null) {
+    if (userFromLocalStorage !== null && userFromLocalStorage.logged) {
       dispatch(saveUserDataFromLocalStorage(userFromLocalStorage));
     }
   }, []);
