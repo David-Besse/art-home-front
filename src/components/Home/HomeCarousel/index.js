@@ -16,7 +16,8 @@ const HomeCarousel = () => {
         {list.map((exhibition) => (
           <Carousel.Item key={exhibition.id}>
             <h1 className="carousel-title">{exhibition.title}</h1>
-            <p className="carousel-artist">{exhibition.nickname}</p>
+            <h2 className="carousel-artist">{exhibition.nickname}</h2>
+            <p className="carousel-description">{`${exhibition.description.split(/[.]/)[0]}...`}</p>
             <LinkContainer to={`/expositions/${exhibition.slug}`}>
               <Image
                 className="carousel-image"
@@ -24,9 +25,6 @@ const HomeCarousel = () => {
                 alt={exhibition.slug}
               />
             </LinkContainer>
-            <Carousel.Caption>
-              <p>{exhibition.description}</p>
-            </Carousel.Caption>
           </Carousel.Item>
         ))}
       </Carousel>
