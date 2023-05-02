@@ -8,42 +8,40 @@ const Disclaimer = () => (
     <Page>
       <div className="p-2 text-center m-5">
         <p>
-          Identification du propriétaire du site :
+          Objet des CGU
+          Les présentes CGU ont pour objet de définir les conditions d'utilisation de votre site internet [Art@home] par les utilisateurs.
         </p>
-        <p>
-          Propriété intellectuelle : Tous les contenus présents sur le site de
-          littérature (textes, images, vidéos, logos, etc.) sont la propriété
-          exclusive de WriterTalent. ou de ses partenaires. Toute reproduction,
-          modification, distribution ou exploitation de ces contenus sans
-          autorisation écrite préalable est strictement interdite.
+
+        <p>Acceptation des CGU
+          L'utilisation du site implique l'acceptation pleine et entière des présentes CGU. Si un utilisateur n'accepte pas les CGU, il doit s'abstenir d'utiliser le site.
         </p>
-        <p>
-          Données personnelles : Ce site collecte des données personnelles des
-          utilisateurs (nom, prénom, adresse e-mail, etc.) dans le cadre de
-          l’utilisation du site et des services proposés. Ces données sont
-          traitées conformément à la réglementation en vigueur et aux dispositions
-          de la politique de confidentialité accessible sur le site.
+
+        <p>Accès au site
+          L'accès au site est ouvert à tous les utilisateurs disposant d'une connexion internet et d'un navigateur web. L'accès peut être suspendu ou interrompu à tout moment pour des raisons techniques ou pour des raisons de maintenance.
         </p>
-        <p>
-          Cookies: Ce site utilise des cookies pour améliorer l’expérience
-          utilisateur et proposer des services adaptés aux préférences des
-          utilisateurs. Les utilisateurs peuvent gérer les cookies en fonction de
-          leurs préférences via les paramètres de leur navigateur.
+
+        <p>Contenu du site
+          Le site permet aux artistes de publier des images de leurs œuvres. Les images sont libres de droits et peuvent être téléchargées et utilisées pour un usage personnel ou éducatif. Cependant, il est strictement interdit d'utiliser ces images à des fins commerciales sans l'autorisation écrite de l'artiste.
         </p>
-        <p>
-          Limitation de responsabilité : Ce site met tout en œuvre pour garantir
-          l’exactitude et la mise à jour des informations diffusées sur le site.
-          Cependant, les éditeurs de WriterTalent ne peuvent être tenus
-          responsables des erreurs ou omissions dans ces informations. De même,
-          les éditeurs de WriterTalent ne peuvent être tenus responsables des
-          dommages directs ou indirects résultant de l’utilisation du site ou des
-          informations qu’il contient.
+
+        <p>Responsabilité
+          L'administrateur du site ne peut être tenu responsable de tout dommage direct ou indirect résultant de l'utilisation du site. L'utilisateur assume l'entière responsabilité de l'utilisation du site et de son contenu.
         </p>
-        <p>
-          Droit applicable et juridiction compétente : Les présentes mentions
-          légales sont soumises au droit français. Tout litige relatif à
-          l’utilisation du site sera de la compétence exclusive des tribunaux
-          français.
+
+        <p>Propriété intellectuelle
+          Le site et son contenu sont la propriété de [Ecole O'clock SAS, situé au 10 RUE DE PENTHIEVRE 75008 PARIS ]. Toute reproduction, distribution ou utilisation du site ou de son contenu sans l'autorisation écrite de [Ecole O'clock] est strictement interdite.
+        </p>
+
+        <p>Données personnelles
+          Le site collecte des données personnelles sur les utilisateurs, notamment lors de l'inscription. Les données collectées sont utilisées pour la gestion du site et pour communiquer avec les utilisateurs. Les données personnelles ne sont pas transmises à des tiers sans le consentement préalable de l'utilisateur.
+        </p>
+
+        <p>Modifications des CGU
+          Les présentes CGU peuvent être modifiées à tout moment. Les utilisateurs seront informés des modifications par une notification sur le site. L'utilisation continue du site après la notification des modifications implique l'acceptation des nouvelles CGU.
+        </p>
+
+        <p>Loi applicable et juridiction compétente
+          Les présentes CGU sont régies par le droit français. Tout litige relatif à l'utilisation du site sera soumis à la juridiction compétente.
         </p>
       </div>
     </Page>
