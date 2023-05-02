@@ -44,7 +44,7 @@ const Pictures = () => {
         {artwork.map((picture) => (
           <Card className="card-picture" key={picture.slug}>
             <Card.Img className="image-picture" src={picture.picture} alt={picture.slug} />
-            <Card.Body className="body-picture">
+            <Card.Body className="body-picture px-0">
               <Card.Title className="title-picture">{picture.title}</Card.Title>
               <Card.Text className="description-picture">{picture.description}</Card.Text>
             </Card.Body>

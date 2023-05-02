@@ -25,7 +25,6 @@ INFO EXHIBITION
       width: 95%;
     
         .title {
-          color: goldenrod;
           font-variant-caps: all-small-caps;
           font-weight: bold;
           font-size: 3.5rem;
@@ -53,6 +52,8 @@ PICTURES EXHIBITION
 */
 
 .picture-list{
+  position: relative;
+  width: 100%;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -60,29 +61,29 @@ PICTURES EXHIBITION
   padding: 1rem;
 }
 
-/* .col-picture {
-  padding: 0;
-  height: auto;
-} */
-
 .card-picture {
   align-items: center;
-  display: flex;
+  display: block;
   margin: 0;
+  margin-bottom: 1rem;
   flex-wrap: wrap;
-  height: min-content;
+  height: 80vh;
+  width: 100%;
 }
 
 .image-picture {
-  height: auto;
   border-radius: 0;
-  
+  height: 75%;
+  object-fit: cover;
 }
 
 .title-picture {
-  color: goldenrod;
   font-weight: bold;
   text-align: center;
+}
+
+.description-picture {
+  font-size: 0.9rem;
 }
 
 /************
