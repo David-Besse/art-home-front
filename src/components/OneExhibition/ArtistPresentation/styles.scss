@@ -1,50 +1,52 @@
 /***********
 MODAL ARTIST
 ***********/
-.modal-body {
-  gap: 1rem;
-}
+
 .artist-modal {
   padding: 1rem;
   justify-items: center;
-  
+
   .nickname {
-    color: goldenrod;
-    font-family: 'Averia Libre', display;
     font-size: 2rem;
     font-weight: bold;
   }
 
-    .avatar{
+  .avatar {
     display: flex;
     border: goldenrod 1px solid;
     border-radius: 10px;
     width: 80%;
-    }
+  }
 
-    .realname {
-      font-size: 0.85rem;
-      margin-bottom: 0.4rem;
-    }
+  .realname {
+    font-size: 0.85rem;
+    margin-bottom: 0.4rem;
+  }
 
-    .presentation {
-      font-size: 0.8rem;
-      padding: 1rem;
-      text-align: justify;
-    }  
+  .presentation {
+    font-size: 0.8rem;
+    padding: 1rem;
+    text-align: justify;
+    margin-bottom: 0;
+  }
+
+  .modal-content{
+    border: none;
+  }
 }
 
 /************
 MEDIA QUERIES
 ************/
 
-@media screen and  (min-width: 768px){
+@media screen and (min-width: 768px) {
   .card-artist {
     display: flex;
     flex-direction: row;
     padding: 1.5rem;
   }
- /*  .avatar {
+
+  /*  .avatar {
     width: 60%;
   } */
 
@@ -57,18 +59,16 @@ MEDIA QUERIES
   }
 }
 
-@media screen and (min-width: 1024px){
-  .body-artist>.presentation{
+@media screen and (min-width: 1024px) {
+  .body-artist>.presentation {
     font-size: 1.1rem;
   }
 
   .artist-modal .avatar {
     width: 60%;
-}
+  }
 
   .artist-modal .presentation {
     font-size: 1.1rem;
   }
 }
-
-

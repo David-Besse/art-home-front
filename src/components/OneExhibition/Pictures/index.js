@@ -1,8 +1,6 @@
 // Component gathering all the information needed to show the artixt information, the exhibiton information and all the artworks related to the exhibition
 
 import Card from 'react-bootstrap/Card';
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
 import { Button } from 'react-bootstrap';
 
 import { useState } from 'react';
@@ -20,6 +18,7 @@ const Pictures = () => {
     title, artwork, artist, description,
   } = useSelector((state) => findExhibition(state.pictures.list, slug));
   const [modalShow, setModalShow] = useState(false);
+
   return (
     <div className="exhibition">
 

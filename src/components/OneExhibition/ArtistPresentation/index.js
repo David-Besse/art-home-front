@@ -16,13 +16,14 @@ const ArtistPresentation = (props) => {
       aria-labelledby="contained-modal-title-vcenter"
       className="artist-modal"
     >
-      <Modal.Header closeButton>
+      <Modal.Header closeButton className="d-flex">
         <Modal.Title id="contained-modal-title-vcenter" className="nickname">{artist.nickname}</Modal.Title> {/*  might need a condition in the cases where the artiste doesn't have a pseudo */}
       </Modal.Header>
       <Modal.Body className="d-flex flex-column align-items-center">
         <img src={artist.avatar} alt={artist.slug} className="avatar" />
         <h3 className="realname">de son véritable nom {artist.firstname} {artist.lastname}</h3>
         <p className="presentation">&laquo; {artist.presentation} &raquo;</p>
+        <p className="align-self-end fw-bold">{artist.email}</p>
       </Modal.Body>
     </Modal>
   );

@@ -12,7 +12,7 @@ const HomeCarousel = () => {
 
   return (
     <section className="sectionCarousel">
-      <Carousel fade interval={4000}>
+      <Carousel fade interval={5000}>
         {list.map((exhibition) => (
           <Carousel.Item key={exhibition.id}>
             <h1 className="carousel-title">{exhibition.title}</h1>
