@@ -1,0 +1,49 @@
+@use 'src/styles/vars';
+@import url(https://fonts.bunny.net/css?family=abeezee:400i);
+
+.contact-page {
+  background-image: url(../../../public/images/contact/contact_background.jpg);
+  background-position: top;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: calc(100vh - 8vh);
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: vars.$dark;
+  font-style: italic;
+  font-family: 'ABeeZee', sans-serif;
+  font-weight: 400;
+  font-size: 0.8em;
+
+  p{
+    text-align: left;
+  }
+
+  .contact-infos{
+    width: 80%;
+    height: auto;
+
+    .contact-intro{
+      text-align: center;
+      margin-bottom: 4em;
+      margin-top: 4em;
+      font-size: 1.2em;
+    }
+  }
+
+  @media screen and (min-width: 768px) {
+    height: calc(100vh - 16vh);
+
+    .contact-infos{
+      width: 50%;
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    .contact-infos{
+      width: 35%;
+    }
+  }
+}
