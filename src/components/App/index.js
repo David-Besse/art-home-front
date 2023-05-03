@@ -10,23 +10,24 @@ import Disclaimer from 'src/components/Disclaimer';
 import Contact from 'src/components/Contact';
 import Error from 'src/components/Error';
 
-import './styles.scss';
-
 import { fetchExhibitions } from '../../actions/exhibitions';
 import { fetchPictures } from '../../actions/pictures';
 import { getUserFromLocalStorage } from '../../utils/localStorage';
 import { saveUserDataFromLocalStorage } from '../../actions/users';
 
+import './styles.scss';
+
 function App() {
   const dispatch = useDispatch();
   const { logged } = useSelector((state) => state.users);
 
-// Retriving information from the state to dispatch in the entire project
+  /* Retriving information to display homepage, exhibitions and one exhibition */
   useEffect(() => {
     dispatch(fetchExhibitions());
     dispatch(fetchPictures());
   }, []);
 
+  /* Retriving profil information from the state and comparing with the local storage to know if the user is already logged */
   useEffect(() => {
     const userFromLocalStorage = getUserFromLocalStorage();
     if (userFromLocalStorage !== null && userFromLocalStorage.logged) {
@@ -34,7 +35,7 @@ function App() {
     }
   }, []);
 
-// Definition of the routes to navigate in the application
+  /* Route to navigate in the application */
   return (
     <div className="app d-flex flex-column justify-content-between">
       <Routes>
