@@ -19,7 +19,7 @@ import Logo from '../../assets/images/logo/logo.png';
 import './styles.scss';
 
 /**
- * Navbar
+ * Header Navbar
  * @returns {JSX.Element}
  */
 const Header = () => {

@@ -6,7 +6,10 @@ import Footer from 'src/components/Footer';
 import ExhibitionsList from './ExhibitionsList';
 import Loading from '../Home/Loading';
 
-/* Display the list of all active exhibitions */
+/**
+ * All active exhibitions
+ * @returns {JSX.Element}
+ */
 
 const Exhibitions = () => {
   const { isExhibitionsLoaded } = useSelector((state) => state.exhibitions);

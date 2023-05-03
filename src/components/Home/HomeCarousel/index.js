@@ -7,6 +7,11 @@ import Image from 'react-bootstrap/Image';
 
 import './style.scss';
 
+/**
+ * Carousel displaying the 1st picture of every active exhibition
+  @return {JSX.Element}
+*/
+
 const HomeCarousel = () => {
   const { list } = useSelector((state) => state.exhibitions);
 
