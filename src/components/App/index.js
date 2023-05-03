@@ -17,6 +17,8 @@ import { saveUserDataFromLocalStorage } from '../../actions/users';
 
 import './styles.scss';
 
+/* Display the different views of the application */
+
 function App() {
   const dispatch = useDispatch();
   const { logged } = useSelector((state) => state.users);

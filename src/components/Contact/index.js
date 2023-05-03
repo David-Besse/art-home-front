@@ -4,13 +4,14 @@ import Footer from 'src/components/Footer';
 
 import './styles.scss';
 
+/* Information to contact the gallery managers */
+
 const Contact = () => (
   <>
     <Header />
     <Page>
       <div className="contact-page">
         <section className="contact-infos">
-          {/* <h3>Nous contacter</h3> */}
           <p className="contact-intro">
             Nous sommes toujours ravis d'avoir de vos nouvelles. Si vous avez
             des questions, des commentaires ou des suggestions, n'hésitez pas à
