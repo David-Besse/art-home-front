@@ -21,6 +21,7 @@ function App() {
   const dispatch = useDispatch();
   const { logged } = useSelector((state) => state.users);
 
+// Retriving information from the state to dispatch in the entire project
   useEffect(() => {
     dispatch(fetchExhibitions());
     dispatch(fetchPictures());
@@ -33,6 +34,7 @@ function App() {
     }
   }, []);
 
+// Definition of the routes to navigate in the application
   return (
     <div className="app d-flex flex-column justify-content-between">
       <Routes>
