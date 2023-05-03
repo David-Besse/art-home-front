@@ -47,9 +47,9 @@ INFO EXHIBITION
    }
 }
 
-/* 
+/****************** 
 PICTURES EXHIBITION
-*/
+******************/
 
 .picture-list{
   position: relative;
@@ -86,9 +86,7 @@ PICTURES EXHIBITION
   font-size: 0.9rem;
 }
 
-/************
-MEDIA QUERIES
-************/
+/*---------------------------MEDIA QUERIES-----------------------------*/
 
 @media screen and  (max-width: 768px){
   .title-picture {
