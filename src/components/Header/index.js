@@ -13,7 +13,7 @@ import NewAccountModal from './NewAccountModal';
 import { saveUserToLocalStorage } from '../../utils/localStorage';
 
 import './styles.scss';
-import Logo from '../../../public/images/logo/logo.png';
+import Logo from '../../assets/images/logo/logo.png';
 
 /**
  * Navbar

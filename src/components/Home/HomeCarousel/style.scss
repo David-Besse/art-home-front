@@ -26,6 +26,20 @@
   width: 100%;
 }
 
+.carousel-control-prev{
+  height: 10%;
+  width: auto;
+  top: 50%;
+  left: 1em;
+}
+
+.carousel-control-next{
+  height: 10%;
+  width: auto;
+  top: 50%;
+  right: 1em;
+}
+
 .carousel-item {
   height: 100%;
   width: 100%;
@@ -101,6 +115,14 @@
 
   .carousel-image {
     height: 76%;
+  }
+
+  .carousel-control-prev{
+    left: 2em;
+  }
+  
+  .carousel-control-next{
+    right: 2em;
   }
 }
 
