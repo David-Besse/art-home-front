@@ -9,6 +9,10 @@ import './styles/index.scss';
 // eslint-disable-next-line import/extensions
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
+/**
+ * Root of the project
+ */
+
 const rootReactElement = (
   <Provider store={store}>
     <BrowserRouter>
