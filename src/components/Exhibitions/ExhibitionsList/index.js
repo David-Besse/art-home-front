@@ -1,8 +1,10 @@
-import Card from 'react-bootstrap/Card';
 import { useSelector } from 'react-redux';
 import { LinkContainer } from 'react-router-bootstrap';
+import Card from 'react-bootstrap/Card';
 
 import './style.scss';
+
+/* Preparing the display of active exhibitions */
 
 const ExhibitionsList = () => {
   const { list } = useSelector((state) => state.exhibitions);

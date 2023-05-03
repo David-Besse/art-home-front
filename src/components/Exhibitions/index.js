@@ -1,9 +1,12 @@
+import { useSelector } from 'react-redux';
+
 import Header from 'src/components/Header';
 import Page from 'src/components/Page';
 import Footer from 'src/components/Footer';
-import { useSelector } from 'react-redux';
 import ExhibitionsList from './ExhibitionsList';
 import Loading from '../Home/Loading';
+
+/* Display the list of all active exhibitions */
 
 const Exhibitions = () => {
   const { isExhibitionsLoaded } = useSelector((state) => state.exhibitions);
@@ -12,6 +15,7 @@ const Exhibitions = () => {
     <>
       <Header />
       <Page>
+        {/* Displaying Loader while the content is added to the state */}
         { !isExhibitionsLoaded
         && <Loading /> }
         { isExhibitionsLoaded

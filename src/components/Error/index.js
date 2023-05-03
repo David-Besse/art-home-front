@@ -1,5 +1,6 @@
-import Page from 'src/components/Page';
 import { LinkContainer } from 'react-router-bootstrap';
+
+import Page from 'src/components/Page';
 import Button from 'react-bootstrap/Button';
 
 import './styles.scss';
