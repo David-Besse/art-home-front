@@ -4,6 +4,8 @@ import Button from 'react-bootstrap/Button';
 
 import './styles.scss';
 
+/* Error 404 page */
+
 const Error = () => (
   <Page>
     <div className="error-div d-flex flex-column align-items-center justify-content-center">
