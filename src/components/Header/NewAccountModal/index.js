@@ -1,17 +1,19 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { submitNewAccount } from 'src/actions/users';
-import {
-  showMessageInformation,
-  toggleInformationModal,
-  toggleNewAccountModal,
-} from 'src/actions/modals';
+import { useRef, useState } from 'react';
+
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
-import { useRef, useState } from 'react';
+
+import { submitNewAccount } from 'src/actions/users';
+import {
+  showMessageInformation,
+  toggleInformationModal,
+  toggleNewAccountModal,
+} from 'src/actions/modals';
 
 import './styles.scss';
 
@@ -169,6 +171,8 @@ const NewAccountModal = () => {
           </Form.Text>
         </Modal.Footer>
       </Modal>
+
+      {/* Message appearing depending on the success or not of the creation of a new user account */}
 
       <Modal show={isMessageModalOpened} onHide={handleAccountCreatedModal} className="informationModal">
         {!isMessageDisplayed

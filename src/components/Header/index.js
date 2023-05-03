@@ -1,19 +1,22 @@
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+
 import { handleLoginOff, wipeUserData } from 'src/actions/users';
 import { toggleLoginModal, toggleNewAccountModal } from 'src/actions/modals';
 import { wipeData } from 'src/actions/exhibitions';
-import Container from 'react-bootstrap/Container';
+
+import { LinkContainer } from 'react-router-bootstrap';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
+import Container from 'react-bootstrap/Container';
 import { Image } from 'react-bootstrap';
-import { LinkContainer } from 'react-router-bootstrap';
-import { useNavigate } from 'react-router-dom';
+
+import { saveUserToLocalStorage } from '../../utils/localStorage';
 import LogModal from './LogModal';
 import NewAccountModal from './NewAccountModal';
-import { saveUserToLocalStorage } from '../../utils/localStorage';
+import Logo from '../../assets/images/logo/logo.png';
 
 import './styles.scss';
-import Logo from '../../assets/images/logo/logo.png';
 
 /**
  * Navbar
@@ -61,6 +64,7 @@ const Header = () => {
             <Nav className="me-auto">
               <LinkContainer to="/expositions">
                 <Nav.Link eventKey={1}>Expositions</Nav.Link>
+                {/* Profil option visible only for logged users */}
               </LinkContainer>
               {logged
                 && (
@@ -76,6 +80,7 @@ const Header = () => {
               </LinkContainer>
             </Nav>
 
+            {/* Displaying different options depending on the user status */}
             <Nav>
               {!logged
                 && (
@@ -110,8 +115,10 @@ const Header = () => {
         </Container>
       </Navbar>
 
+      {/* Modal for the user to log to hise account */}
       <LogModal show={isLogModalOpened} />
 
+      {/* Modal for user to create a new account */}
       <NewAccountModal show={isNewAccountModalOpened} />
     </header>
   );

@@ -1,11 +1,13 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { submitLogin } from 'src/actions/users';
-import { toggleLoginModal } from 'src/actions/modals';
+import { useRef } from 'react';
+
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
-import { useRef } from 'react';
+
+import { submitLogin } from 'src/actions/users';
+import { toggleLoginModal } from 'src/actions/modals';
 
 import './styles.scss';
 
