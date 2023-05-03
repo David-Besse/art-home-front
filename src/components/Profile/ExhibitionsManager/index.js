@@ -1,13 +1,4 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { submitNewExhibition, changeInputField } from 'src/actions/users';
-import {
-  toggleExhibitionCreationModal,
-  toggleArtworkCreationModal,
-} from 'src/actions/modals';
-import {
-  fetchUserArtworks, updateUserArtwork, submitNewArtwork, deleteUserArtwork,
-} from 'src/actions/exhibitions';
-import { showSelectedExhibition, toggleArtworkEditing } from 'src/actions/profile';
 import {
   Button,
   Dropdown,
@@ -18,7 +9,22 @@ import {
   Spinner,
 } from 'react-bootstrap';
 
+import { submitNewExhibition, changeInputField } from 'src/actions/users';
+import {
+  toggleExhibitionCreationModal,
+  toggleArtworkCreationModal,
+} from 'src/actions/modals';
+import {
+  fetchUserArtworks, updateUserArtwork, submitNewArtwork, deleteUserArtwork,
+} from 'src/actions/exhibitions';
+import { showSelectedExhibition, toggleArtworkEditing } from 'src/actions/profile';
+
 import './styles.scss';
+
+/**
+ * Exhibitions manager for the logged user
+ * @returns {JSX.Element}
+ */
 
 const ExhibitionsManager = () => {
   const { isAccountCreationModalOpened, isArtworkCreationModalOpened } = useSelector((state) => state.modals);
@@ -145,8 +151,8 @@ const ExhibitionsManager = () => {
         </Modal.Body>
       </Modal>
 
-      {/* Modal for adding an artwork
-       *
+      {/**
+       * Modal for adding an artwork
        */}
       <Modal
         show={isArtworkCreationModalOpened}
