@@ -1,9 +1,17 @@
 import { useParams } from 'react-router-dom';
-import { findExhibition } from 'src/selectors/pictures';
 import { useSelector } from 'react-redux';
+
+import { findExhibition } from 'src/selectors/pictures';
+
 import Modal from 'react-bootstrap/Modal';
 
 import './styles.scss';
+
+/**
+ * Modal to view artist presentation
+ * @param {string} props
+ * @returns {JSX.Element}
+ */
 
 const ArtistPresentation = (props) => {
   const { slug } = useParams();
