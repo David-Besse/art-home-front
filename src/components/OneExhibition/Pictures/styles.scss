@@ -55,7 +55,7 @@ PICTURES EXHIBITION
   position: relative;
   width: 100%;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   justify-content: center;
   margin-top: 0;
   padding: 1rem;
@@ -66,14 +66,13 @@ PICTURES EXHIBITION
   display: block;
   margin: 0;
   margin-bottom: 1rem;
-  flex-wrap: wrap;
-  height: 80vh;
+  height: auto;
   width: 100%;
 }
 
 .image-picture {
   border-radius: 5px;
-  height: 75%;
+  height: auto;
   object-fit: cover;
 }
 
@@ -109,15 +108,33 @@ MEDIA QUERIES
 }
 
 @media screen and  (min-width: 1024px){
+  .picture-list{
+    flex-direction: unset;
+    flex-wrap: wrap;
+  }
+
   .card-picture {
     padding: 0.5rem;
     width: 50%;
+    height: 100vh;
+  }
+
+  .image-picture {
+    height: 70%;
+  }
+
+  .description-picture{
+    font-size: 0.85rem;
   }
 }
 
 @media screen and  (min-width: 1440px){
   .card-picture {
     padding: 0.5rem;
-    width: 33.3333333%;
+    width: calc(100% / 3);
+  }
+
+  .description-picture{
+    font-size: 0.8rem;
   }
 }
