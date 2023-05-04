@@ -1,24 +1,23 @@
 import { useSelector, useDispatch } from 'react-redux';
+import { useRef, useState } from 'react';
+
 import { submitNewAccount } from 'src/actions/users';
 import {
   showMessageInformation,
   toggleInformationModal,
   toggleNewAccountModal,
 } from 'src/actions/modals';
+
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
-import { useRef, useState } from 'react';
 
 import './styles.scss';
 
-/**
- * Modal New Account
- * @returns {JSX.Element}
- */
+// Modal to create an account
 const NewAccountModal = () => {
   const {
     isMessageModalOpened,
@@ -27,40 +26,47 @@ const NewAccountModal = () => {
     isNewAccountModalOpened,
   } = useSelector((state) => state.modals);
 
+  // we use a local state and not redux for the validation of the form for more convenience
+  const [formValidated, setFormValidated] = useState(false);
+
   const dispatch = useDispatch();
 
   const formRef = useRef(null);
 
-  const [formValidated, setFormValidated] = useState(false);
-
+  // triggers the display of the modal to create an account
   const handleNewAccountModal = () => {
     dispatch(toggleNewAccountModal());
     setFormValidated(false);
   };
 
+  // triggers the display of the modal to inform the user of the result after the creation of the account
   const handleAccountCreatedModal = () => {
     dispatch(toggleInformationModal());
-    dispatch(showMessageInformation(false, 'Le compte a été créé, vous pouvez vous connecter'));
   };
 
+  // data processing after submission of the create account form
   const handleSubmit = (event) => {
     event.preventDefault();
 
     const form = event.currentTarget;
-    const formData = new FormData(event.target); // we create a new object FormData
-    const newAccountData = Object.fromEntries(formData.entries()); // we retrieved data from formData
 
+    // we create a new object FormData and retrieve data
+    const formData = new FormData(event.target);
+    const newAccountData = Object.fromEntries(formData.entries());
+
+    // we check the validity of the form
     if (!form.reportValidity()) {
       event.stopPropagation();
       setFormValidated(true);
     }
+    // we check that the passwords entered by the user are identical
     else if (newAccountData.password !== newAccountData.confirmPassword) {
       dispatch(toggleInformationModal());
       dispatch(showMessageInformation(true, 'Les mots de passe ne correspondent pas.'));
       event.stopPropagation();
     }
+    // we trigger the action of creating an account to the server, we add the user data and the targeted form as a parameter
     else {
-      dispatch(showMessageInformation(false));
       dispatch(submitNewAccount(newAccountData, formRef));
     }
   };
@@ -146,6 +152,7 @@ const NewAccountModal = () => {
                   placeholder="Confirmer le mot de passe"
                   name="confirmPassword"
                   pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$"
+                  isInvalid={!formValidated && formRef.current && (formRef.current.elements.confirmPassword.value !== formRef.current.elements.password.value)}
                 />
                 <Form.Control.Feedback type="invalid">
                   Mot de passe invalide.

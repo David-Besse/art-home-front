@@ -69,6 +69,7 @@ const user = (store) => (next) => (action) => {
         })
         .then(() => {
           action.newAccountForm.current.reset();
+
           store.dispatch(toggleNewAccountModal());
           store.dispatch(showMessageInformation(false, 'Le compte a été créé !'));
           store.dispatch(toggleInformationModal());
@@ -76,6 +77,7 @@ const user = (store) => (next) => (action) => {
         .catch((error) => {
           console.warn(error);
           action.newAccountForm.current.reset();
+
           store.dispatch(toggleNewAccountModal());
 
           if (error.response.data.status === 500) {
@@ -87,7 +89,6 @@ const user = (store) => (next) => (action) => {
             const errorMessageName = errorMessageKeys[0];
             store.dispatch(showMessageInformation(true, `${errorMessageObj[errorMessageName]}`));
           }
-
           store.dispatch(toggleInformationModal());
         });
       break;

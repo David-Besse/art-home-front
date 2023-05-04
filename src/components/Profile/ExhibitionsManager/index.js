@@ -1,13 +1,12 @@
 import { useDispatch, useSelector } from 'react-redux';
+
 import { submitNewExhibition, changeInputField } from 'src/actions/users';
-import {
-  toggleExhibitionCreationModal,
-  toggleArtworkCreationModal,
-} from 'src/actions/modals';
+import { toggleExhibitionCreationModal, toggleArtworkCreationModal } from 'src/actions/modals';
 import {
   fetchUserArtworks, updateUserArtwork, submitNewArtwork, deleteUserArtwork,
 } from 'src/actions/exhibitions';
 import { showSelectedExhibition, toggleArtworkEditing } from 'src/actions/profile';
+
 import {
   Button,
   Dropdown,
@@ -20,17 +19,20 @@ import {
 
 import './styles.scss';
 
+// show informations about the connected user
 const ExhibitionsManager = () => {
   const { isAccountCreationModalOpened, isArtworkCreationModalOpened } = useSelector((state) => state.modals);
   const { exhibitions, exhibitionName, exhibitionDescription } = useSelector((state) => state.users);
   const { artworks, isArtworksLoading } = useSelector((state) => state.exhibitions);
   const { selectedExhibitionId, isArtworkEditingActivated } = useSelector((state) => state.profile);
 
+  const dispatch = useDispatch();
+
   const currentExhibition = exhibitions.find((exhib) => exhib.id === selectedExhibitionId);
 
-  const dispatch = useDispatch();
-  const handleArtworkEditing = () => dispatch(toggleArtworkEditing());
-
+  const handleArtworkEditing = () => {
+    dispatch(toggleArtworkEditing());
+  };
   const handleExhibitionCreationModal = () => {
     dispatch(toggleExhibitionCreationModal());
   };
@@ -54,7 +56,7 @@ const ExhibitionsManager = () => {
     dispatch(submitNewExhibition());
   };
 
-  const changedFields = (elOne, elTwo) => Object.keys(elOne).filter((key) => elOne[key] !== elTwo[key]);
+  const compareChangedFields = (elOne, elTwo) => Object.keys(elOne).filter((key) => elOne[key] !== elTwo[key]);
 
   /** handle form update artwork
    *
@@ -63,13 +65,16 @@ const ExhibitionsManager = () => {
    */
   const handleUpdateArtwork = (event, artwork) => {
     event.preventDefault();
-    const formData = new FormData(event.target); // we create a new object FormData
-    const updateArtwork = Object.fromEntries(formData.entries()); // we retrieved data from formData
+
+    // we create a new object FormData and retrieve data
+    const formData = new FormData(event.target);
+    const updateArtwork = Object.fromEntries(formData.entries());
+
     const currentArtwork = {
       title: artwork.title, description: artwork.description, picture: artwork.picture, exhibition: (artwork.exhibition.id).toString(),
     };
 
-    const result = changedFields(updateArtwork, currentArtwork);
+    const result = compareChangedFields(updateArtwork, currentArtwork);
 
     if (result.length > 0) {
       handleUpdateUserArtwork(artwork.id, updateArtwork);

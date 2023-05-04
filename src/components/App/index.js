@@ -10,22 +10,24 @@ import Disclaimer from 'src/components/Disclaimer';
 import Contact from 'src/components/Contact';
 import Error from 'src/components/Error';
 
-import './styles.scss';
-
 import { fetchExhibitions } from '../../actions/exhibitions';
 import { fetchPictures } from '../../actions/pictures';
 import { getUserFromLocalStorage } from '../../utils/localStorage';
 import { saveUserDataFromLocalStorage } from '../../actions/users';
 
+import './styles.scss';
+
 function App() {
   const dispatch = useDispatch();
   const { logged } = useSelector((state) => state.users);
 
+  // fetch all exhibitions for the carousel and fetch all artworks for the oneExhibition page
   useEffect(() => {
     dispatch(fetchExhibitions());
     dispatch(fetchPictures());
   }, []);
 
+  // checks if a user is in localstorage then retrieves their information
   useEffect(() => {
     const userFromLocalStorage = getUserFromLocalStorage();
     if (userFromLocalStorage !== null && userFromLocalStorage.logged) {

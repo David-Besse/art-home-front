@@ -1,9 +1,11 @@
-import Card from 'react-bootstrap/Card';
 import { useSelector } from 'react-redux';
 import { LinkContainer } from 'react-router-bootstrap';
 
+import Card from 'react-bootstrap/Card';
+
 import './style.scss';
 
+// exhibitions page
 const ExhibitionsList = () => {
   const { list } = useSelector((state) => state.exhibitions);
 
@@ -12,7 +14,7 @@ const ExhibitionsList = () => {
 
       <h1 className="page-title mb-5 mt-3">NOS EXPOSITIONS</h1>
 
-      {/* Showcase of all the picture included in the exhibiton */}
+      {/* Showcase of all exhibitions */}
       <div className="exhibition-container mb-4">
         {list.map((exhibition) => (
           <LinkContainer to={`/expositions/${exhibition.slug}`} key={exhibition.slug}>
