@@ -1,18 +1,17 @@
 import { useSelector, useDispatch } from 'react-redux';
+import { useRef } from 'react';
+
 import { submitLogin } from 'src/actions/users';
 import { toggleLoginModal } from 'src/actions/modals';
-import Modal from 'react-bootstrap/Modal';
+
 import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
-import { useRef } from 'react';
+import Form from 'react-bootstrap/Form';
+import Modal from 'react-bootstrap/Modal';
 
 import './styles.scss';
 
-/** Modal Login: use to login to your account.
- *
- * @returns {JSX}
- */
+// modal to login
 const LogModal = () => {
   const { isLogModalOpened, isLogFormValidated } = useSelector((state) => state.modals);
 
@@ -20,18 +19,27 @@ const LogModal = () => {
 
   const formRef = useRef(null);
 
+  // triggers the display of the modal to login
   const handleNewAccountModal = () => {
     dispatch(toggleLoginModal());
   };
 
+  // data processing after submission of the login form
   const handleSubmit = (event) => {
     event.preventDefault();
+
     const form = event.currentTarget;
+
+    // we check the validity of the form
     if (form.checkValidity() === false) {
       event.stopPropagation();
     }
-    const formData = new FormData(event.target); // we create a new object FormData
-    const userDataLogin = Object.fromEntries(formData.entries()); // we retrieved data from formData
+
+    // we create a new object FormData and retrieve data
+    const formData = new FormData(event.target);
+    const userDataLogin = Object.fromEntries(formData.entries());
+
+    // we trigger the action of connecting to the server, we add the user data and the targeted form as a parameter
     dispatch(submitLogin(userDataLogin, formRef));
   };
 

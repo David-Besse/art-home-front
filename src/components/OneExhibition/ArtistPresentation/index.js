@@ -1,10 +1,13 @@
 import { useParams } from 'react-router-dom';
-import { findExhibition } from 'src/selectors/pictures';
 import { useSelector } from 'react-redux';
+
 import Modal from 'react-bootstrap/Modal';
+
+import { findExhibition } from 'src/selectors/pictures';
 
 import './styles.scss';
 
+// modal for artist presentation
 const ArtistPresentation = (props) => {
   const { slug } = useParams();
   const { artist } = useSelector((state) => findExhibition(state.pictures.list, slug));
@@ -17,7 +20,7 @@ const ArtistPresentation = (props) => {
       className="artist-modal"
     >
       <Modal.Header closeButton className="d-flex">
-        <Modal.Title id="contained-modal-title-vcenter" className="nickname">{artist.nickname}</Modal.Title> {/*  might need a condition in the cases where the artiste doesn't have a pseudo */}
+        <Modal.Title id="contained-modal-title-vcenter" className="nickname">{artist.nickname !== '' ? artist.nickname : 'sans pseudo'}</Modal.Title>
       </Modal.Header>
       <Modal.Body className="d-flex flex-column align-items-center">
         <img src={artist.avatar} alt={artist.slug} className="avatar" />

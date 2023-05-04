@@ -1,17 +1,17 @@
-// Component gathering all the information needed to show the artixt information, the exhibiton information and all the artworks related to the exhibition
+import { useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import Card from 'react-bootstrap/Card';
 import { Button } from 'react-bootstrap';
 
-import { useState } from 'react';
-import { useParams } from 'react-router-dom';
 import { findExhibition } from 'src/selectors/pictures';
-import { useSelector } from 'react-redux';
 
 import ArtistPresentation from '../ArtistPresentation';
 
 import './styles.scss';
 
+// Component gathering all informations needed (show artist information, exhibiton information and all artworks related to the exhibition)
 const Pictures = () => {
   const { slug } = useParams();
   const {

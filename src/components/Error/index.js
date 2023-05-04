@@ -1,9 +1,10 @@
-import Page from 'src/components/Page';
 import { LinkContainer } from 'react-router-bootstrap';
+import Page from 'src/components/Page';
 import Button from 'react-bootstrap/Button';
 
 import './styles.scss';
 
+// page 404
 const Error = () => (
   <Page>
     <div className="error-div d-flex flex-column align-items-center justify-content-center">
