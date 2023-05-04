@@ -7,8 +7,9 @@ export const toggleProfileEditing = () => ({
   type: TOGGLE_PROFILE_EDITING,
 });
 
-export const toggleArtworkEditing = () => ({
+export const toggleArtworkEditing = (formId) => ({
   type: TOGGLE_ARTWORK_EDITING,
+  formId: formId,
 });
 
 export const toggleAlertAfterEmailModification = () => ({
