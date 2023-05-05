@@ -14,6 +14,7 @@ import { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import './styles.scss';
+import AvatarPicture from '../../../assets/images/avatar/avatar.png';
 
 const userInformations = () => {
   const {
@@ -91,7 +92,7 @@ const userInformations = () => {
           <div className="row g-0">
             <div className="col-md-2 d-flex flex-column align-items-center justify-content-start">
               <img
-                src={avatar !== '' ? avatar : 'images/avatar/avatar.png'}
+                src={avatar !== '' ? avatar : AvatarPicture}
                 className="img-fluid rounded img-avatar"
                 alt="avatar"
               />
@@ -99,7 +100,7 @@ const userInformations = () => {
                 <Form.Group>
                   <Form.Control
                     placeholder={
-                      avatar !== '' ? avatar : 'images/avatar/avatar.png'
+                      avatar !== '' ? avatar : AvatarPicture
                     }
                     type="text"
                     className="mt-2"
