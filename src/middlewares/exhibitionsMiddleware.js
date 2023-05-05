@@ -3,8 +3,9 @@ import {
   FETCH_EXHIBITIONS, saveExhibitions,
   FETCH_USER_ARTWORKS, saveUserArtworks,
   UPDATE_USER_ARTWORK, SUBMIT_NEW_ARTWORK,
-  DELETE_USER_ARTWORK,
+  DELETE_USER_ARTWORK, fetchUserArtworks,
 } from '../actions/exhibitions';
+import { showSelectedExhibition } from '../actions/profile';
 
 const exhibitionsMiddleware = (store) => (next) => (action) => {
   switch (action.type) {
@@ -55,6 +56,7 @@ const exhibitionsMiddleware = (store) => (next) => (action) => {
         },
       )
         .then(() => {
+          // store.dispatch(fetchUserArtworks(action.data.exhibition));
         })
         .catch((error) => {
           console.warn(error);

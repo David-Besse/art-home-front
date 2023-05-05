@@ -78,8 +78,10 @@ const ExhibitionsManager = () => {
 
     if (result.length > 0) {
       handleUpdateUserArtwork(artwork.id, updateArtwork);
-      handleShowExhibition(currentArtwork.exhibition);
-      handleShowExhibition(currentArtwork.exhibition);
+
+      // workaround: sometimes, state doesnt refresh...
+      dispatch(fetchUserArtworks(selectedExhibitionId));
+      dispatch(fetchUserArtworks(selectedExhibitionId));
     }
 
     handleArtworkEditing('');
