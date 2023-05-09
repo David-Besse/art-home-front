@@ -5,6 +5,8 @@ import {
   SAVE_USER_EXHIBITIONS_LIST,
   SAVE_USER_DATA_FROM_LOCALSTORAGE,
   WIPE_USER_DATA,
+  ADD_FAVORITES,
+  REMOVE_FAVORITES,
 } from '../actions/users';
 
 export const initialState = {
@@ -22,6 +24,7 @@ export const initialState = {
   exhibitions: [],
   exhibitionName: '',
   exhibitionDescription: '',
+  favorites: [],
 };
 
 const reducer = (state = initialState, action = {}) => {
@@ -97,6 +100,16 @@ const reducer = (state = initialState, action = {}) => {
         exhibitionName: action.exhibitionName,
         exhibitions: action.exhibitions,
         token: action.token,
+      };
+    case ADD_FAVORITES:
+      return {
+        ...state,
+        favorites: [...state.favorites, action.payload],
+      };
+    case REMOVE_FAVORITES:
+      return {
+        ...state,
+        favorites: state.favorites.filter((elem) => elem !== action.payload),
       };
     default:
       return state;

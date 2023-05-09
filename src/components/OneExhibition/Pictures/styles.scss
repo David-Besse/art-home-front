@@ -3,11 +3,11 @@
   flex-direction: column;
   align-items: center;
 
-    .card {
-      background-color: rgba(255, 255, 255, 0.3);
-      border: none;
-      border-radius: 0;
-    }
+  .card {
+    background-color: rgba(255, 255, 255, 0.3);
+    border: none;
+    border-radius: 0;
+  }
 }
 
 .card-text {
@@ -20,38 +20,38 @@ INFO EXHIBITION
 .card-exhibition {
   align-items: center;
 
-    .body-exhibtion {
+  .body-exhibtion {
+    margin-bottom: 1rem;
+    width: 95%;
+
+    .title {
+      font-variant-caps: all-small-caps;
+      font-weight: bold;
+      font-size: 3.5rem;
+      line-height: 2rem;
       margin-bottom: 1rem;
-      width: 95%;
-    
-        .title {
-          font-variant-caps: all-small-caps;
-          font-weight: bold;
-          font-size: 3.5rem;
-          line-height: 2rem;
-          margin-bottom: 1rem;
-          margin-top: 1rem;
-          text-align: center;
-        }
+      margin-top: 1rem;
+      text-align: center;
+    }
 
-        .nickname {
-          font-size: 1.6rem;
-          padding: 0.6rem;
-          text-align: center;
-        }
+    .nickname {
+      font-size: 1.6rem;
+      padding: 0.6rem;
+      text-align: center;
+    }
 
-        .description {
-          font-size: 0.93rem;
-          padding: 1rem;
-        }
-   }
+    .description {
+      font-size: 0.93rem;
+      padding: 1rem;
+    }
+  }
 }
 
 /* 
 PICTURES EXHIBITION
 */
 
-.picture-list{
+.picture-list {
   position: relative;
   width: 100%;
   display: flex;
@@ -68,6 +68,7 @@ PICTURES EXHIBITION
   margin-bottom: 1rem;
   height: auto;
   width: 100%;
+  position: relative;
 }
 
 .image-picture {
@@ -87,28 +88,57 @@ PICTURES EXHIBITION
   padding-right: 2em;
 }
 
+/*
+Like icon
+*/
+.heart-icon {
+  .bi-heart {
+    height: 2.8em;
+    width: 2.8em;
+    color: white;
+    padding: 0.4em;
+    border-radius: 16px;
+  }
+
+  .bi-heart-fill {
+    height: 2.5em;
+    width: 2.5em;
+    color: red;
+    padding: 0.4em;
+  }
+
+  svg {
+    position: absolute;
+    top: 1em;
+    right: 1em;
+    transition: all 1s ease;
+
+    &:hover {
+      transform: rotate(360deg);
+    }
+  }
+}
 
 /************
 MEDIA QUERIES
 ************/
 
-@media screen and  (max-width: 768px){
+@media screen and (max-width: 768px) {
   .title-picture {
-  font-size: 1.2rem;
+    font-size: 1.2rem;
   }
 
-  .description-picture{
+  .description-picture {
     font-size: 0.93rem;
   }
 
   .card-body {
     padding: 0.5rem;
   }
-
 }
 
-@media screen and  (min-width: 1024px){
-  .picture-list{
+@media screen and (min-width: 1024px) {
+  .picture-list {
     flex-direction: unset;
     flex-wrap: wrap;
   }
@@ -123,18 +153,18 @@ MEDIA QUERIES
     height: 70%;
   }
 
-  .description-picture{
+  .description-picture {
     font-size: 0.85rem;
   }
 }
 
-@media screen and  (min-width: 1440px){
+@media screen and (min-width: 1440px) {
   .card-picture {
     padding: 0.5rem;
     width: calc(100% / 3);
   }
 
-  .description-picture{
+  .description-picture {
     font-size: 0.8rem;
   }
 }
