@@ -9,6 +9,8 @@ export const SUBMIT_PROFILE_UPDATE = 'SUBMIT_PROFILE_UPDATE';
 export const SUBMIT_NEW_EXHIBITION = 'SUBMIT_NEW_EXHIBITION';
 export const SAVE_USER_EXHIBITIONS_LIST = 'SAVE_USER_EXHIBITIONS_LIST';
 export const SAVE_USER_DATA_FROM_LOCALSTORAGE = 'SAVE_USER_DATA_FROM_LOCALSTORAGE';
+export const ADD_FAVORITES = 'ADD_FAVORITES';
+export const REMOVE_FAVORITES = 'REMOVE_FAVORITES';
 
 export const changeInputField = (newValue, fieldName) => ({
   type: CHANGE_INPUT_FIELD,
@@ -86,4 +88,14 @@ export const saveUserDataFromLocalStorage = ({
   exhibitionName: exhibitionName,
   exhibitions: exhibitions,
   token: token,
+});
+
+export const addFavorites = (pictureSlug) => ({
+  type: ADD_FAVORITES,
+  payload: pictureSlug,
+});
+
+export const removeFavorites = (pictureSlug) => ({
+  type: REMOVE_FAVORITES,
+  payload: pictureSlug,
 });
