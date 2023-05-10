@@ -9,7 +9,7 @@ import {
 const exhibitionsMiddleware = (store) => (next) => (action) => {
   switch (action.type) {
     case FETCH_EXHIBITIONS:
-      axios.get('http://aurelia-perrier-server.eddi.cloud/projet-12-art-at-home-back/public/api/exhibitions/homepage')
+      axios.get('https:api.webshappers.com/api/exhibitions/homepage')
         .then((response) => {
           setTimeout(() => {
             store.dispatch(saveExhibitions(response.data));
@@ -21,7 +21,7 @@ const exhibitionsMiddleware = (store) => (next) => (action) => {
       break;
     case FETCH_USER_ARTWORKS:
       axios.get(
-        `http://aurelia-perrier-server.eddi.cloud/projet-12-art-at-home-back/public/api/secure/artworks/exhibitions/${action.payload}/profile`,
+        `https://api.webshappers.com/api/secure/artworks/exhibitions/${action.payload}/profile`,
         {
           headers: {
             Authorization: `Bearer ${store.getState().users.token}`,
@@ -41,7 +41,7 @@ const exhibitionsMiddleware = (store) => (next) => (action) => {
       break;
     case UPDATE_USER_ARTWORK:
       axios.patch(
-        `http://aurelia-perrier-server.eddi.cloud/projet-12-art-at-home-back/public/api/secure/artworks/${action.artworkId}/edit`,
+        `https://api.webshappers.com/api/secure/artworks/${action.artworkId}/edit`,
         {
           title: action.data.title,
           description: action.data.description,
@@ -63,7 +63,7 @@ const exhibitionsMiddleware = (store) => (next) => (action) => {
       break;
     case SUBMIT_NEW_ARTWORK:
       axios.post(
-        'http://aurelia-perrier-server.eddi.cloud/projet-12-art-at-home-back/public/api/secure/artworks/new',
+        'https://api.webshappers.com/api/secure/artworks/new',
         {
           title: action.payload.title,
           description: action.payload.description,
@@ -85,7 +85,7 @@ const exhibitionsMiddleware = (store) => (next) => (action) => {
       break;
     case DELETE_USER_ARTWORK:
       axios.delete(
-        `http://aurelia-perrier-server.eddi.cloud/projet-12-art-at-home-back/public/api/secure/artworks/${action.id}/delete`,
+        `https://api.webshappers.com/api/secure/artworks/${action.id}/delete`,
         {
           headers: {
             Authorization: `Bearer ${store.getState().users.token}`,
