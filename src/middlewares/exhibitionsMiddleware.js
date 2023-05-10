@@ -9,7 +9,7 @@ import {
 const exhibitionsMiddleware = (store) => (next) => (action) => {
   switch (action.type) {
     case FETCH_EXHIBITIONS:
-      axios.get('https:api.webshappers.com/api/exhibitions/homepage')
+      axios.get('https://webshappers.com/route/api/exhibitions/homepage')
         .then((response) => {
           setTimeout(() => {
             store.dispatch(saveExhibitions(response.data));
@@ -21,7 +21,7 @@ const exhibitionsMiddleware = (store) => (next) => (action) => {
       break;
     case FETCH_USER_ARTWORKS:
       axios.get(
-        `https://api.webshappers.com/api/secure/artworks/exhibitions/${action.payload}/profile`,
+        `https://webshappers.com/route/api/secure/artworks/exhibitions/${action.payload}/profile`,
         {
           headers: {
             Authorization: `Bearer ${store.getState().users.token}`,
@@ -41,7 +41,7 @@ const exhibitionsMiddleware = (store) => (next) => (action) => {
       break;
     case UPDATE_USER_ARTWORK:
       axios.patch(
-        `https://api.webshappers.com/api/secure/artworks/${action.artworkId}/edit`,
+        `https://webshappers.com/route/api/secure/artworks/${action.artworkId}/edit`,
         {
           title: action.data.title,
           description: action.data.description,
@@ -63,7 +63,7 @@ const exhibitionsMiddleware = (store) => (next) => (action) => {
       break;
     case SUBMIT_NEW_ARTWORK:
       axios.post(
-        'https://api.webshappers.com/api/secure/artworks/new',
+        'https://webshappers.com/route/api/secure/artworks/new',
         {
           title: action.payload.title,
           description: action.payload.description,
@@ -85,7 +85,7 @@ const exhibitionsMiddleware = (store) => (next) => (action) => {
       break;
     case DELETE_USER_ARTWORK:
       axios.delete(
-        `https://api.webshappers.com/api/secure/artworks/${action.id}/delete`,
+        `https://webshappers.com/route/api/secure/artworks/${action.id}/delete`,
         {
           headers: {
             Authorization: `Bearer ${store.getState().users.token}`,
