@@ -1,4 +1,12 @@
 import { useDispatch, useSelector } from 'react-redux';
+
+import { submitNewExhibition, changeInputField } from 'src/actions/users';
+import { toggleExhibitionCreationModal, toggleArtworkCreationModal } from 'src/actions/modals';
+import {
+  fetchUserArtworks, updateUserArtwork, submitNewArtwork, deleteUserArtwork,
+} from 'src/actions/exhibitions';
+import { showSelectedExhibition, toggleArtworkEditing } from 'src/actions/profile';
+
 import {
   Button,
   Dropdown,
@@ -9,34 +17,24 @@ import {
   Spinner,
 } from 'react-bootstrap';
 
-import { submitNewExhibition, changeInputField } from 'src/actions/users';
-import {
-  toggleExhibitionCreationModal,
-  toggleArtworkCreationModal,
-} from 'src/actions/modals';
-import {
-  fetchUserArtworks, updateUserArtwork, submitNewArtwork, deleteUserArtwork,
-} from 'src/actions/exhibitions';
-import { showSelectedExhibition, toggleArtworkEditing } from 'src/actions/profile';
-
 import './styles.scss';
 
-/**
- * Exhibitions manager for the logged user
- * @returns {JSX.Element}
- */
-
+// show informations about the connected user
 const ExhibitionsManager = () => {
   const { isAccountCreationModalOpened, isArtworkCreationModalOpened } = useSelector((state) => state.modals);
   const { exhibitions, exhibitionName, exhibitionDescription } = useSelector((state) => state.users);
   const { artworks, isArtworksLoading } = useSelector((state) => state.exhibitions);
   const { selectedExhibitionId, isArtworkEditingActivated } = useSelector((state) => state.profile);
 
+  const dispatch = useDispatch();
+
+  const { artworkFormActivated, isFormActivated } = isArtworkEditingActivated;
+
   const currentExhibition = exhibitions.find((exhib) => exhib.id === selectedExhibitionId);
 
-  const dispatch = useDispatch();
-  const handleArtworkEditing = () => dispatch(toggleArtworkEditing());
-
+  const handleArtworkEditing = (formId) => {
+    dispatch(toggleArtworkEditing(formId));
+  };
   const handleExhibitionCreationModal = () => {
     dispatch(toggleExhibitionCreationModal());
   };
@@ -56,46 +54,54 @@ const ExhibitionsManager = () => {
 
   const handleSubmitExhibition = (event) => {
     event.preventDefault();
+
     handleExhibitionCreationModal();
+
     dispatch(submitNewExhibition());
   };
 
-  const changedFields = (elOne, elTwo) => Object.keys(elOne).filter((key) => elOne[key] !== elTwo[key]);
+  const compareChangedFields = (elOne, elTwo) => Object.keys(elOne).filter((key) => elOne[key] !== elTwo[key]);
 
-  /** handle form update artwork
-   *
-   * @param {*} event
-   * @param {int} artwork
-   */
+  // handle update artwork
   const handleUpdateArtwork = (event, artwork) => {
     event.preventDefault();
-    const formData = new FormData(event.target); // we create a new object FormData
-    const updateArtwork = Object.fromEntries(formData.entries()); // we retrieved data from formData
+
+    // we create a new object FormData and retrieve data
+    const formData = new FormData(event.target);
+    const updateArtwork = Object.fromEntries(formData.entries());
+
     const currentArtwork = {
       title: artwork.title, description: artwork.description, picture: artwork.picture, exhibition: (artwork.exhibition.id).toString(),
     };
 
-    const result = changedFields(updateArtwork, currentArtwork);
+    const result = compareChangedFields(updateArtwork, currentArtwork);
 
     if (result.length > 0) {
       handleUpdateUserArtwork(artwork.id, updateArtwork);
-      handleShowExhibition(currentArtwork.exhibition);
-      handleShowExhibition(currentArtwork.exhibition);
+
+      // workaround: sometimes, state doesnt refresh...
+      dispatch(fetchUserArtworks(selectedExhibitionId));
+      dispatch(fetchUserArtworks(selectedExhibitionId));
     }
 
-    handleArtworkEditing();
+    handleArtworkEditing('');
   };
 
   const handleSubmitNewArtwork = (event) => {
     event.preventDefault();
-    const formData = new FormData(event.target); // we create a new object FormData
-    const newArtwork = Object.fromEntries(formData.entries()); // we retrieved data from formData
+
+    // we create a new object FormData and retrieve data
+    const formData = new FormData(event.target);
+    const newArtwork = Object.fromEntries(formData.entries());
+
     handleArtworkCreationModal();
+
     dispatch(submitNewArtwork(newArtwork));
   };
 
   const handleDeleteArtwork = (event, artworkId) => {
     event.preventDefault();
+
     dispatch(deleteUserArtwork(artworkId));
   };
 
@@ -337,6 +343,7 @@ const ExhibitionsManager = () => {
                 className="artwork-box my-2 my-lg-0 col-lg-6"
                 key={artwork.id}
                 onSubmit={(event) => handleUpdateArtwork(event, artwork)}
+                id={artwork.id}
               >
                 <div className="card p-2 border h-100">
                   <div className="row g-0">
@@ -346,16 +353,16 @@ const ExhibitionsManager = () => {
                         className="img-fluid rounded-start artwork-image"
                         alt="artwork"
                       />
-                      {isArtworkEditingActivated.editingActivated && (
-                      <Form.Group>
-                        <Form.Control
-                          defaultValue={artwork.picture}
-                          type="text"
-                          className="mt-2"
-                          id={`inputPicture_${artwork.id}`}
-                          name="picture"
-                        />
-                      </Form.Group>
+                      {isFormActivated && artworkFormActivated === artwork.id && (
+                        <Form.Group>
+                          <Form.Control
+                            defaultValue={artwork.picture}
+                            type="text"
+                            className="mt-2"
+                            id={`inputPicture_${artwork.id}`}
+                            name="picture"
+                          />
+                        </Form.Group>
                       )}
                     </div>
 
@@ -376,7 +383,7 @@ const ExhibitionsManager = () => {
                               : artwork.title}
                           </span>
                         </p>
-                        {isArtworkEditingActivated.editingActivated && (
+                        {isFormActivated && artworkFormActivated === artwork.id && (
                         <Form.Group>
                           <Form.Control
                             defaultValue={artwork.title}
@@ -397,13 +404,13 @@ const ExhibitionsManager = () => {
                                 : ' fst-italic fw-lighter'
                             }
                           >
-                            {!isArtworkEditingActivated.editingActivated && (
+                            {artworkFormActivated !== artwork.id && (
                               artwork.description === ''
                                 ? 'non communiqué'
                                 : artwork.description)}
                           </span>
                         </p>
-                        {isArtworkEditingActivated.editingActivated && (
+                        {isFormActivated && artworkFormActivated === artwork.id && (
                         <Form.Group>
                           <Form.Control
                             as="textarea"
@@ -425,13 +432,14 @@ const ExhibitionsManager = () => {
                                 : ' fst-italic fw-lighter'
                             }
                           >
-                            {!isArtworkEditingActivated.editingActivated && (
+                            {artworkFormActivated !== artwork.id && (
                               artwork.exhibition.title === ''
                                 ? 'non communiqué'
-                                : artwork.exhibition.title)}
+                                : artwork.exhibition.title
+                            )}
                           </span>
                         </p>
-                        {isArtworkEditingActivated.editingActivated && (
+                        {isFormActivated && artworkFormActivated === artwork.id && (
                         <Form.Group
                           controlId="selectExhibition"
                           className="mb-3"
@@ -458,12 +466,12 @@ const ExhibitionsManager = () => {
                     </div>
                     <div className="col-lg-2 text-center d-flex flex-lg-column justify-content-end justify-content-lg-start align-items-lg-center">
                       {/* {EDIT BUTTON} */}
-                      {!isArtworkEditingActivated.editingActivated && (
+                      {!isFormActivated && (
                       <Button
                         type="button"
                         className="mb-lg-3 me-lg-0 me-3 mb-0 customButton"
                         variant="secondary"
-                        onClick={handleArtworkEditing}
+                        onClick={() => handleArtworkEditing(artwork.id)}
                       >
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-pencil-square" viewBox="0 0 16 16">
                           <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
@@ -471,7 +479,7 @@ const ExhibitionsManager = () => {
                         </svg>
                       </Button>
                       )}
-                      {isArtworkEditingActivated.editingActivated && (
+                      {isFormActivated && artworkFormActivated === artwork.id && (
                       <Button
                         type="submit"
                         id="validationBtn"
@@ -484,7 +492,7 @@ const ExhibitionsManager = () => {
                       </Button>
                       )}
                       {/* {DELETE BUTTON} */}
-                      {isArtworkEditingActivated.editingActivated && (
+                      {isFormActivated && artworkFormActivated === artwork.id && (
                       <Button
                         type="button"
                         variant="danger"

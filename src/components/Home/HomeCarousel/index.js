@@ -1,17 +1,12 @@
-// Display several images in carousel on the Home page to promote the lastest exhibitions
-
 import { useSelector } from 'react-redux';
 import { LinkContainer } from 'react-router-bootstrap';
+
 import Carousel from 'react-bootstrap/Carousel';
 import Image from 'react-bootstrap/Image';
 
 import './style.scss';
 
-/**
- * Carousel displaying the 1st picture of every active exhibition
-  @return {JSX.Element}
-*/
-
+// Display several images in carousel on the Home page to promote the lastest exhibitions
 const HomeCarousel = () => {
   const { list } = useSelector((state) => state.exhibitions);
 

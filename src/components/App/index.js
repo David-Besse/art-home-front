@@ -17,19 +17,18 @@ import { saveUserDataFromLocalStorage } from '../../actions/users';
 
 import './styles.scss';
 
-/* Display the different views of the application */
-
 function App() {
   const dispatch = useDispatch();
   const { logged } = useSelector((state) => state.users);
 
-  /* Retriving information to display homepage, exhibitions and one exhibition */
+  // fetch all exhibitions for the carousel and fetch all artworks for the oneExhibition page
   useEffect(() => {
     dispatch(fetchExhibitions());
     dispatch(fetchPictures());
   }, []);
 
-  /* Retriving profil information from the state and comparing with the local storage to know if the user is already logged */
+
+  // checks if a user is in localstorage then retrieves their information
   useEffect(() => {
     const userFromLocalStorage = getUserFromLocalStorage();
     if (userFromLocalStorage !== null && userFromLocalStorage.logged) {

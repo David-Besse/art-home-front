@@ -1,52 +1,62 @@
 import { useSelector, useDispatch } from 'react-redux';
+import { LinkContainer } from 'react-router-bootstrap';
 import { useNavigate } from 'react-router-dom';
 
 import { handleLoginOff, wipeUserData } from 'src/actions/users';
 import { toggleLoginModal, toggleNewAccountModal } from 'src/actions/modals';
 import { wipeData } from 'src/actions/exhibitions';
 
-import { LinkContainer } from 'react-router-bootstrap';
+import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
 import { Image } from 'react-bootstrap';
 
-import { saveUserToLocalStorage } from '../../utils/localStorage';
 import LogModal from './LogModal';
 import NewAccountModal from './NewAccountModal';
-import Logo from '../../assets/images/logo/logo.png';
+
+import { saveUserToLocalStorage } from '../../utils/localStorage';
+
 
 import './styles.scss';
 
-/**
- * Header Navbar
- * @returns {JSX.Element}
- */
+// header
 const Header = () => {
   const { isLogModalOpened, isNewAccountModalOpened } = useSelector((state) => state.modals);
   const { logged, nickname, role } = useSelector((state) => state.users);
   const curUser = useSelector((state) => state.users);
 
   const dispatch = useDispatch();
+
   const navigate = useNavigate();
 
+  // action for disconnection
   const handleLogout = () => {
+    // we return to the home page
     navigate('/');
 
+    // we save the user with the disconnected status in the localstorage
     curUser.logged = false;
     saveUserToLocalStorage(curUser);
 
+    // we delete all user data from state, except for the homepage
     dispatch(handleLoginOff());
     dispatch(wipeUserData());
     dispatch(wipeData());
   };
+
+  // triggers the display of the connection window
   const handleLoginModal = () => dispatch(toggleLoginModal());
+
+  // triggers the display of the registration window
   const handleNewAccountModal = () => dispatch(toggleNewAccountModal());
 
   return (
     <header>
       <Navbar collapseOnSelect expand="lg">
         <Container>
+
+          {/* displays the logo and the title of the website */}
           <div className="d-flex align-items-center">
             <Image src={Logo} alt="logo art at home" className="me-2 imageLogo" />
             <LinkContainer to="/">
@@ -59,8 +69,14 @@ const Header = () => {
               {nickname}
             </Navbar.Text>
             )}
+
+          {/* replaces the menu with a burger button */}
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+
+          {/* navigation menu in desktop view (min-height: 1024px) */}
           <Navbar.Collapse id="responsive-navbar-nav">
+
+            {/* displays links to website pages */}
             <Nav className="me-auto">
               <LinkContainer to="/expositions">
                 <Nav.Link eventKey={1}>Expositions</Nav.Link>
@@ -80,7 +96,7 @@ const Header = () => {
               </LinkContainer>
             </Nav>
 
-            {/* Displaying different options depending on the user status */}
+            {/* displays links to login and create an account */}
             <Nav>
               {!logged
                 && (
@@ -90,7 +106,6 @@ const Header = () => {
                 >Créer un compte
                 </Nav.Link>
                 )}
-
               {logged && (
               <Nav.Link eventKey={7} onClick={handleLogout} className="d-flex align-items-center">
                 <Navbar.Text className="d-none d-lg-flex me-2 welcomeMessage">
@@ -102,7 +117,6 @@ const Header = () => {
                 </svg>
               </Nav.Link>
               )}
-
               {!logged && (
               <Nav.Link
                 eventKey={7}
@@ -111,14 +125,15 @@ const Header = () => {
               </Nav.Link>
               )}
             </Nav>
+
           </Navbar.Collapse>
         </Container>
       </Navbar>
 
-      {/* Modal for the user to log to hise account */}
+      {/* modal to login */}
       <LogModal show={isLogModalOpened} />
 
-      {/* Modal for user to create a new account */}
+      {/* modal to create en account */}
       <NewAccountModal show={isNewAccountModalOpened} />
     </header>
   );

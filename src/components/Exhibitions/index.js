@@ -3,14 +3,11 @@ import { useSelector } from 'react-redux';
 import Header from 'src/components/Header';
 import Page from 'src/components/Page';
 import Footer from 'src/components/Footer';
+
 import ExhibitionsList from './ExhibitionsList';
 import Loading from '../Home/Loading';
 
-/**
- * All active exhibitions
- * @returns {JSX.Element}
- */
-
+// All active exhibitions
 const Exhibitions = () => {
   const { isExhibitionsLoaded } = useSelector((state) => state.exhibitions);
 

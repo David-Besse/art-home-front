@@ -6,13 +6,11 @@ import { findExhibition } from 'src/selectors/pictures';
 import Page from 'src/components/Page';
 import Header from 'src/components/Header';
 import Footer from 'src/components/Footer';
+import { findExhibition } from 'src/selectors/pictures';
+
 import Pictures from './Pictures';
 
-/**
- * One complete exhibition
- * @returns {JSX.Element}
- */
-
+// Structure to display one exhibition
 const OneExhibition = () => {
   const { slug } = useParams();
   const exhibition = useSelector((state) => findExhibition(state.pictures.list, slug));

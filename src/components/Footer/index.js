@@ -1,12 +1,8 @@
 import { LinkContainer } from 'react-router-bootstrap';
+
 import './styles.scss';
 
-/**
- * Footer with socials links
- * major CSS styles are from Bootstrap properties
- * icons are from Bootstrap librairie
- * @returns JSX Elements
- */
+// footer
 const Footer = () => (
   <footer className="d-md-flex d-none footerElement">
     <div className="d-flex flex-wrap justify-content-between align-items-center py-3 footer-socials">

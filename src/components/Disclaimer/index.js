@@ -4,8 +4,7 @@ import Footer from 'src/components/Footer';
 
 import './styles.scss';
 
-/* CGU */
-
+// disclaimer page
 const Disclaimer = () => (
   <>
     <Header />

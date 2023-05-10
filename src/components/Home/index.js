@@ -1,7 +1,9 @@
+import { useSelector } from 'react-redux';
+
 import Header from 'src/components/Header';
 import Page from 'src/components/Page';
 import Footer from 'src/components/Footer';
-import { useSelector } from 'react-redux';
+
 import Loading from './Loading';
 import HomeCarousel from './HomeCarousel';
 

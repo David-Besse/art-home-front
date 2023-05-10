@@ -1,10 +1,6 @@
 import './style.scss';
 
-/**
- * Loader
- * @returns (HTML.Element)
- */
-
+// loader page
 const Loading = () => (
   <section>
     <p className="loading">Nos peintures sèchent ...</p>

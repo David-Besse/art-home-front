@@ -4,7 +4,7 @@ import {
 
 export const initialState = {
   isProfileEditingActivated: false,
-  isArtworkEditingActivated: { artworkFormName: '', state: false },
+  isArtworkEditingActivated: { artworkFormActivated: '', isFormActivated: false },
   showAlert: false,
   selectedExhibitionId: null,
 };
@@ -19,7 +19,7 @@ const reducer = (state = initialState, action = {}) => {
     case TOGGLE_ARTWORK_EDITING:
       return {
         ...state,
-        isArtworkEditingActivated: { artworkFormName: action.formName, editingActivated: !state.isArtworkEditingActivated.editingActivated },
+        isArtworkEditingActivated: { artworkFormActivated: action.formId, isFormActivated: !state.isArtworkEditingActivated.isFormActivated },
       };
     case TOGGLE_ALERT_AFTER_EMAIL_MODIFICATION:
       return {

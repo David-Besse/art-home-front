@@ -4,8 +4,7 @@ import Footer from 'src/components/Footer';
 
 import './styles.scss';
 
-/* Information to contact the gallery managers */
-
+// contact page
 const Contact = () => (
   <>
     <Header />
