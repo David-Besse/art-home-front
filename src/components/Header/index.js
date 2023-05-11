@@ -52,7 +52,7 @@ const Header = () => {
 
   return (
     <header>
-      <Navbar collapseOnSelect expand="lg">
+      <Navbar collapseOnSelect expand="lg" className="fixed-top">
         <Container>
 
           {/* displays the logo and the title of the website */}

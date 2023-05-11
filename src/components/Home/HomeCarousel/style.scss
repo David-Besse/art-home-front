@@ -1,7 +1,7 @@
 @use 'src/styles/vars';
 
 .sectionCarousel {
-  height: calc(100vh - 8vh);
+  height: calc(100vh - 4em);
   width: 100vw;
   display: flex;
   justify-content: center;
@@ -86,7 +86,7 @@
 
 @media screen and (min-width: 768px) {
   .sectionCarousel {
-    height: calc(100vh - 16vh);
+    height: calc(92vh - 4em);
   }
 
   .carousel-description {

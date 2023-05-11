@@ -35,7 +35,7 @@ const Pictures = () => {
       <Card className="card-exhibition">
         <Card.Body className="body-exhibition">
           <Card.Title className="title">{title}</Card.Title>
-          <Card.Title className="nickname">{artist.nickname}</Card.Title>
+          <Card.Text className="nickname">{artist.nickname}</Card.Text>
           <Card.Text className="description">{description}</Card.Text>
         </Card.Body>
       </Card>

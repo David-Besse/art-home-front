@@ -6,7 +6,7 @@
   background-position: top;
   background-repeat: no-repeat;
   background-size: cover;
-  height: calc(100vh - 8vh);
+  height: calc(97vh - 4em);
   width: 100vw;
   display: flex;
   justify-content: center;
@@ -34,7 +34,7 @@
   }
 
   @media screen and (min-width: 768px) {
-    height: calc(100vh - 16vh);
+    height: calc(90vh - 4em);
 
     .contact-infos{
       width: 50%;

@@ -1,3 +1,5 @@
+@use 'src/styles/vars';
+
 .exhibition {
   display: flex;
   flex-direction: column;
@@ -20,7 +22,7 @@ INFO EXHIBITION
 .card-exhibition {
   align-items: center;
 
-  .body-exhibtion {
+  .body-exhibition {
     margin-bottom: 1rem;
     width: 95%;
 
@@ -34,8 +36,9 @@ INFO EXHIBITION
       text-align: center;
     }
 
-    .nickname {
-      font-size: 1.6rem;
+    .nickname.card-text{
+      color: vars.$ochre;
+      font-size: 1.2rem;
       padding: 0.6rem;
       text-align: center;
     }
@@ -159,6 +162,11 @@ MEDIA QUERIES
 }
 
 @media screen and (min-width: 1440px) {
+  .body-exhibition{
+    padding-left: 15em;
+    padding-right: 15em;
+  }
+
   .card-picture {
     padding: 0.5rem;
     width: calc(100% / 3);

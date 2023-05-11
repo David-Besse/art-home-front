@@ -55,7 +55,6 @@ const exhibitionsMiddleware = (store) => (next) => (action) => {
         },
       )
         .then(() => {
-          // store.dispatch(fetchUserArtworks(action.data.exhibition));
         })
         .catch((error) => {
           console.warn(error);

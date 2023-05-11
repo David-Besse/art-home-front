@@ -36,7 +36,7 @@ function App() {
   }, []);
 
   return (
-    <div className="app d-flex flex-column justify-content-between">
+    <div className="app d-flex flex-column">
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/expositions" element={<Exhibitions />} />

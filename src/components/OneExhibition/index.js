@@ -17,11 +17,13 @@ const OneExhibition = () => {
     return <Navigate to="/error" replace />;
   }
   return (
-    <Page>
+    <>
       <Header />
-      <Pictures />
+      <Page>
+        <Pictures />
+      </Page>
       <Footer />
-    </Page>
+    </>
   );
 };
 
