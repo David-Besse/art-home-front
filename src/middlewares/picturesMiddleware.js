@@ -6,7 +6,7 @@ import { FETCH_PICTURES, savePictures } from '../actions/pictures';
 const picturesMiddleware = (store) => (next) => (action) => {
   switch (action.type) {
     case FETCH_PICTURES:
-      axios.get('https://webshappers.com/route/api/exhibitions') // test with a js server
+      axios.get('https://apiroute.webshappers.com/api/exhibitions') // test with a js server
         .then((response) => {
           store.dispatch(savePictures(response.data));
         })

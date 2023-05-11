@@ -22,7 +22,7 @@ const user = (store) => (next) => (action) => {
     case SUBMIT_LOGIN:
       axios
         .post(
-          'https://webshappers.com/route/api/login_check',
+          'https://apiroute.webshappers.com/api/login_check',
           {
             username: action.payload.email,
             password: action.payload.password,
@@ -35,7 +35,7 @@ const user = (store) => (next) => (action) => {
           store.dispatch(toggleLoginModal());
           axios
             .get(
-              'https://webshappers.com/route/api/secure/users/profile',
+              'https://apiroute.webshappers.com/api/secure/users/profile',
               {
                 headers: {
                   Authorization: `Bearer ${store.getState().users.token}`,
@@ -60,7 +60,7 @@ const user = (store) => (next) => (action) => {
       break;
     case SUBMIT_NEW_ACCOUNT:
       axios
-        .post('https://webshappers.com/route/api/users/new', {
+        .post('https://apiroute.webshappers.com/api/users/new', {
           email: action.payload.email,
           password: action.payload.password,
           lastname: action.payload.lastName,
@@ -95,7 +95,7 @@ const user = (store) => (next) => (action) => {
     case SUBMIT_PROFILE_UPDATE:
       axios
         .patch(
-          'https://webshappers.com/route/api/secure/users/edit',
+          'https://apiroute.webshappers.com/api/secure/users/edit',
           {
             email: store.getState().users.email,
             lastname: store.getState().users.lastName,
@@ -122,7 +122,7 @@ const user = (store) => (next) => (action) => {
     case SUBMIT_NEW_EXHIBITION:
       axios
         .post(
-          'https://webshappers.com/route/api/secure/exhibitions/new',
+          'https://apiroute.webshappers.com/api/secure/exhibitions/new',
           {
             title: store.getState().users.exhibitionName,
             description: store.getState().users.exhibitionDescription,
