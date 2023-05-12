@@ -84,7 +84,7 @@ const userInformations = () => {
   }, [showAlert]);
 
   return (
-    <section className="my-3 userInformations">
+    <section className="userInformations">
       <Alert
         variant="warning"
         show={showAlert}

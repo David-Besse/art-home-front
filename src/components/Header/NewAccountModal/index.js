@@ -16,6 +16,7 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 
 import './styles.scss';
+import { Dropdown, DropdownButton } from 'react-bootstrap';
 
 // Modal to create an account
 const NewAccountModal = () => {
@@ -87,7 +88,7 @@ const NewAccountModal = () => {
         </Modal.Header>
         <Modal.Body>
           <Form noValidate validated={formValidated} onSubmit={handleSubmit} ref={formRef} className="d-flex flex-column">
-            <Row className="mb-3">
+            <Row>
               <Form.Group as={Col} controlId="inputLastName">
                 <FloatingLabel label="Nom" className="mb-3">
                   <Form.Control
@@ -158,6 +159,16 @@ const NewAccountModal = () => {
                   Mot de passe invalide.
                 </Form.Control.Feedback>
               </FloatingLabel>
+            </Form.Group>
+            <Form.Group controlId="selectRole">
+              <Form.Select name="role" defaultValue="" required className="mb-3">
+                <option disabled value="">Type de compte</option>
+                <option value="ROLE_USER">Rêveur</option>
+                <option value="ROLE_ARTIST">Artiste</option>
+              </Form.Select>
+              <Form.Control.Feedback type="invalid">
+                Vous devez sélectionner un type de compte.
+              </Form.Control.Feedback>
             </Form.Group>
             <Form.Group className="mb-3 text-start">
               <Form.Check
