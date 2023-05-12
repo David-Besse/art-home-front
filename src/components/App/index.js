@@ -27,6 +27,7 @@ function App() {
     dispatch(fetchPictures());
   }, []);
 
+
   // checks if a user is in localstorage then retrieves their information
   useEffect(() => {
     const userFromLocalStorage = getUserFromLocalStorage();
@@ -35,6 +36,7 @@ function App() {
     }
   }, []);
 
+  /* Route to navigate in the application */
   return (
     <div className="app d-flex flex-column">
       <Routes>

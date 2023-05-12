@@ -50,9 +50,9 @@ INFO EXHIBITION
   }
 }
 
-/* 
+/****************** 
 PICTURES EXHIBITION
-*/
+******************/
 
 .picture-list {
   position: relative;
@@ -122,9 +122,7 @@ Like icon
   }
 }
 
-/************
-MEDIA QUERIES
-************/
+/*---------------------------MEDIA QUERIES-----------------------------*/
 
 @media screen and (max-width: 768px) {
   .title-picture {

@@ -177,6 +177,8 @@ const NewAccountModal = () => {
         </Modal.Footer>
       </Modal>
 
+      {/* Message appearing depending on the success or not of the creation of a new user account */}
+
       <Modal show={isMessageModalOpened} onHide={handleAccountCreatedModal} className="informationModal">
         {!isMessageDisplayed
         && <Modal.Body className="normalInformation text-center">{message}</Modal.Body>}

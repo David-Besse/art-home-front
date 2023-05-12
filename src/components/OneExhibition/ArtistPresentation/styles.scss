@@ -1,3 +1,5 @@
+@use 'src/styles/vars';
+
 /***********
 MODAL ARTIST
 ***********/
@@ -13,7 +15,7 @@ MODAL ARTIST
 
   .avatar {
     display: flex;
-    border: goldenrod 1px solid;
+    border: vars.$ochre 1px solid;
     border-radius: 10px;
     width: 80%;
   }
@@ -35,9 +37,7 @@ MODAL ARTIST
   }
 }
 
-/************
-MEDIA QUERIES
-************/
+/*---------------------------MEDIA QUERIES-----------------------------*/
 
 @media screen and (min-width: 768px) {
   .card-artist {

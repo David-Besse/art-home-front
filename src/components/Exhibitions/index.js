@@ -7,6 +7,7 @@ import Footer from 'src/components/Footer';
 import ExhibitionsList from './ExhibitionsList';
 import Loading from '../Home/Loading';
 
+// All active exhibitions
 const Exhibitions = () => {
   const { isExhibitionsLoaded } = useSelector((state) => state.exhibitions);
 
@@ -14,6 +15,7 @@ const Exhibitions = () => {
     <>
       <Header />
       <Page>
+        {/* Displaying Loader while the content is added to the state */}
         { !isExhibitionsLoaded
         && <Loading /> }
         { isExhibitionsLoaded

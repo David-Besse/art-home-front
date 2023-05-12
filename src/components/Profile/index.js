@@ -7,6 +7,11 @@ import ExhibitionsManager from './ExhibitionsManager';
 
 import './styles.scss';
 
+/**
+ * Profile page
+ * @returns {JSX.Element}
+ */
+
 const Profile = () => (
   <>
     <Header />

@@ -52,6 +52,8 @@
     animation: load 1.5s infinite;
   }
 
+/*---------------------------MEDIA QUERIES-----------------------------*/
+
   @media screen and (max-width: 767px) {
     &::after {
       top: calc(75% + 0.4em);

@@ -157,8 +157,8 @@ const ExhibitionsManager = () => {
         </Modal.Body>
       </Modal>
 
-      {/* Modal for adding an artwork
-       *
+      {/**
+       * Modal for adding an artwork
        */}
       <Modal
         show={isArtworkCreationModalOpened}

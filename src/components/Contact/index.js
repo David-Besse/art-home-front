@@ -11,7 +11,6 @@ const Contact = () => (
     <Page>
       <div className="contact-page">
         <section className="contact-infos">
-          {/* <h3>Nous contacter</h3> */}
           <p className="contact-intro">
             Nous sommes toujours ravis d'avoir de vos nouvelles. Si vous avez
             des questions, des commentaires ou des suggestions, n'hésitez pas à

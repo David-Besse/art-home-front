@@ -1,6 +1,10 @@
 import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import Button from 'react-bootstrap/Button';
 import { Form, Alert } from 'react-bootstrap';
+
 import {
   toggleProfileEditing,
   toggleAlertAfterEmailModification,
@@ -10,11 +14,14 @@ import {
   submitProfileUpdate,
   handleLoginOff,
 } from 'src/actions/users';
-import { useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 import './styles.scss';
 import AvatarPicture from '../../../assets/images/avatar/avatar.png';
+
+/**
+ * User informations
+ * @returns {JSX.Element}
+ */
 
 const userInformations = () => {
   const {

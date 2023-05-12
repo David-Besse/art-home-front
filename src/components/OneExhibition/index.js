@@ -1,6 +1,8 @@
 import { Navigate, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
+import { findExhibition } from 'src/selectors/pictures';
+
 import Page from 'src/components/Page';
 import Header from 'src/components/Header';
 import Footer from 'src/components/Footer';
