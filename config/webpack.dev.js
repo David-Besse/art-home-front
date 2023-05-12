@@ -59,7 +59,6 @@ module.exports = merge(common, {
     },
     devMiddleware: {
       stats: 'minimal',
-
     },
     static: {
       directory: paths.build,
@@ -67,7 +66,6 @@ module.exports = merge(common, {
     historyApiFallback: true,
     open: false,
     compress: true,
-    hot: true,
     port,
   },
 });

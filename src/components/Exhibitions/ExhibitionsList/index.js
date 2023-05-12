@@ -19,7 +19,7 @@ const ExhibitionsList = () => {
         {list.map((exhibition) => (
           <LinkContainer to={`/expositions/${exhibition.slug}`} key={exhibition.slug}>
             <Card className="text-white card-info">
-              <Card.Img className="image-info" src={exhibition.picture} alt={exhibition.slug} />
+              <Card.Img className="image-info" src={exhibition.artwork[0].picture} alt={exhibition.artwork[0].slug} />
               <Card.Title className="text-center title-info">{exhibition.title}</Card.Title>
               <Card.Text className="text-center nickname-info">{exhibition.nickname}</Card.Text>
               <Card.Body className="exhibition-info">

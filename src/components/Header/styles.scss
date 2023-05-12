@@ -1,8 +1,15 @@
 @use 'src/styles/vars';
+@import url(https://fonts.bunny.net/css?family=baloo-thambi-2:400);
 
 .navbar {
   background-color: vars.$eggshell;
   color: vars.$dark;
+}
+
+.navbar-brand{
+  font-family: 'Baloo Thambi 2', display;
+  color: vars.$ochre;
+  font-size: 1.4em;
 }
 
 .imageLogo {

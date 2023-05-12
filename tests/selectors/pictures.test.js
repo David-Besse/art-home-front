@@ -1,9 +1,9 @@
-import { findExhibition } from 'src/selectors/pictures';
+import { findExhibition } from 'src/selectors/findExhibition';
 
 /**
  *  TEST
  */
-describe("file pictures.js",() => {
+describe("file findExhibition.js",() => {
   describe("function findExhibition", () => {
     it('should return an exhibition according to the given slug', () => {
       const exhibitions = [{
