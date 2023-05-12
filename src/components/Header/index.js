@@ -9,7 +9,6 @@ import { wipeData } from 'src/actions/exhibitions';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import Container from 'react-bootstrap/Container';
 import { Image } from 'react-bootstrap';
 
 import LogModal from './LogModal';
@@ -17,8 +16,8 @@ import NewAccountModal from './NewAccountModal';
 
 import { saveUserToLocalStorage } from '../../utils/localStorage';
 
-
 import './styles.scss';
+import Logo from '../../assets/images/logo/logo.png';
 
 // header
 const Header = () => {

@@ -3,8 +3,6 @@ import { useSelector } from 'react-redux';
 import { LinkContainer } from 'react-router-bootstrap';
 import Card from 'react-bootstrap/Card';
 
-import Card from 'react-bootstrap/Card';
-
 import './style.scss';
 
 // exhibitions page
