@@ -107,7 +107,7 @@
 
 /* demo stuff */
 .error-div{
-  height: 100vh;
+  height: calc(100vh - 4em);
 }
 
 .h1Error {

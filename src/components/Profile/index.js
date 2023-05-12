@@ -16,8 +16,10 @@ const Profile = () => (
   <>
     <Header />
     <Page>
-      <UserInformations />
-      <ExhibitionsManager />
+      <div className="profile-page">
+        <UserInformations />
+        <ExhibitionsManager />
+      </div>
     </Page>
     <Footer />
   </>

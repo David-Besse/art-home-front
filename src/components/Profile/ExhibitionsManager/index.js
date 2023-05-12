@@ -106,7 +106,7 @@ const ExhibitionsManager = () => {
   };
 
   return (
-    <section className="mb-3 mt-5 exhibitionManager">
+    <section className="exhibitionManager">
       {/**
        * Modal for creating an exhibition
        */}
