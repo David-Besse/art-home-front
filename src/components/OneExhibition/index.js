@@ -1,27 +1,25 @@
-import { Navigate, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-
-import { findExhibition } from 'src/selectors/pictures';
 
 import Page from 'src/components/Page';
 import Header from 'src/components/Header';
 import Footer from 'src/components/Footer';
 
 import Pictures from './Pictures';
+import Loading from '../Home/Loading';
 
 // Structure to display one exhibition
 const OneExhibition = () => {
-  const { slug } = useParams();
-  const exhibition = useSelector((state) => findExhibition(state.pictures.list, slug));
+  const { isExhibitionsLoaded } = useSelector((state) => state.exhibitions);
 
-  if (!exhibition) {
-    return <Navigate to="/error" replace />;
-  }
   return (
     <>
       <Header />
       <Page>
-        <Pictures />
+        {/* Displaying Loader while the content is added to the state */}
+        { !isExhibitionsLoaded
+        && <Loading /> }
+        { isExhibitionsLoaded
+        && <Pictures /> }
       </Page>
       <Footer />
     </>

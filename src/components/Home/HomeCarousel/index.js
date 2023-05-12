@@ -16,13 +16,13 @@ const HomeCarousel = () => {
         {list.map((exhibition) => (
           <Carousel.Item key={exhibition.id}>
             <h1 className="carousel-title">{exhibition.title}</h1>
-            <h2 className="carousel-artist">{exhibition.nickname}</h2>
+            <h2 className="carousel-artist">{exhibition.artist.nickname}</h2>
             <p className="carousel-description">{`${exhibition.description.split(/[.]/)[0]}...`}</p>
             <LinkContainer to={`/expositions/${exhibition.slug}`}>
               <Image
                 className="carousel-image"
-                src={exhibition.picture}
-                alt={exhibition.slug}
+                src={exhibition.artwork[0].picture}
+                alt={exhibition.artwork[0].slug}
               />
             </LinkContainer>
           </Carousel.Item>
