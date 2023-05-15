@@ -1,4 +1,4 @@
-@use 'src/styles/vars';
+@use "src/styles/vars";
 
 .exhibition {
   display: flex;
@@ -36,7 +36,7 @@ INFO EXHIBITION
       text-align: center;
     }
 
-    .nickname.card-text{
+    .nickname.card-text {
       color: vars.$ochre;
       font-size: 1.2rem;
       padding: 0.6rem;
@@ -157,10 +157,11 @@ Like icon
   .description-picture {
     font-size: 0.85rem;
   }
+
 }
 
 @media screen and (min-width: 1440px) {
-  .body-exhibition{
+  .body-exhibition {
     padding-left: 15em;
     padding-right: 15em;
   }

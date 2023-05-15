@@ -5,7 +5,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { addFavorites, removeFavorites, submitProfileUpdate } from 'src/actions/users';
 
 import Card from 'react-bootstrap/Card';
-import { Button } from 'react-bootstrap';
+import { Button, Modal } from 'react-bootstrap';
+import Image from 'react-bootstrap/Image';
 
 import { findExhibition } from 'src/selectors/findExhibition';
 
@@ -20,7 +21,14 @@ const Pictures = () => {
     title, artwork, artist, description,
   } = useSelector((state) => findExhibition(state.exhibitions.list, slug));
   const { favorites, logged } = useSelector((state) => state.users);
+
+  // manage artist modal
   const [modalShow, setModalShow] = useState(false);
+
+  // manage img modal
+  const [showImgModal, setShowImgModal] = useState(false);
+  const [selectedImage, setSelectedImage] = useState('');
+  const [zoomLevel, setZoomLevel] = useState(100);
 
   const dispatch = useDispatch();
 
@@ -32,6 +40,26 @@ const Pictures = () => {
       dispatch(addFavorites(pictureId));
     }
     dispatch(submitProfileUpdate());
+  };
+
+  const OpenImgModal = (image) => {
+    setSelectedImage(image);
+    setShowImgModal(true);
+  };
+
+  const closeImgModal = () => {
+    setSelectedImage('');
+    setShowImgModal(false);
+    setZoomLevel(100);
+  };
+
+  const handleZoom = (event) => {
+    const delta = Math.sign(event.deltaY);
+    const newZoomLevel = zoomLevel + (delta * 10);
+
+    if (newZoomLevel >= 100 && newZoomLevel <= 200) {
+      setZoomLevel(newZoomLevel);
+    }
   };
 
   return (
@@ -58,7 +86,7 @@ const Pictures = () => {
       <section className="picture-list">
         {artwork.map((picture) => (
           <Card className="card-picture" key={picture.slug}>
-            <Card.Img className="image-picture" src={picture.picture} alt={picture.slug} />
+            <Card.Img className="image-picture" src={picture.picture} alt={picture.slug} onClick={() => OpenImgModal(picture.picture)} />
             <div className="heart-icon" onClick={() => handleFavorites(picture.id)}>
               {logged && !favorites.includes(picture.id) && (
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-heart" viewBox="0 0 16 16">
@@ -79,6 +107,10 @@ const Pictures = () => {
         ))}
       </section>
 
+      {/* Modal for displaying the selected image */}
+      <Modal show={showImgModal} onHide={closeImgModal} onWheel={handleZoom} centered>
+        <Image src={selectedImage} alt={selectedImage} className="modal-image" style={{ transform: `scale(${zoomLevel / 100})` }} fluid thumbnail />
+      </Modal>
     </div>
   );
 };
