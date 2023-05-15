@@ -1,4 +1,5 @@
 import axios from 'axios';
+
 import {
   FETCH_EXHIBITIONS, saveExhibitions,
   FETCH_USER_ARTWORKS, saveUserArtworks,

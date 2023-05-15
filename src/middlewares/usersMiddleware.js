@@ -108,6 +108,7 @@ const user = (store) => (next) => (action) => {
             avatar: store.getState().users.avatar,
             birthday: new Date(store.getState().users.birthday),
             presentation: store.getState().users.presentation,
+            favorites: store.getState().users.favorites,
           },
           {
             headers: {
