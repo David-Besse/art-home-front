@@ -1,9 +1,9 @@
 import { useSelector } from 'react-redux';
 
-import { LinkContainer } from 'react-router-bootstrap';
 import Card from 'react-bootstrap/Card';
 
 import './style.scss';
+import { Link } from 'react-router-dom';
 
 // exhibitions page
 const ExhibitionsList = () => {
@@ -17,7 +17,7 @@ const ExhibitionsList = () => {
       {/* Showcase of all exhibitions */}
       <div className="exhibition-container mb-4">
         {list.map((exhibition) => (
-          <LinkContainer to={`/expositions/${exhibition.slug}`} key={exhibition.slug}>
+          <Link to={`/expositions/${exhibition.slug}`} key={exhibition.slug} className="text-decoration-none">
             <Card className="text-white card-info">
               <Card.Img className="image-info" src={exhibition.artwork[0].picture} alt={exhibition.artwork[0].slug} />
               <Card.Title className="text-center title-info">{exhibition.title}</Card.Title>
@@ -26,7 +26,7 @@ const ExhibitionsList = () => {
                 <Card.Text className="description-info">{exhibition.description}</Card.Text>
               </Card.Body>
             </Card>
-          </LinkContainer>
+          </Link>
         ))}
       </div>
 
