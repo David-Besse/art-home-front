@@ -108,8 +108,15 @@ const Pictures = () => {
       </section>
 
       {/* Modal for displaying the selected image */}
-      <Modal show={showImgModal} onHide={closeImgModal} onWheel={handleZoom} centered>
-        <Image src={selectedImage} alt={selectedImage} className="modal-image" style={{ transform: `scale(${zoomLevel / 100})` }} fluid thumbnail />
+      <Modal show={showImgModal} onHide={closeImgModal} onWheel={handleZoom}>
+        <Image
+          src={selectedImage}
+          alt={selectedImage}
+          className="imgModal"
+          style={{ transform: `scale(${zoomLevel / 100}) translateY(50%)` }}
+          fluid
+          rounded
+        />
       </Modal>
     </div>
   );
