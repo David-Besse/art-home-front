@@ -1,10 +1,15 @@
 // set user informations in localStorage
-export const saveUserToLocalStorage = (user) => {
-  localStorage.setItem('user-arthome', JSON.stringify(user));
+export const saveToLocalStorage = (keyName, data) => {
+  localStorage.setItem(keyName, JSON.stringify(data));
 };
 
 // get user informations from localStorage
-export const getUserFromLocalStorage = () => {
-  const user = localStorage.getItem('user-arthome');
-  return user ? JSON.parse(user) : null;
+export const getFromLocalStorage = (keyName) => {
+  const values = localStorage.getItem(keyName);
+  return values ? JSON.parse(values) : null;
+};
+
+// remove user informations from localstorage
+export const removeFromLocalStorage = (keyName) => {
+  localStorage.removeItem(keyName);
 };

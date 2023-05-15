@@ -6,8 +6,8 @@ import jsdom from "jsdom";
 
 // importer les fonctions à tester
 import {
-  getUserFromLocalStorage,
-  saveUserToLocalStorage,
+  getFromLocalStorage,
+  saveToLocalStorage,
 } from "tests/localStorage/localStorage";
 
 // Création d'un local storage pour JEST
@@ -47,14 +47,14 @@ describe("file localStorage.js", () => {
     jsdom.localStorage.clear();
   });
 
-  describe("function saveUserToLocalStorage", () => {
+  describe("function saveToLocalStorage", () => {
     // Tester si la fonction a correctement sauvegardé l'utilisateur dans le local storage
     it("should save user to local storage", () => {
       // Créer un utilisateur fictif pour le test
       const user = { name: "Jest_test", email: "jest_test@msn.com" };
 
       // Appeler la fonction à tester
-      saveUserToLocalStorage(user);
+      saveToLocalStorage(user);
 
       // Vérifier si l'utilisateur a été correctement sauvegardé dans le local storage
       expect(jsdom.localStorage.getItem("user-arthome")).toEqual(
@@ -63,7 +63,7 @@ describe("file localStorage.js", () => {
     });
   });
 
-  describe("function getUserFromLocalStorage", () => {
+  describe("function getFromLocalStorage", () => {
     // Tester si la fonction retourne l'utilisateur stocké dans le local storage
     it("should return user from local storage", () => {
       // Créer un utilisateur fictif pour le test
@@ -76,7 +76,7 @@ describe("file localStorage.js", () => {
       jsdom.localStorage.setItem("user-arthome", JSON.stringify(user));
 
       // Appeler la fonction à tester
-      const result = getUserFromLocalStorage();
+      const result = getFromLocalStorage();
 
       // Vérifier si la fonction a retourné l'utilisateur stocké dans le local storage
       expect(result).toEqual(user);
@@ -88,7 +88,7 @@ describe("file localStorage.js", () => {
       jsdom.localStorage.removeItem("user-arthome");
 
       // Appeler la fonction à tester
-      const result = getUserFromLocalStorage();
+      const result = getFromLocalStorage();
 
       // Vérifier si la fonction a retourné null
       expect(result).toBeNull();

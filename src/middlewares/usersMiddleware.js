@@ -2,6 +2,8 @@ import axios from 'axios';
 import {
   SUBMIT_LOGIN,
   saveAuthData,
+  GET_USER_PROFILE,
+  getUserProfile,
   saveUserData,
   SUBMIT_NEW_ACCOUNT,
   SUBMIT_PROFILE_UPDATE,
@@ -15,7 +17,7 @@ import {
   toggleNewAccountModal,
   toggleInformationModal,
 } from '../actions/modals';
-import { saveUserToLocalStorage } from '../utils/localStorage';
+import { saveToLocalStorage } from '../utils/localStorage';
 
 const user = (store) => (next) => (action) => {
   switch (action.type) {
@@ -30,25 +32,10 @@ const user = (store) => (next) => (action) => {
         )
         .then((response) => {
           store.dispatch(saveAuthData(response.data.token));
+          store.dispatch(getUserProfile(response.data.token));
           action.loginForm.current.reset();
           store.dispatch(changeInputFieldsValidation(false));
           store.dispatch(toggleLoginModal());
-          axios
-            .get(
-              'https://apiroute.webshappers.com/api/secure/users/profile',
-              {
-                headers: {
-                  Authorization: `Bearer ${store.getState().users.token}`,
-                },
-              },
-            )
-            .then((res) => {
-              store.dispatch(saveUserData(res.data));
-              saveUserToLocalStorage(store.getState().users);
-            })
-            .catch((error) => {
-              console.warn('Une erreur est survenu lors de la récupération du token', error);
-            });
         })
         .catch(() => {
           action.loginForm.current.reset();
@@ -56,6 +43,23 @@ const user = (store) => (next) => (action) => {
           setTimeout(() => {
             store.dispatch(changeInputFieldsValidation(false));
           }, 2000);
+        });
+      break;
+    case GET_USER_PROFILE:
+      axios
+        .get(
+          'https://apiroute.webshappers.com/api/secure/users/profile',
+          {
+            headers: {
+              Authorization: `Bearer ${action.userToken}`,
+            },
+          },
+        )
+        .then((res) => {
+          store.dispatch(saveUserData(res.data));
+          saveToLocalStorage('user-arthome', store.getState().users);
+        })
+        .catch(() => {
         });
       break;
     case SUBMIT_NEW_ACCOUNT:
@@ -102,7 +106,7 @@ const user = (store) => (next) => (action) => {
             firstname: store.getState().users.firstName,
             nickname: store.getState().users.nickname,
             avatar: store.getState().users.avatar,
-            dateOfBirth: new Date(store.getState().users.birthday),
+            birthday: new Date(store.getState().users.birthday),
             presentation: store.getState().users.presentation,
           },
           {
@@ -113,7 +117,7 @@ const user = (store) => (next) => (action) => {
           },
         )
         .then(() => {
-          saveUserToLocalStorage(store.getState().users);
+          saveToLocalStorage('user-arthome', store.getState().users);
         })
         .catch((error) => {
           console.warn(error);

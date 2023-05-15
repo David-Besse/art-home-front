@@ -10,9 +10,9 @@ import Disclaimer from 'src/components/Disclaimer';
 import Contact from 'src/components/Contact';
 import Error from 'src/components/Error';
 
-import { fetchExhibitions } from '../../actions/exhibitions';
-import { getUserFromLocalStorage } from '../../utils/localStorage';
-import { saveUserDataFromLocalStorage } from '../../actions/users';
+import { fetchExhibitions } from 'src/actions/exhibitions';
+import { getFromLocalStorage } from 'src/utils/localStorage';
+import { saveUserDataFromLocalStorage } from 'src/actions/users';
 
 import './styles.scss';
 
@@ -20,15 +20,12 @@ function App() {
   const dispatch = useDispatch();
   const { logged } = useSelector((state) => state.users);
 
-  // fetch all exhibitions
+  // fetch all exhibitions and checks if a user is in localstorage then retrieves their information
   useEffect(() => {
     dispatch(fetchExhibitions());
-  }, []);
 
-  // checks if a user is in localstorage then retrieves their information
-  useEffect(() => {
-    const userFromLocalStorage = getUserFromLocalStorage();
-    if (userFromLocalStorage !== null && userFromLocalStorage.logged) {
+    const userFromLocalStorage = getFromLocalStorage('user-arthome');
+    if (userFromLocalStorage && userFromLocalStorage.logged && userFromLocalStorage.token !== '') {
       dispatch(saveUserDataFromLocalStorage(userFromLocalStorage));
     }
   }, []);

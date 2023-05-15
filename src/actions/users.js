@@ -1,7 +1,9 @@
 export const CHANGE_INPUT_FIELD = 'CHANGE_INPUT_FIELD';
 export const SUBMIT_LOGIN = 'SUBMIT_LOGIN';
 export const SAVE_AUTH_DATA = 'SAVE_AUTH_DATA';
+export const GET_USER_PROFILE = 'GET_USER_PROFILE';
 export const SAVE_USER_DATA = 'SAVE_USER_DATA';
+export const CHANGE_USER_LOGGIN = 'CHANGE_USER_LOGGIN';
 export const HANDLE_LOGIN_OFF = 'HANDLE_LOGIN_OFF';
 export const WIPE_USER_DATA = 'WIPE_USER_DATA';
 export const SUBMIT_NEW_ACCOUNT = 'SUBMIT_NEW_ACCOUNT';
@@ -35,19 +37,30 @@ export const submitNewAccount = (newAccountData, formRef) => ({
   newAccountForm: formRef,
 });
 
+export const getUserProfile = (userToken) => ({
+  type: GET_USER_PROFILE,
+  userToken: userToken,
+});
+
 export const saveUserData = ({
-  nickname, lastname, firstname, avatar, dateOfBirth, presentation, role, email, exhibitions,
+  nickname, lastname, firstname, avatar, birthday, presentation, role, email, exhibitions, favorites,
 }) => ({
   type: SAVE_USER_DATA,
   nickname: nickname,
   lastName: lastname,
   firstName: firstname,
   avatar: avatar,
-  birthday: dateOfBirth,
+  birthday: birthday,
   presentation: presentation,
   role: role,
   email: email,
   exhibitions: exhibitions,
+  favorites: favorites,
+});
+
+export const changeUserLoggin = (value) => ({
+  type: CHANGE_USER_LOGGIN,
+  logged: value,
 });
 
 export const submitProfileUpdate = () => ({
@@ -72,7 +85,7 @@ export const wipeUserData = () => ({
 });
 
 export const saveUserDataFromLocalStorage = ({
-  nickname, lastName, firstName, avatar, birthday, presentation, role, email, logged, exhibitionDescription, exhibitionName, exhibitions, token,
+  nickname, lastName, firstName, avatar, birthday, presentation, role, email, logged, exhibitionDescription, exhibitionName, exhibitions, token, favorites,
 }) => ({
   type: SAVE_USER_DATA_FROM_LOCALSTORAGE,
   nickname: nickname,
@@ -88,6 +101,7 @@ export const saveUserDataFromLocalStorage = ({
   exhibitionName: exhibitionName,
   exhibitions: exhibitions,
   token: token,
+  favorites: favorites,
 });
 
 export const addFavorites = (pictureSlug) => ({

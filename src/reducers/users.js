@@ -7,6 +7,7 @@ import {
   WIPE_USER_DATA,
   ADD_FAVORITES,
   REMOVE_FAVORITES,
+  CHANGE_USER_LOGGIN,
 } from '../actions/users';
 
 export const initialState = {
@@ -54,6 +55,12 @@ const reducer = (state = initialState, action = {}) => {
         presentation: action.presentation === null ? '' : action.presentation,
         role: action.role,
         exhibitions: action.exhibitions,
+        favorites: action.favorites,
+      };
+    case CHANGE_USER_LOGGIN:
+      return {
+        ...state,
+        logged: action.logged,
       };
     case HANDLE_LOGIN_OFF:
       return {
@@ -76,6 +83,7 @@ const reducer = (state = initialState, action = {}) => {
         exhibitions: [],
         exhibitionName: '',
         exhibitionDescription: '',
+        favorites: [],
       };
     case SAVE_USER_EXHIBITIONS_LIST:
       return {
@@ -100,6 +108,7 @@ const reducer = (state = initialState, action = {}) => {
         exhibitionName: action.exhibitionName,
         exhibitions: action.exhibitions,
         token: action.token,
+        favorites: action.favorites,
       };
     case ADD_FAVORITES:
       return {

@@ -11,10 +11,10 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { Image } from 'react-bootstrap';
 
+import { removeFromLocalStorage } from 'src/utils/localStorage';
+
 import LogModal from './LogModal';
 import NewAccountModal from './NewAccountModal';
-
-import { saveUserToLocalStorage } from '../../utils/localStorage';
 
 import './styles.scss';
 import Logo from '../../assets/images/logo/logo.png';
@@ -22,8 +22,7 @@ import Logo from '../../assets/images/logo/logo.png';
 // header
 const Header = () => {
   const { isLogModalOpened, isNewAccountModalOpened } = useSelector((state) => state.modals);
-  const { logged, nickname, firstName} = useSelector((state) => state.users);
-  const curUser = useSelector((state) => state.users);
+  const { logged, nickname, firstName } = useSelector((state) => state.users);
 
   const dispatch = useDispatch();
 
@@ -34,14 +33,11 @@ const Header = () => {
     // we return to the home page
     navigate('/');
 
-    // we save the user with the disconnected status in the localstorage
-    curUser.logged = false;
-    saveUserToLocalStorage(curUser);
-
     // we delete all user data from state, except for the homepage
     dispatch(handleLoginOff());
     dispatch(wipeUserData());
     dispatch(wipeData());
+    removeFromLocalStorage('user-arthome');
   };
 
   // triggers the display of the connection window

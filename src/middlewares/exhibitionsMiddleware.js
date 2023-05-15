@@ -11,9 +11,7 @@ const exhibitionsMiddleware = (store) => (next) => (action) => {
     case FETCH_EXHIBITIONS:
       axios.get('https://apiroute.webshappers.com/api/exhibitions')
         .then((response) => {
-          setTimeout(() => {
-            store.dispatch(saveExhibitions(response.data));
-          }, 1500);
+          store.dispatch(saveExhibitions(response.data));
         })
         .catch((error) => {
           console.warn(error);
@@ -32,7 +30,6 @@ const exhibitionsMiddleware = (store) => (next) => (action) => {
           store.dispatch(saveUserArtworks(response.data));
         })
         .catch((error) => {
-          // console.warn(error);
           if (error.response.data.message === 'Expired JWT Token') {
             // eslint-disable-next-line no-alert
             alert("Impossible d'exécuter la demande, la session a expirée. Veuillez vous reconnecter.");
