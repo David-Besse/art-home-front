@@ -229,9 +229,9 @@ const ExhibitionsManager = () => {
        * Show exhibition management
        */}
       <div className="allExhibitions justify-content-center">
-        <div className="mt-3 mb-3 border-top">
+        <div className="mt-3 mb-3">
           <div className="d-flex justify-content-between">
-            <h3 className="mb-3 my-3 fw-bolder">Mes expositions</h3>
+            <h3 className="mb-3 my-3 fw-bolder">Gestionnaire d'expositions</h3>
             <div className="d-flex">
 
               {/**
@@ -324,12 +324,12 @@ const ExhibitionsManager = () => {
             </DropdownButton>
 
           </div>
-          <div className="d-flex flex-raw mb-3 border-top">
-            <h2 className="py-1 px-1 w-25">
+          <div className="d-flex flex-column justify-content-center mb-3 border-top">
+            <h2 className="pt-5 pb-2 px-1 text-center exhibitionTitle">
               {currentExhibition
             && currentExhibition.title}
             </h2>
-            <p className="fw-2 py-1 px-1 text-center w-75">
+            <p className="py-1 px-1 text-center exhibitionDescription">
               {currentExhibition
                   && currentExhibition.description}
             </p>
@@ -346,11 +346,11 @@ const ExhibitionsManager = () => {
                 id={artwork.id}
               >
                 <div className="card p-2 border h-100">
-                  <div className="row g-0">
-                    <div className="col-lg-4 d-flex flex-column align-items-center justify-content-start">
+                  <div className="row g-0 cardContainer">
+                    <div className="col-lg-4 d-flex flex-column align-items-center justify-content-center">
                       <img
                         src={artwork.picture}
-                        className="img-fluid rounded-start artwork-image"
+                        className="img-fluid rounded artwork-image"
                         alt="artwork"
                       />
                       {isFormActivated && artworkFormActivated === artwork.id && (
@@ -366,7 +366,7 @@ const ExhibitionsManager = () => {
                       )}
                     </div>
 
-                    <div className="col-lg-6 my-3">
+                    <div className="col-lg-6 mt-3 mt-lg-0 d-flex align-items-center">
                       <div className="card-body py-0">
 
                         <p className="card-text fw-bold mb-0">
@@ -464,12 +464,12 @@ const ExhibitionsManager = () => {
                         )}
                       </div>
                     </div>
-                    <div className="col-lg-2 text-center d-flex flex-lg-column justify-content-end justify-content-lg-start align-items-lg-center">
+                    <div className="col-lg-2 text-center d-flex flex-lg-column justify-content-end justify-content-lg-center align-items-lg-center">
                       {/* {EDIT BUTTON} */}
                       {!isFormActivated && (
                       <Button
                         type="button"
-                        className="mb-lg-3 me-lg-0 me-3 mb-0 customButton"
+                        className="mb-lg-3 me-lg-0 mb-0 customButton"
                         variant="secondary"
                         onClick={() => handleArtworkEditing(artwork.id)}
                       >
@@ -483,7 +483,7 @@ const ExhibitionsManager = () => {
                       <Button
                         type="submit"
                         id="validationBtn"
-                        className="mb-lg-3 me-lg-0 me-3 mb-0 customButton"
+                        className="mb-lg-3 me-lg-0 mb-0 customButton"
                       >
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-check-square" viewBox="0 0 16 16">
                           <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
@@ -497,6 +497,7 @@ const ExhibitionsManager = () => {
                         type="button"
                         variant="danger"
                         onClick={(event) => handleDeleteArtwork(event, artwork.id)}
+                        className="ms-3 ms-lg-0"
                       >
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-trash3" viewBox="0 0 16 16">
                           <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z" />
