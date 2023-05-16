@@ -55,8 +55,8 @@ const Pictures = () => {
 
   const handleZoom = (event) => {
     const delta = Math.sign(event.deltaY);
-    const zoomStep = 10;
-    const minZoom = 50;
+    const zoomStep = 5;
+    const minZoom = 40;
     const maxZoom = 100;
 
     const newImgWidth = imgWidth + (delta * zoomStep);
