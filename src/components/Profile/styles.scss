@@ -1,5 +1,41 @@
+@use 'src/styles/vars';
+
 .profile-page {
   min-height: calc(92vh - 4em);
+}
+
+.tabMenu{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-left: 5%;
+  border: none;
+  margin-top: 1em;
+
+  .nav-item {
+    width: fit-content;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .nav-link{
+      margin-right: 1em;
+      border: 1px solid black;
+      border-radius: 15px;
+      background-color: vars.$eggshell;
+      border-color: vars.$ochre;
+      color: vars.$ochre;
+      font-weight: bold;
+    
+      &:hover,
+      &:active {
+        background-color: vars.$ochre;
+        border-color: vars.$ochre;
+        color: vars.$eggshell;
+      }
+    }
+  }
 }
 
 .img-avatar {

@@ -11,6 +11,10 @@
   .artwork-box{
     font-size: 0.85em;
   }
+
+  .exhibitionTitle{
+    font-size: 3em!important;
+  }
 }
 
 #validationBtn {
@@ -21,11 +25,11 @@
 
 @media (min-width: 768px) {
   .artwork-image{
-    width: 60%;
+    width: 80%;
   }
 }
 
-@media (min-width: 1023px) {
+@media (min-width: 1024px) {
   .artworks-zone{
     justify-content: center;
     gap: 1em;
@@ -36,6 +40,16 @@
     height: auto;
     font-size: 0.7em;
   }
+
+  .artwork-image{
+    width: 20em;
+    height: 20em;
+    object-fit: cover;
+  }
+
+  .cardContainer{
+    min-height: 100%;
+  }
 }
 
 @media (min-width: 1440px) {
@@ -43,5 +57,10 @@
     width: 40vw;
     height: auto;
     font-size: 0.7em;
+  }
+
+  .exhibitionDescription{
+    padding-left: 20%!important;
+    padding-right: 20%!important;
   }
 }
