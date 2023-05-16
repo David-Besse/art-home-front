@@ -6,6 +6,7 @@ import Page from 'src/components/Page';
 
 import UserInformations from './UserInformations';
 import ExhibitionsManager from './ExhibitionsManager';
+import MyFavorites from './MyFavorites';
 
 import './styles.scss';
 
@@ -25,6 +26,7 @@ const Profile = () => {
           <UserInformations />
           {role[0] === 'ROLE_ARTIST'
             && <ExhibitionsManager />}
+          <MyFavorites />
         </div>
       </Page>
       <Footer />

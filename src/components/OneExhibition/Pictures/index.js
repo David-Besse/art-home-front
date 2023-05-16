@@ -27,7 +27,7 @@ const Pictures = () => {
 
   // manage img modal
   const [showImgModal, setShowImgModal] = useState(false);
-  const [selectedImage, setSelectedImage] = useState('');
+  const [selectedPicture, setSelectedPicture] = useState('');
   const [imgWidth, setImgWidth] = useState(40);
 
   const dispatch = useDispatch();
@@ -42,13 +42,13 @@ const Pictures = () => {
     dispatch(submitProfileUpdate());
   };
 
-  const OpenImgModal = (image) => {
-    setSelectedImage(image);
+  const OpenImgModal = (picture) => {
+    setSelectedPicture(picture);
     setShowImgModal(true);
   };
 
   const closeImgModal = () => {
-    setSelectedImage('');
+    setSelectedPicture('');
     setShowImgModal(false);
     setImgWidth(40);
   };
@@ -90,7 +90,7 @@ const Pictures = () => {
       <section className="picture-list">
         {artwork.map((picture) => (
           <Card className="card-picture" key={picture.slug}>
-            <Card.Img className="image-picture" src={picture.picture} alt={picture.slug} onClick={() => OpenImgModal(picture.picture)} />
+            <Card.Img className="image-picture" src={picture.picture} alt={picture.slug} onClick={() => OpenImgModal(picture)} />
             <div className="heart-icon" onClick={() => handleFavorites(picture.id)}>
               {logged && !favorites.includes(picture.id) && (
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-heart" viewBox="0 0 16 16">
@@ -114,20 +114,20 @@ const Pictures = () => {
       {/* Modal for displaying the selected image */}
       <div
         id="myModal"
-        className="modal"
+        className="modalPicture"
         style={{ display: showImgModal ? 'block' : 'none' }}
       >
 
         <span
-          className="close"
+          className="closePicture"
           onClick={closeImgModal}
         >&times;
         </span>
-
+        <h3 className="titlePicture">{selectedPicture.title}</h3>
         <Image
-          src={selectedImage}
-          alt={selectedImage}
-          className="modal-content"
+          src={selectedPicture.picture}
+          alt={selectedPicture.title}
+          className="modalPicture-content"
           onWheel={handleZoom}
           style={{ width: `${imgWidth}%` }}
           fluid
