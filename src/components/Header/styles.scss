@@ -1,6 +1,10 @@
 @use 'src/styles/vars';
 @import url(https://fonts.bunny.net/css?family=baloo-thambi-2:400);
 
+header{
+  z-index: 9;
+}
+
 .navbar {
   background-color: vars.$eggshell;
   color: vars.$dark;

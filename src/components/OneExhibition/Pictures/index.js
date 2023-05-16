@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { addFavorites, removeFavorites, submitProfileUpdate } from 'src/actions/users';
 
 import Card from 'react-bootstrap/Card';
-import { Button, Modal } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import Image from 'react-bootstrap/Image';
 
 import { findExhibition } from 'src/selectors/findExhibition';
@@ -28,7 +28,7 @@ const Pictures = () => {
   // manage img modal
   const [showImgModal, setShowImgModal] = useState(false);
   const [selectedImage, setSelectedImage] = useState('');
-  const [zoomLevel, setZoomLevel] = useState(100);
+  const [imgWidth, setImgWidth] = useState(40);
 
   const dispatch = useDispatch();
 
@@ -50,15 +50,19 @@ const Pictures = () => {
   const closeImgModal = () => {
     setSelectedImage('');
     setShowImgModal(false);
-    setZoomLevel(100);
+    setImgWidth(40);
   };
 
   const handleZoom = (event) => {
     const delta = Math.sign(event.deltaY);
-    const newZoomLevel = zoomLevel + (delta * 10);
+    const zoomStep = 10;
+    const minZoom = 50;
+    const maxZoom = 100;
 
-    if (newZoomLevel >= 100 && newZoomLevel <= 200) {
-      setZoomLevel(newZoomLevel);
+    const newImgWidth = imgWidth + (delta * zoomStep);
+
+    if (newImgWidth >= minZoom && newImgWidth <= maxZoom) {
+      setImgWidth(newImgWidth);
     }
   };
 
@@ -108,16 +112,29 @@ const Pictures = () => {
       </section>
 
       {/* Modal for displaying the selected image */}
-      <Modal show={showImgModal} onHide={closeImgModal} onWheel={handleZoom}>
+      <div
+        id="myModal"
+        className="modal"
+        style={{ display: showImgModal ? 'block' : 'none' }}
+      >
+
+        <span
+          className="close"
+          onClick={closeImgModal}
+        >&times;
+        </span>
+
         <Image
           src={selectedImage}
           alt={selectedImage}
-          className="imgModal"
-          style={{ transform: `scale(${zoomLevel / 100}) translateY(50%)` }}
+          className="modal-content"
+          onWheel={handleZoom}
+          style={{ width: `${imgWidth}%` }}
           fluid
           rounded
         />
-      </Modal>
+
+      </div>
     </div>
   );
 };
