@@ -15,6 +15,10 @@
   .exhibitionTitle{
     font-size: 3em!important;
   }
+
+  .artwork-image{
+    pointer-events: none;
+  }
 }
 
 #validationBtn {
@@ -45,6 +49,7 @@
     width: 20em;
     height: 20em;
     object-fit: cover;
+    pointer-events: all!important;
   }
 
   .cardContainer{

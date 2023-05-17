@@ -3,6 +3,7 @@ import {
   TOGGLE_NEW_ACCOUNT_MODAL, SHOW_MESSAGE_INFORMATION,
   TOGGLE_INFORMATION_MODAL,
   TOGGLE_EXHIBITION_CREATION_MODAL, TOGGLE_ARTWORK_CREATION_MODAL,
+  TOGGLE_MODAL_IMAGE, SET_MODAL_IMAGE_INFOS,
 } from '../actions/modals';
 
 export const initialState = {
@@ -14,6 +15,8 @@ export const initialState = {
   message: '',
   isAccountCreationModalOpened: false,
   isArtworkCreationModalOpened: false,
+  isModalImageOpened: false,
+  modalImageInfos: {},
 };
 
 const reducer = (state = initialState, action = {}) => {
@@ -53,6 +56,16 @@ const reducer = (state = initialState, action = {}) => {
       return {
         ...state,
         isArtworkCreationModalOpened: !state.isArtworkCreationModalOpened,
+      };
+    case TOGGLE_MODAL_IMAGE:
+      return {
+        ...state,
+        isModalImageOpened: !state.isModalImageOpened,
+      };
+    case SET_MODAL_IMAGE_INFOS:
+      return {
+        ...state,
+        modalImageInfos: action.payload,
       };
     default:
       return state;

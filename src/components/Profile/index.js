@@ -33,7 +33,7 @@ const Profile = () => {
               id="tabMain"
               className="tabMenu"
             >
-              <Tab eventKey="favorites" title="Mes Favories">
+              <Tab eventKey="favorites" title="Mes favoris">
                 <MyFavorites />
               </Tab>
               <Tab eventKey="exhibitionsManager" title="Gestionnaire d'expositions">
