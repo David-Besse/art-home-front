@@ -5,6 +5,8 @@ export const SHOW_MESSAGE_INFORMATION = 'SHOW_MESSAGE_INFORMATION';
 export const TOGGLE_INFORMATION_MODAL = 'TOGGLE_INFORMATION_MODAL';
 export const TOGGLE_EXHIBITION_CREATION_MODAL = 'TOGGLE_EXHIBITION_CREATION_MODAL';
 export const TOGGLE_ARTWORK_CREATION_MODAL = 'TOGGLE_ARTWORK_CREATION_MODAL';
+export const TOGGLE_MODAL_IMAGE = 'TOGGLE_MODAL_IMAGE';
+export const SET_MODAL_IMAGE_INFOS = 'SET_MODAL_IMAGE_INFOS';
 
 export const toggleLoginModal = () => ({
   type: TOGGLE_LOGIN_MODAL,
@@ -35,4 +37,13 @@ export const toggleExhibitionCreationModal = () => ({
 
 export const toggleArtworkCreationModal = () => ({
   type: TOGGLE_ARTWORK_CREATION_MODAL,
+});
+
+export const toggleModalImage = () => ({
+  type: TOGGLE_MODAL_IMAGE,
+});
+
+export const setModalImageInfos = (selectedImage) => ({
+  type: SET_MODAL_IMAGE_INFOS,
+  payload: selectedImage,
 });

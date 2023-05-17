@@ -1,11 +1,15 @@
 import { useDispatch, useSelector } from 'react-redux';
 
 import { submitNewExhibition, changeInputField } from 'src/actions/users';
-import { toggleExhibitionCreationModal, toggleArtworkCreationModal } from 'src/actions/modals';
+import {
+  toggleExhibitionCreationModal, toggleArtworkCreationModal, toggleModalImage, setModalImageInfos,
+} from 'src/actions/modals';
 import {
   fetchUserArtworks, updateUserArtwork, submitNewArtwork, deleteUserArtwork,
 } from 'src/actions/exhibitions';
 import { showSelectedExhibition, toggleArtworkEditing } from 'src/actions/profile';
+
+import ModalImage from 'src/components/ModalImage';
 
 import {
   Button,
@@ -51,7 +55,6 @@ const ExhibitionsManager = () => {
   const changeField = (newValue, fieldName) => {
     dispatch(changeInputField(newValue, fieldName));
   };
-
   const handleSubmitExhibition = (event) => {
     event.preventDefault();
 
@@ -105,11 +108,15 @@ const ExhibitionsManager = () => {
     dispatch(deleteUserArtwork(artworkId));
   };
 
+  const OpenModalImg = (picture) => {
+    dispatch(setModalImageInfos(picture));
+    dispatch(toggleModalImage(true));
+  };
+
   return (
     <section className="exhibitionManager">
-      {/**
-       * Modal for creating an exhibition
-       */}
+
+      {/* Modal for creating an exhibition */}
       <Modal
         show={isAccountCreationModalOpened}
         onHide={handleExhibitionCreationModal}
@@ -157,9 +164,7 @@ const ExhibitionsManager = () => {
         </Modal.Body>
       </Modal>
 
-      {/**
-       * Modal for adding an artwork
-       */}
+      {/* Modal for adding an artwork */}
       <Modal
         show={isArtworkCreationModalOpened}
         onHide={handleArtworkCreationModal}
@@ -225,18 +230,14 @@ const ExhibitionsManager = () => {
         </Modal.Body>
       </Modal>
 
-      {/**
-       * Show exhibition management
-       */}
+      {/* Show exhibition management */}
       <div className="allExhibitions justify-content-center">
         <div className="mt-3 mb-3">
           <div className="d-flex justify-content-between">
             <h3 className="mb-3 my-3 fw-bolder">Gestionnaire d'expositions</h3>
             <div className="d-flex">
 
-              {/**
-               * button to manage the modal for creating an exhibition
-               */}
+              {/* buttons to manage the modal for creating an exhibition */}
               <Button
                 variant="primary"
                 onClick={handleExhibitionCreationModal}
@@ -254,9 +255,7 @@ const ExhibitionsManager = () => {
                 </svg>
               </Button>
 
-              {/**
-               * button to manage the modal for adding an artwork
-               */}
+              {/* button to manage the modal for adding an artwork */}
               {exhibitions.length > 0 && (
                 <>
                   <Button
@@ -282,9 +281,7 @@ const ExhibitionsManager = () => {
           </div>
           <div className="d-flex flex-raw mb-3">
 
-            {/**
-             * button to select an exhibition
-             */}
+            {/* button to select an exhibition */}
             <DropdownButton
               className="d-flex"
               variant="secondary"
@@ -324,6 +321,8 @@ const ExhibitionsManager = () => {
             </DropdownButton>
 
           </div>
+
+          {/* title exhibition and description */}
           <div className="d-flex flex-column justify-content-center mb-3 border-top">
             <h2 className="pt-5 pb-2 px-1 text-center exhibitionTitle">
               {currentExhibition
@@ -337,6 +336,7 @@ const ExhibitionsManager = () => {
         </div>
 
         <div className="artworks-zone mb-3 d-flex flex-wrap">
+          {/* card of an artwork with image, title, description, exhibition it belongs to, edit/delete buttons */}
           {artworks.length > 0
             && artworks.map((artwork) => (
               <Form
@@ -352,6 +352,7 @@ const ExhibitionsManager = () => {
                         src={artwork.picture}
                         className="img-fluid rounded artwork-image"
                         alt="artwork"
+                        onClick={() => OpenModalImg(artwork)}
                       />
                       {isFormActivated && artworkFormActivated === artwork.id && (
                         <Form.Group>
@@ -509,6 +510,8 @@ const ExhibitionsManager = () => {
                 </div>
               </Form>
             ))}
+
+          {/* messages */}
           {(exhibitions.length > 0 && artworks.length === 0)
           && (
             <p className="fst-italic">
@@ -521,7 +524,11 @@ const ExhibitionsManager = () => {
               Commencer par créer une nouvelle exposition !
             </p>
           )}
+
+          {/* modal to view large image */}
+          <ModalImage />
         </div>
+
       </div>
     </section>
   );
