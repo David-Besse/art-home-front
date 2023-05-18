@@ -1,12 +1,12 @@
 import {
-  SAVE_EXHIBITIONS, SAVE_USER_ARTWORKS, FETCH_USER_ARTWORKS, WIPE_DATA,
+  SAVE_EXHIBITIONS, SAVE_USER_ARTWORKS, FETCH_USER_ARTWORKS, WIPE_DATA, UPDATE_USER_ARTWORK,
 } from '../actions/exhibitions';
 
 export const initialState = {
-  // list of all exhibition available at the moment
+  // list of all exhibitions available at the moment
   list: [],
   isExhibitionsLoaded: false,
-  artworks: [],
+  userArtworks: [],
   isArtworksLoading: false,
   artwork: { title: '', description: '', picture: '' },
 };
@@ -19,16 +19,16 @@ const reducer = (state = initialState, action = {}) => {
         list: action.exhibitions,
         isExhibitionsLoaded: true,
       };
-    case SAVE_USER_ARTWORKS:
-      return {
-        ...state,
-        artworks: action.artworks,
-        isArtworksLoading: false,
-      };
     case FETCH_USER_ARTWORKS:
       return {
         ...state,
         isArtworksLoading: true,
+      };
+    case SAVE_USER_ARTWORKS:
+      return {
+        ...state,
+        userArtworks: action.artworks,
+        isArtworksLoading: false,
       };
     case WIPE_DATA:
       return {
@@ -36,6 +36,18 @@ const reducer = (state = initialState, action = {}) => {
         artworks: [],
         isArtworksLoading: false,
         artwork: { title: '', description: '', picture: '' },
+      };
+    case UPDATE_USER_ARTWORK:
+      return {
+        ...state,
+        userArtworks: state.userArtworks
+          .map((artwork) => {
+            if (artwork.id === action.artworkId) {
+              return action.data;
+            }
+            return artwork;
+          })
+          .filter((artwork) => artwork.exhibition.id !== action.data.exhibition.id),
       };
     default:
       return state;

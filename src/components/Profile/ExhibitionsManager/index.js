@@ -27,7 +27,7 @@ import './styles.scss';
 const ExhibitionsManager = () => {
   const { isAccountCreationModalOpened, isArtworkCreationModalOpened } = useSelector((state) => state.modals);
   const { exhibitions, exhibitionName, exhibitionDescription } = useSelector((state) => state.users);
-  const { artworks, isArtworksLoading } = useSelector((state) => state.exhibitions);
+  const { userArtworks, isArtworksLoading } = useSelector((state) => state.exhibitions);
   const { selectedExhibitionId, isArtworkEditingActivated } = useSelector((state) => state.profile);
 
   const dispatch = useDispatch();
@@ -81,10 +81,6 @@ const ExhibitionsManager = () => {
 
     if (result.length > 0) {
       handleUpdateUserArtwork(artwork.id, updateArtwork);
-
-      // workaround: sometimes, state doesnt refresh...
-      dispatch(fetchUserArtworks(selectedExhibitionId));
-      dispatch(fetchUserArtworks(selectedExhibitionId));
     }
 
     handleArtworkEditing('');
@@ -337,11 +333,11 @@ const ExhibitionsManager = () => {
 
         <div className="artworks-zone mb-3 d-flex flex-wrap">
           {/* card of an artwork with image, title, description, exhibition it belongs to, edit/delete buttons */}
-          {artworks.length > 0
-            && artworks.map((artwork) => (
+          {userArtworks.length > 0
+            && userArtworks.map((artwork) => (
               <Form
                 className="artwork-box my-2 my-lg-0 col-lg-6"
-                key={artwork.id}
+                key={`${artwork.id}_${artwork.exhibition.id}`}
                 onSubmit={(event) => handleUpdateArtwork(event, artwork)}
                 id={artwork.id}
               >
@@ -512,7 +508,7 @@ const ExhibitionsManager = () => {
             ))}
 
           {/* messages */}
-          {(exhibitions.length > 0 && artworks.length === 0)
+          {(exhibitions.length > 0 && userArtworks.length === 0)
           && (
             <p className="fst-italic">
               Aucunes oeuvres trouvées. Sélectionner une exposition.
