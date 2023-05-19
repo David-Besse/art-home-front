@@ -66,6 +66,7 @@ const LogModal = () => {
                 required
                 placeholder="Adresse mail"
                 name="email"
+                autoComplete="email"
               />
             </FloatingLabel>
           </Form.Group>
@@ -76,6 +77,7 @@ const LogModal = () => {
                 required
                 placeholder="Mot de passe"
                 name="password"
+                autoComplete="current-password"
               />
             </FloatingLabel>
           </Form.Group>
