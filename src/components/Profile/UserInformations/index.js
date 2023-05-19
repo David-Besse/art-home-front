@@ -1,28 +1,30 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Button from 'react-bootstrap/Button';
-import { Form, Alert } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 
 import {
   toggleProfileEditing,
-  toggleAlertAfterEmailModification,
 } from 'src/actions/profile';
 import {
   changeInputField,
   submitProfileUpdate,
   handleLoginOff,
+  wipeUserData,
 } from 'src/actions/users';
+import { wipeData } from 'src/actions/exhibitions';
+import { toggleAlertMessage, messageToShow } from 'src/actions/errorMessages';
+
+import MessageAlert from 'src/components/MessageAlert';
+
+import { removeFromLocalStorage } from 'src/utils/localStorage';
 
 import './styles.scss';
 import AvatarPicture from '../../../assets/images/avatar/avatar.png';
 
-/**
- * User informations
- * @returns {JSX.Element}
- */
-
+/* User informations */
 const userInformations = () => {
   const {
     email,
@@ -33,7 +35,7 @@ const userInformations = () => {
     presentation,
     avatar,
   } = useSelector((state) => state.users);
-  const { isProfileEditingActivated, showAlert } = useSelector(
+  const { isProfileEditingActivated } = useSelector(
     (state) => state.profile,
   );
   const curState = useSelector((state) => ({
@@ -45,54 +47,52 @@ const userInformations = () => {
     presentation: state.users.presentation,
     avatar: state.users.avatar,
   }));
+  const { typeOfMessage } = useSelector((state) => state.errorMessages);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const stateFirstRender = useRef(curState);
 
   const updateProfile = () => dispatch(submitProfileUpdate());
-  const logoutUser = () => dispatch(handleLoginOff());
+  const logoutUser = () => {
+    dispatch(handleLoginOff());
+    dispatch(wipeUserData());
+    dispatch(wipeData());
+  };
   const changeField = (newValue, name) => dispatch(changeInputField(newValue, name));
-  const handleAlert = () => dispatch(toggleAlertAfterEmailModification());
   const handleProfilEditing = () => dispatch(toggleProfileEditing());
 
   const changedFields = (elOne, elTwo) => Object.keys(elOne).filter((key) => elOne[key] !== elTwo[key]);
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
+
     handleProfilEditing();
+
     const result = changedFields(stateFirstRender.current, curState);
+
     if (result.length > 0 && result.includes('email')) {
-      handleAlert();
+      removeFromLocalStorage('user-arthome');
+      updateProfile();
+      dispatch(toggleAlertMessage());
+      dispatch(messageToShow('warning', 'Votre identifiant a changé, veuillez vous reconnecter avec ce dernier.'));
+      setTimeout(() => {
+        navigate('/');
+        logoutUser();
+      }, 3600);
+      clearTimeout();
     }
-    if (result.length > 0) {
+    else if (result.length > 0) {
       updateProfile();
     }
   };
 
-  //  useEffect hook is used to handle the alert message
-  useEffect(() => {
-    let timeoutId;
-    if (showAlert) {
-      timeoutId = setTimeout(() => {
-        handleAlert();
-        navigate('/');
-        logoutUser();
-      }, 4000);
-    }
-    return () => clearTimeout(timeoutId); // clean up the timer
-  }, [showAlert]);
-
   return (
     <section className="userInformations">
-      <Alert
-        variant="warning"
-        show={showAlert}
-        onClose={handleAlert}
-        dismissible
-      >
-        Suite à une modification de votre identifiant de connexion, vous allez être déconnecté.
-      </Alert>
+
+      {typeOfMessage
+        && <MessageAlert />}
+
       <h2 className="mt-3 mb-3 text-center justify-content-center userBoxTitle fw-bolder">Mon Profil</h2>
       <Form onSubmit={handleSubmit} className="userBox">
         <div className="card p-2">

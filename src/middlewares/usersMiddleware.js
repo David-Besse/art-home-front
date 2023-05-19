@@ -1,4 +1,6 @@
 import axios from 'axios';
+
+import { toggleAlertMessage, messageToShow } from 'src/actions/errorMessages';
 import {
   SUBMIT_LOGIN,
   saveAuthData,
@@ -17,7 +19,7 @@ import {
   toggleNewAccountModal,
   toggleInformationModal,
 } from '../actions/modals';
-import { saveToLocalStorage } from '../utils/localStorage';
+import { saveToLocalStorage, getFromLocalStorage } from '../utils/localStorage';
 
 const user = (store) => (next) => (action) => {
   switch (action.type) {
@@ -42,7 +44,7 @@ const user = (store) => (next) => (action) => {
           store.dispatch(changeInputFieldsValidation(true));
           setTimeout(() => {
             store.dispatch(changeInputFieldsValidation(false));
-          }, 2000);
+          }, 3000);
         });
       break;
     case GET_USER_PROFILE:
@@ -118,10 +120,17 @@ const user = (store) => (next) => (action) => {
           },
         )
         .then(() => {
-          saveToLocalStorage('user-arthome', store.getState().users);
+          const dataFromLocalStorage = getFromLocalStorage('user-arthome');
+          if (dataFromLocalStorage !== null) {
+            saveToLocalStorage('user-arthome', store.getState().users);
+            store.dispatch(toggleAlertMessage());
+            store.dispatch(messageToShow('success', 'Vos données ont été mises à jour.'));
+          }
         })
         .catch((error) => {
           console.warn(error);
+          store.dispatch(toggleAlertMessage());
+          store.dispatch(messageToShow('danger', 'Une erreur est survenue lors de la mise à jour, si ce problème persiste, veuillez nous contacter. Merci'));
         });
       break;
     case SUBMIT_NEW_EXHIBITION:
