@@ -1,3 +1,5 @@
+@use "src/styles/vars";
+
 .exhibitionManager {
   display: flex;
   flex-direction: column;
@@ -8,64 +10,99 @@
   width: 90%;
   max-height: 100%;
 
-  .artwork-box{
+  .artwork-box {
     font-size: 0.85em;
   }
 
-  .exhibitionTitle{
-    font-size: 3em!important;
+  .exhibitionTitle {
+    font-size: 3em;
   }
 
-  .artwork-image{
+  .artwork-image {
     pointer-events: none;
+  }
+
+  .selectExhibition {
+    height: 2em;
+
+    button {
+      background-color: vars.$eggshell;
+      border: none;
+      color: vars.$ochre;
+      font-weight: bold;
+
+      &:hover,
+      &:active{
+      background-color: vars.$ochre7;
+      color: vars.$eggshell;
+    }
+    }
+
+    .dropdown-menu {
+      border: 1px solid vars.$ochre;
+      background-color: vars.$eggshell;
+
+      button.dropdown-item{
+        border: none;
+        background-color: vars.$eggshell;
+
+        &:hover,
+        &:active {
+          background-color: vars.$ochre7!important;
+          border-color: vars.$ochre!important;
+          color: vars.$eggshell!important;
+          border-radius: 5px;
+        }
+      }
+    }
   }
 }
 
 #validationBtn {
   background-color: green;
-  color: white;
+  color: vars.$eggshell;
   border: none;
 }
 
 @media (min-width: 768px) {
-  .artwork-image{
+  .artwork-image {
     width: 80%;
   }
 }
 
 @media (min-width: 1024px) {
-  .artworks-zone{
+  .artworks-zone {
     justify-content: center;
     gap: 1em;
   }
 
-  .artwork-box{
+  .artwork-box {
     width: 80vw;
     height: auto;
     font-size: 0.7em;
   }
 
-  .artwork-image{
+  .artwork-image {
     width: 20em;
     height: 20em;
     object-fit: cover;
-    pointer-events: all!important;
+    pointer-events: all !important;
   }
 
-  .cardContainer{
+  .cardContainer {
     min-height: 100%;
   }
 }
 
 @media (min-width: 1440px) {
-  .artwork-box{
+  .artwork-box {
     width: 40vw;
     height: auto;
     font-size: 0.7em;
   }
 
-  .exhibitionDescription{
-    padding-left: 20%!important;
-    padding-right: 20%!important;
+  .exhibitionDescription {
+    padding-left: 20% !important;
+    padding-right: 20% !important;
   }
 }

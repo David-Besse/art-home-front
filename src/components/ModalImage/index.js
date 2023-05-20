@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { toggleModalImage, setModalImageInfos } from 'src/actions/modals';
@@ -12,6 +13,15 @@ const ModalImage = () => {
   const { isModalImageOpened, modalImageInfos } = useSelector((state) => state.modals);
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (isModalImageOpened) {
+      document.body.style.overflow = 'hidden';
+    }
+    else {
+      document.body.style.overflow = 'auto';
+    }
+  }, [isModalImageOpened]);
 
   const closeImgModal = () => {
     dispatch(setModalImageInfos({}));
@@ -31,27 +41,32 @@ const ModalImage = () => {
   };
 
   return (
-    <div
-      id="myModal"
-      className="modalPicture"
-      style={{ display: isModalImageOpened ? 'block' : 'none' }}
-    >
-      <span
-        className="closePicture"
-        onClick={closeImgModal}
-      >&times;
-      </span>
-      <h3 className="titlePicture">{modalImageInfos.title}</h3>
-      <Image
-        src={modalImageInfos.picture}
-        alt={modalImageInfos.title}
-        className="modalPicture-content"
-        onWheel={handleZoom}
-        style={{ width: `${imgWidth}%` }}
-        fluid
-        rounded
-      />
-    </div>
+    createPortal(
+      <div
+        id="myModal"
+        className="modalPicture"
+        style={{
+          display: isModalImageOpened ? 'block' : 'none',
+        }}
+      >
+        <span
+          className="closePicture"
+          onClick={closeImgModal}
+        >&times;
+        </span>
+        <h3 className="titlePicture">{modalImageInfos.title}</h3>
+        <Image
+          src={modalImageInfos.picture}
+          alt={modalImageInfos.title}
+          className="modalPicture-content"
+          onWheel={handleZoom}
+          style={{ width: `${imgWidth}%` }}
+          fluid
+          rounded
+        />
+      </div>,
+      document.body,
+    )
   );
 };
 
