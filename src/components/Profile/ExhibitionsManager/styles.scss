@@ -23,12 +23,19 @@
   }
 
   .selectExhibition {
-    height: 2.2em;
+    height: 2em;
 
     button {
       background-color: vars.$eggshell;
       border: none;
       color: vars.$ochre;
+      font-weight: bold;
+
+      &:hover,
+      &:active{
+      background-color: vars.$ochre7;
+      color: vars.$eggshell;
+    }
     }
 
     .dropdown-menu {
@@ -37,6 +44,15 @@
 
       button.dropdown-item{
         border: none;
+        background-color: vars.$eggshell;
+
+        &:hover,
+        &:active {
+          background-color: vars.$ochre7!important;
+          border-color: vars.$ochre!important;
+          color: vars.$eggshell!important;
+          border-radius: 5px;
+        }
       }
     }
   }

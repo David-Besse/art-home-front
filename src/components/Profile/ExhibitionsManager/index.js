@@ -111,6 +111,8 @@ const ExhibitionsManager = () => {
 
   return (
     <section className="exhibitionManager mt-3">
+      {/* modal to view large image */}
+      <ModalImage />
 
       {/* Modal for creating an exhibition */}
       <Modal
@@ -232,7 +234,7 @@ const ExhibitionsManager = () => {
           <div className="">
             <h3 className="mb-3 my-3 fw-bolder">Gestionnaire d'expositions</h3>
           </div>
-          <div className="d-flex flex-raw justify-content-between p-1">
+          <div className="d-flex flex-raw justify-content-between">
             <div className="d-flex">
 
               {/* buttons to manage the modal for creating an exhibition */}
@@ -277,7 +279,7 @@ const ExhibitionsManager = () => {
 
             </div>
             {/* button to select an exhibition */}
-            <div className="d-flex align-items-end">
+            <div className="d-flex align-items-center">
               <DropdownButton
                 className="selectExhibition"
                 variant="secondary"
@@ -519,9 +521,6 @@ const ExhibitionsManager = () => {
               Commencer par créer une nouvelle exposition !
             </p>
           )}
-
-          {/* modal to view large image */}
-          <ModalImage />
         </div>
 
       </div>
