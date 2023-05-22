@@ -8,7 +8,6 @@ export const initialState = {
   isExhibitionsLoaded: false,
   userArtworks: [],
   isArtworksLoading: false,
-  artwork: { title: '', description: '', picture: '' },
 };
 
 const reducer = (state = initialState, action = {}) => {

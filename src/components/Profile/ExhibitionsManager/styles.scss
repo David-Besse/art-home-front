@@ -32,36 +32,30 @@
       font-weight: bold;
 
       &:hover,
-      &:active{
-      background-color: vars.$ochre7;
-      color: vars.$eggshell;
-    }
+      &:active {
+        background-color: vars.$ochre7;
+        color: vars.$eggshell;
+      }
     }
 
     .dropdown-menu {
       border: 1px solid vars.$ochre;
       background-color: vars.$eggshell;
 
-      button.dropdown-item{
+      button.dropdown-item {
         border: none;
         background-color: vars.$eggshell;
 
         &:hover,
         &:active {
-          background-color: vars.$ochre7!important;
-          border-color: vars.$ochre!important;
-          color: vars.$eggshell!important;
+          background-color: vars.$ochre7 !important;
+          border-color: vars.$ochre !important;
+          color: vars.$eggshell !important;
           border-radius: 5px;
         }
       }
     }
   }
-}
-
-#validationBtn {
-  background-color: green;
-  color: vars.$eggshell;
-  border: none;
 }
 
 @media (min-width: 768px) {
