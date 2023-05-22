@@ -4,6 +4,69 @@
   align-items: center;
 }
 
-.myfavoritesContainer{
+.myfavoritesContainer {
   width: 90%;
+}
+
+#fade-images {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  .image-card {
+    align-items: center;
+    display: block;
+    margin: 0;
+    margin-bottom: 1rem;
+    margin-right: 1rem;
+    height: auto;
+    width: fit-content;
+    position: relative;
+
+    .image-title{
+      text-align: center;
+    }
+
+    .image-fav {
+      border-radius: 5px;
+      width: 33vw;
+      height: 33vw;
+      object-fit: cover;
+      pointer-events: none;
+    }
+  }
+}
+
+/*
+Like icon
+*/
+.heart-icon {
+  .bi-heart-fill {
+    height: 2.5em;
+    width: 2.5em;
+    color: red;
+    padding: 0.4em;
+  }
+
+  svg {
+    position: absolute;
+    top: 1em;
+    right: 1em;
+    transition: all 1s ease;
+
+    &:hover {
+      transform: rotate(360deg);
+    }
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  #fade-images {
+    .image-card {
+      .image-fav {
+        width: 20vw;
+        height: 20vw;
+      }
+    }
+  }
 }
