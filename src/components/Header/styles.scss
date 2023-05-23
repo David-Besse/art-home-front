@@ -2,28 +2,29 @@
 @import url(https://fonts.bunny.net/css?family=baloo-thambi-2:400);
 
 header{
-  z-index: 9;
+  z-index: 500;
 }
 
 .navbar {
   background-color: vars.$eggshell;
   color: vars.$dark;
-}
 
-.navbar-brand{
-  font-family: 'Baloo Thambi 2', display;
-  color: vars.$ochre;
-  font-size: 1.4em;
-}
+  .imageLogo {
+    width: 3em;
+    height: auto;
+  }
 
-.imageLogo {
-  width: 3em;
-  height: auto;
+  .navbar-brand{
+    font-family: 'Baloo Thambi 2', display;
+    color: vars.$ochre;
+    font-size: 1.4em;
+  }
+
 }
 
 /*---------------------------MEDIA QUERIES-----------------------------*/
 
-@media screen and (min-width: 769px) {
+@media screen and (min-width: 992px) {
   .navbar {
     height: 8vh;
   }

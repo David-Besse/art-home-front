@@ -28,7 +28,7 @@ const Disclaimer = () => (
 
         <h3>Contenu du site</h3>
         <p>
-          Le site permet aux artistes de publier des images de leurs œuvres. Les images sont libres de droits et peuvent être téléchargées et utilisées pour un usage personnel ou éducatif. Cependant, il est strictement interdit d'utiliser ces images à des fins commerciales (<a href="https://pixabay.com/fr/service/terms/" target="_blank" rel="noopener noreferrer">pixabay.com</a>).
+          Les images publiées sont libres de droits et peuvent être téléchargées et utilisées pour un usage personnel ou éducatif. Cependant, il est strictement interdit d'utiliser ces images à des fins commerciales (<a href="https://pixabay.com/fr/service/terms/" target="_blank" rel="noopener noreferrer">pixabay.com</a>).
           {/* The rel attribute sets the relationship between the page and the linked URL. Setting it to "noopener noreferrer" is to prevent a type of phishing known as tabnabbing. */}
         </p>
 
@@ -39,7 +39,7 @@ const Disclaimer = () => (
 
         <h3>Propriété intellectuelle</h3>
         <p>
-          Le site est la propriété de <strong>Art@home</strong>. Toute reproduction, distribution ou utilisation du site sans l'autorisation écrite de <strong>Art@home</strong> est strictement interdite.
+          Le site est la propriété de <strong>Art@home</strong>. Toute reproduction du site sans l'autorisation écrite de <strong>Art@home</strong> est strictement interdite.
         </p>
 
         <h3>Données personnelles</h3>

@@ -32,6 +32,7 @@ body {
     gap: 1.5em;
 
     .card-info {
+      margin: auto;
       box-sizing: border-box;
       min-height: auto;
       max-width: 90%;
@@ -121,7 +122,7 @@ body {
   
       &:hover {
         transform: scale(1.05);
-        z-index: 500;
+        z-index: 10;
         box-shadow: 0 0 5px 5px rgba(33, 31, 24, 0.25);
       }
     }
