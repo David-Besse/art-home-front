@@ -1,34 +1,43 @@
-.userInformations{
+.userInformations {
   display: flex;
   flex-direction: column;
   align-items: center;
-}
 
-.userBoxTitle, .userBox{
-  width: 95%;
-}
+  .userBoxTitle,
+  .userBox {
+    width: 95%;
+  }
 
-.img-avatar{
-  width: 40vw;
+  .userBox {
+    font-size: 0.9em;
+
+    .img-avatar {
+      width: 40vw;
+    }
+  }
 }
 
 @media (min-width: 768px) {
-  .userBoxTitle, .userBox{
-    width: 70%;
-  }
+  .userInformations {
+    .userBoxTitle,
+    .userBox {
+      width: 70%;
+    }
 
-  .userBox{
-    font-size: 0.8em; 
-  }
-
-  .img-avatar{
-    width: 100%;
-    height: auto;
+    .userBox {
+      .img-avatar {
+        width: 100%;
+        height: auto;
+      }
+    }
   }
 }
 
 @media (min-width: 1024px) {
-  .userBoxTitle, .userBox{
-    width: 50%;
+  .userInformations {
+    .userBoxTitle,
+    .userBox {
+      width: 50%;
+    }
   }
 }

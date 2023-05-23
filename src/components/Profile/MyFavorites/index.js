@@ -44,12 +44,12 @@ const MyFavorites = () => {
 
   return (
     <section className="myfavoritesSection">
-      <div className="myfavoritesContainer mt-3">
-        <h3 className="myfavoritesTitle fw-bolder mt-3">Mes Favoris</h3>
-        <div className="mb-3">
-          <label htmlFor="favorites-select">Trier par :
+      <div className="myfavoritesContainer mt-3 border-top">
+        <h3 className="myfavoritesTitle fw-bolder my-3">Mes Favoris</h3>
+        <div>
+          <label htmlFor="favorites-select" className="my-3">Trier par :
             <select name="favorites-select" id="favorites-select" className="ms-2" onChange={(e) => setSortOrder(e.target.value)}>
-              <option value="expositions">Expositions</option>
+              <option defaultValue="expositions">Expositions</option>
               <option value="alphabetical">Ordre alphabétique</option>
             </select>
           </label>
@@ -61,9 +61,6 @@ const MyFavorites = () => {
             {favoritesUser.map((artwork) => (
               <Figure key={artwork.id} className="image-card">
                 <Figure.Image src={artwork.picture} className="image-fav" rounded fluid />
-                <Figure.Caption className="image-title">
-                  {artwork.title}
-                </Figure.Caption>
                 <div
                   className="heart-icon"
                   onClick={() => handleFavorites(artwork.id)}
@@ -82,6 +79,9 @@ const MyFavorites = () => {
                     />
                   </svg>
                 </div>
+                <Figure.Caption className="image-title">
+                  {artwork.title}
+                </Figure.Caption>
               </Figure>
             ))}
           </div>

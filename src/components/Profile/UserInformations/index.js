@@ -128,8 +128,8 @@ const userInformations = () => {
                     <span
                       className={
                         nickname === ''
-                          ? 'fw-normal text-muted fst-italic fw-lighter'
-                          : 'fw-normal fst-italic fw-lighter'
+                          ? 'text-muted fst-italic'
+                          : 'fw-normal fst-italic'
                       }
                     >
                       {nickname === '' ? 'non communiqué' : nickname}
@@ -152,7 +152,7 @@ const userInformations = () => {
                 <p className="card-text fw-bold mb-0">
                   Nom :{' '}
                   {!isProfileEditingActivated && (
-                    <span className="fw-normal fst-italic fw-lighter">
+                    <span className="fw-normal fst-italic">
                       {lastName}
                     </span>
                   )}
@@ -174,7 +174,7 @@ const userInformations = () => {
                 <p className="card-text fw-bold mb-0">
                   Prénom :{' '}
                   {!isProfileEditingActivated && (
-                    <span className="fw-normal fst-italic fw-lighter">
+                    <span className="fw-normal fst-italic">
                       {firstName}
                     </span>
                   )}
@@ -196,7 +196,7 @@ const userInformations = () => {
                 <p className="card-text fw-bold mb-0">
                   Email :{' '}
                   {!isProfileEditingActivated && (
-                    <span className="fw-normal fst-italic fw-lighter">
+                    <span className="fw-normal fst-italic">
                       {email}
                     </span>
                   )}
@@ -221,8 +221,8 @@ const userInformations = () => {
                     <span
                       className={
                         birthday === ''
-                          ? 'fw-normal text-muted fst-italic fw-lighter'
-                          : 'fw-normal fst-italic fw-lighter'
+                          ? 'text-muted fst-italic'
+                          : 'fw-normal fst-italic'
                       }
                     >
                       { new Date(birthday).toLocaleDateString('fr') }
@@ -249,8 +249,8 @@ const userInformations = () => {
                     <span
                       className={
                         presentation === ''
-                          ? 'fw-normal text-muted fst-italic fw-lighter'
-                          : 'fw-normal fst-italic fw-lighter'
+                          ? 'text-muted fst-italic'
+                          : 'fw-normal fst-italic'
                       }
                     >
                       {presentation === '' ? 'non communiqué' : presentation}

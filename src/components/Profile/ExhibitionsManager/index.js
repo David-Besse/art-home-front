@@ -232,7 +232,7 @@ const ExhibitionsManager = () => {
       <div className="allExhibitions justify-content-center">
         <div className="mt-3 mb-3 border-top">
           <div className="">
-            <h3 className="mb-3 my-3 fw-bolder">Gestionnaire d'expositions</h3>
+            <h3 className="my-3 fw-bolder">Gestionnaire d'expositions</h3>
           </div>
           <div className="d-flex flex-raw justify-content-between">
             <div className="d-flex">

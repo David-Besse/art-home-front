@@ -26,21 +26,21 @@ const Profile = () => {
       <Page>
         <div className="profile-page">
           <UserInformations />
-          {role[0] === 'ROLE_ARTIST'
-            && (
-            <Tabs
-              defaultActiveKey="favoris"
-              id="tabMain"
-              className="tabMenu"
-            >
-              <Tab eventKey="favorites" title="Mes favoris">
-                <MyFavorites />
-              </Tab>
+          <Tabs
+            defaultActiveKey="favoris"
+            id="tabMain"
+            className="tabMenu"
+          >
+            <Tab eventKey="favorites" title="Mes favoris">
+              <MyFavorites />
+            </Tab>
+            {role[0] === 'ROLE_ARTIST'
+              && (
               <Tab eventKey="exhibitionsManager" title="Gestionnaire d'expositions">
                 <ExhibitionsManager />
               </Tab>
-            </Tabs>
-            )}
+              )}
+          </Tabs>
         </div>
       </Page>
       <Footer />
