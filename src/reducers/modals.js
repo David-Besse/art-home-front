@@ -13,7 +13,7 @@ export const initialState = {
   isMessageModalOpened: false,
   isMessageDisplayed: false,
   message: '',
-  isAccountCreationModalOpened: false,
+  isExhibitionCreationModalOpened: false,
   isArtworkCreationModalOpened: false,
   isModalImageOpened: false,
   modalImageInfos: {},
@@ -50,7 +50,7 @@ const reducer = (state = initialState, action = {}) => {
     case TOGGLE_EXHIBITION_CREATION_MODAL:
       return {
         ...state,
-        isAccountCreationModalOpened: !state.isAccountCreationModalOpened,
+        isExhibitionCreationModalOpened: !state.isExhibitionCreationModalOpened,
       };
     case TOGGLE_ARTWORK_CREATION_MODAL:
       return {

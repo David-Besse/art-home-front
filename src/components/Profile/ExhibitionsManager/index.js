@@ -25,7 +25,7 @@ import './styles.scss';
 
 // show informations about the connected user
 const ExhibitionsManager = () => {
-  const { isAccountCreationModalOpened, isArtworkCreationModalOpened } = useSelector((state) => state.modals);
+  const { isExhibitionCreationModalOpened, isArtworkCreationModalOpened } = useSelector((state) => state.modals);
   const { exhibitions, exhibitionName, exhibitionDescription } = useSelector((state) => state.users);
   const { userArtworks, isArtworksLoading } = useSelector((state) => state.exhibitions);
   const { selectedExhibitionId, isArtworkEditingActivated } = useSelector((state) => state.profile);
@@ -36,6 +36,9 @@ const ExhibitionsManager = () => {
 
   const currentExhibition = exhibitions.find((exhib) => exhib.id === selectedExhibitionId);
 
+  const changeField = (newValue, fieldName) => {
+    dispatch(changeInputField(newValue, fieldName));
+  };
   const handleArtworkEditing = (formId) => {
     dispatch(toggleArtworkEditing(formId));
   };
@@ -52,14 +55,9 @@ const ExhibitionsManager = () => {
   const handleUpdateUserArtwork = (artworkId, data) => {
     dispatch(updateUserArtwork(artworkId, data));
   };
-  const changeField = (newValue, fieldName) => {
-    dispatch(changeInputField(newValue, fieldName));
-  };
   const handleSubmitExhibition = (event) => {
     event.preventDefault();
-
     handleExhibitionCreationModal();
-
     dispatch(submitNewExhibition());
   };
 
@@ -116,7 +114,7 @@ const ExhibitionsManager = () => {
 
       {/* Modal for creating an exhibition */}
       <Modal
-        show={isAccountCreationModalOpened}
+        show={isExhibitionCreationModalOpened}
         onHide={handleExhibitionCreationModal}
         size="md"
         aria-labelledby="contained-modal-title-vcenter"
