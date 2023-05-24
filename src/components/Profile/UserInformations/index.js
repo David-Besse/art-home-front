@@ -83,9 +83,15 @@ const userInformations = () => {
   };
 
   const convertDateToISOFormat = (dateString) => {
-    const [month, day, year] = dateString.split('/');
-    const isoDate = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
-    return isoDate;
+    let newDate = '';
+    if (dateString !== '1900-01-01') {
+      const [month, day, year] = dateString.split('/');
+      newDate = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+    }
+    else {
+      newDate = dateString;
+    }
+    return newDate;
   };
 
   return (
