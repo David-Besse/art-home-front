@@ -1,5 +1,4 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Button from 'react-bootstrap/Button';
@@ -17,9 +16,7 @@ import {
 import { wipeData } from 'src/actions/exhibitions';
 import { toggleAlertMessage, messageToShow } from 'src/actions/errorMessages';
 
-import MessageAlert from 'src/components/MessageAlert';
-
-import { removeFromLocalStorage } from 'src/utils/localStorage';
+import { removeFromLocalStorage, getFromLocalStorage } from 'src/utils/localStorage';
 
 import './styles.scss';
 import AvatarPicture from '../../../assets/images/avatar/avatar.png';
@@ -35,9 +32,7 @@ const userInformations = () => {
     presentation,
     avatar,
   } = useSelector((state) => state.users);
-  const { isProfileEditingActivated } = useSelector(
-    (state) => state.profile,
-  );
+  const { isProfileEditingActivated } = useSelector((state) => state.profile);
   const curState = useSelector((state) => ({
     email: state.users.email,
     nickname: state.users.nickname,
@@ -47,11 +42,11 @@ const userInformations = () => {
     presentation: state.users.presentation,
     avatar: state.users.avatar,
   }));
-  const { typeOfMessage } = useSelector((state) => state.errorMessages);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const stateFirstRender = useRef(curState);
+
+  const userFromLocalStorage = getFromLocalStorage('user-arthome');
 
   const updateProfile = () => dispatch(submitProfileUpdate());
   const logoutUser = () => {
@@ -69,7 +64,7 @@ const userInformations = () => {
 
     handleProfilEditing();
 
-    const result = changedFields(stateFirstRender.current, curState);
+    const result = changedFields(curState, userFromLocalStorage);
 
     if (result.length > 0 && result.includes('email')) {
       removeFromLocalStorage('user-arthome');
@@ -79,7 +74,7 @@ const userInformations = () => {
       setTimeout(() => {
         navigate('/');
         logoutUser();
-      }, 3600);
+      }, 2600);
       clearTimeout();
     }
     else if (result.length > 0) {
@@ -87,11 +82,14 @@ const userInformations = () => {
     }
   };
 
+  const convertDateToISOFormat = (dateString) => {
+    const [month, day, year] = dateString.split('/');
+    const isoDate = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+    return isoDate;
+  };
+
   return (
     <section className="userInformations">
-
-      {typeOfMessage
-        && <MessageAlert />}
 
       <h2 className="mt-3 mb-3 text-center justify-content-center userBoxTitle fw-bolder">Mon Profil</h2>
       <Form onSubmit={handleSubmit} className="userBox">
@@ -219,11 +217,7 @@ const userInformations = () => {
                   Date de naissance :{' '}
                   {!isProfileEditingActivated && (
                     <span
-                      className={
-                        birthday === ''
-                          ? 'text-muted fst-italic'
-                          : 'fw-normal fst-italic'
-                      }
+                      className="fw-normal fst-italic"
                     >
                       { new Date(birthday).toLocaleDateString('fr') }
                     </span>
@@ -233,9 +227,9 @@ const userInformations = () => {
                   <Form.Group>
                     <Form.Control
                       type="date"
-                      locale="fr-FR"
                       id="inputBirthday"
-                      value={birthday}
+                      locale="fr-FR"
+                      value={convertDateToISOFormat(birthday)}
                       onChange={(evt) => {
                         changeField(evt.target.value, 'birthday');
                       }}

@@ -130,7 +130,7 @@ const user = (store) => (next) => (action) => {
         .catch((error) => {
           console.warn(error);
           store.dispatch(toggleAlertMessage());
-          store.dispatch(messageToShow('danger', 'Une erreur est survenue lors de la mise à jour, si ce problème persiste, veuillez nous contacter. Merci'));
+          store.dispatch(messageToShow('warning', 'Une erreur est survenue lors de la mise à jour, si ce problème persiste, veuillez nous contacter. Merci'));
         });
       break;
     case SUBMIT_NEW_EXHIBITION:
@@ -154,6 +154,8 @@ const user = (store) => (next) => (action) => {
         })
         .catch((error) => {
           console.warn(error);
+          store.dispatch(toggleAlertMessage());
+          store.dispatch(messageToShow('warning', "Une erreur est survenue lors de la création de l'exposition, si ce problème persiste, veuillez nous contacter. Merci"));
         });
       break;
     default:

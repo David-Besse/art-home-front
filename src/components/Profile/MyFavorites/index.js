@@ -29,7 +29,7 @@ const MyFavorites = () => {
         list.forEach((item) => {
           artworksList.push({
             title: item.title,
-            artwork: item.artwork.filter((exhib) => favorites.includes(exhib.id))
+            artwork: item.artwork.filter((exhib) => favorites.includes(exhib.id)),
           });
         });
         updatedFavoritesUser = [...artworksList.filter((item) => item.artwork && item.artwork.length > 0)];

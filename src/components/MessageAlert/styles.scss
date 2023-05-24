@@ -1,0 +1,6 @@
+@use "src/styles/vars";
+
+.toast{
+  background-color: vars.$eggshell;
+  border-radius: 5px;
+}

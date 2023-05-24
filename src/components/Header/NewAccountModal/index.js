@@ -16,7 +16,6 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 
 import './styles.scss';
-import { Dropdown, DropdownButton } from 'react-bootstrap';
 
 // Modal to create an account
 const NewAccountModal = () => {
@@ -189,7 +188,6 @@ const NewAccountModal = () => {
       </Modal>
 
       {/* Message appearing depending on the success or not of the creation of a new user account */}
-
       <Modal show={isMessageModalOpened} onHide={handleAccountCreatedModal} className="informationModal">
         {!isMessageDisplayed
         && <Modal.Body className="normalInformation text-center">{message}</Modal.Body>}
