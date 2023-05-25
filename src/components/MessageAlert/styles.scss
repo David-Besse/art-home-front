@@ -1,6 +1,10 @@
 @use "src/styles/vars";
 
-.toast{
-  background-color: vars.$eggshell;
-  border-radius: 5px;
+.main-toast-container{
+  position: fixed;
+
+  .toast{
+    background-color: vars.$eggshell;
+    border-radius: 5px;
+  }
 }

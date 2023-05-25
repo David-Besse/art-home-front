@@ -14,6 +14,8 @@ const HomeCarousel = () => {
     <section className="sectionCarousel">
       <Carousel fade interval={5000}>
         {list.map((exhibition) => (
+          exhibition.artwork.length !== 0
+          && (
           <Carousel.Item key={exhibition.id}>
             <h1 className="carousel-title">{exhibition.title}</h1>
             <h2 className="carousel-artist">{exhibition.artist.nickname}</h2>
@@ -26,6 +28,7 @@ const HomeCarousel = () => {
               />
             </LinkContainer>
           </Carousel.Item>
+          )
         ))}
       </Carousel>
     </section>

@@ -8,8 +8,6 @@ export const HANDLE_LOGIN_OFF = 'HANDLE_LOGIN_OFF';
 export const WIPE_USER_DATA = 'WIPE_USER_DATA';
 export const SUBMIT_NEW_ACCOUNT = 'SUBMIT_NEW_ACCOUNT';
 export const SUBMIT_PROFILE_UPDATE = 'SUBMIT_PROFILE_UPDATE';
-export const SUBMIT_NEW_EXHIBITION = 'SUBMIT_NEW_EXHIBITION';
-export const SAVE_USER_EXHIBITIONS_LIST = 'SAVE_USER_EXHIBITIONS_LIST';
 export const SAVE_USER_DATA_FROM_LOCALSTORAGE = 'SAVE_USER_DATA_FROM_LOCALSTORAGE';
 export const ADD_FAVORITES = 'ADD_FAVORITES';
 export const REMOVE_FAVORITES = 'REMOVE_FAVORITES';
@@ -43,7 +41,7 @@ export const getUserProfile = (userToken) => ({
 });
 
 export const saveUserData = ({
-  nickname, lastname, firstname, avatar, birthday, presentation, role, email, exhibitions, favorites,
+  nickname, lastname, firstname, avatar, birthday, presentation, role, email, favorites,
 }) => ({
   type: SAVE_USER_DATA,
   nickname: nickname,
@@ -54,7 +52,6 @@ export const saveUserData = ({
   presentation: presentation,
   role: role,
   email: email,
-  exhibitions: exhibitions,
   favorites: favorites,
 });
 
@@ -67,15 +64,6 @@ export const submitProfileUpdate = () => ({
   type: SUBMIT_PROFILE_UPDATE,
 });
 
-export const submitNewExhibition = () => ({
-  type: SUBMIT_NEW_EXHIBITION,
-});
-
-export const saveUserExhibitionsList = (exhibitions) => ({
-  type: SAVE_USER_EXHIBITIONS_LIST,
-  exhibitions: exhibitions,
-});
-
 export const handleLoginOff = () => ({
   type: HANDLE_LOGIN_OFF,
 });
@@ -85,7 +73,7 @@ export const wipeUserData = () => ({
 });
 
 export const saveUserDataFromLocalStorage = ({
-  nickname, lastName, firstName, avatar, birthday, presentation, role, email, logged, exhibitionDescription, exhibitionName, exhibitions, token, favorites,
+  nickname, lastName, firstName, avatar, birthday, presentation, role, email, logged, token, favorites,
 }) => ({
   type: SAVE_USER_DATA_FROM_LOCALSTORAGE,
   nickname: nickname,
@@ -97,9 +85,6 @@ export const saveUserDataFromLocalStorage = ({
   role: role,
   email: email,
   logged: logged,
-  exhibitionDescription: exhibitionDescription,
-  exhibitionName: exhibitionName,
-  exhibitions: exhibitions,
   token: token,
   favorites: favorites,
 });

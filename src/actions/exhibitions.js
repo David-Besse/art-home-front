@@ -4,6 +4,8 @@ export const FETCH_USER_ARTWORKS = 'FETCH_USER_ARTWORKS';
 export const SAVE_USER_ARTWORKS = 'SAVE_USER_ARTWORKS';
 export const UPDATE_USER_ARTWORK = 'UPDATE_USER_ARTWORK';
 export const SUBMIT_NEW_ARTWORK = 'SUBMIT_NEW_ARTWORK';
+export const SUBMIT_NEW_EXHIBITION = 'SUBMIT_NEW_EXHIBITION';
+export const SAVE_USER_EXHIBITIONS = 'SAVE_USER_EXHIBITIONS';
 export const DELETE_USER_ARTWORK = 'DELETE_USER_ARTWORK';
 export const WIPE_DATA = 'WIPE_DATA';
 
@@ -13,7 +15,7 @@ export const fetchExhibitions = () => ({
 
 export const saveExhibitions = (exhibitions) => ({
   type: SAVE_EXHIBITIONS,
-  exhibitions: exhibitions,
+  payload: exhibitions,
 });
 
 export const fetchUserArtworks = (exhibitionId) => ({
@@ -21,9 +23,9 @@ export const fetchUserArtworks = (exhibitionId) => ({
   payload: exhibitionId,
 });
 
-export const saveUserArtworks = (artworks) => ({
+export const saveUserArtworks = (data) => ({
   type: SAVE_USER_ARTWORKS,
-  artworks: artworks,
+  payload: data,
 });
 
 export const updateUserArtwork = (artworkId, data) => ({
@@ -35,6 +37,16 @@ export const updateUserArtwork = (artworkId, data) => ({
 export const submitNewArtwork = (data) => ({
   type: SUBMIT_NEW_ARTWORK,
   payload: data,
+});
+
+export const submitNewExhibition = (data) => ({
+  type: SUBMIT_NEW_EXHIBITION,
+  payload: data,
+});
+
+export const saveUserExhibitions = (exhibitions) => ({
+  type: SAVE_USER_EXHIBITIONS,
+  payload: exhibitions,
 });
 
 export const deleteUserArtwork = (artworkId) => ({

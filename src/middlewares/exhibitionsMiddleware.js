@@ -1,11 +1,15 @@
 import axios from 'axios';
 
+import { toggleAlertMessage, messageToShow } from 'src/actions/errorMessages';
 import {
   FETCH_EXHIBITIONS, saveExhibitions,
   FETCH_USER_ARTWORKS, saveUserArtworks,
   UPDATE_USER_ARTWORK, SUBMIT_NEW_ARTWORK,
-  DELETE_USER_ARTWORK,
+  SUBMIT_NEW_EXHIBITION, saveUserExhibitions,
+  DELETE_USER_ARTWORK, fetchUserArtworks,
 } from '../actions/exhibitions';
+
+import { saveToLocalStorage } from '../utils/localStorage';
 
 const exhibitionsMiddleware = (store) => (next) => (action) => {
   switch (action.type) {
@@ -32,8 +36,12 @@ const exhibitionsMiddleware = (store) => (next) => (action) => {
         })
         .catch((error) => {
           if (error.response.data.message === 'Expired JWT Token') {
-            // eslint-disable-next-line no-alert
-            alert("Impossible d'exécuter la demande, la session a expirée. Veuillez vous reconnecter.");
+            store.dispatch(toggleAlertMessage());
+            store.dispatch(messageToShow('warning', 'Votre session a expirée.'));
+          }
+          else {
+            store.dispatch(toggleAlertMessage());
+            store.dispatch(messageToShow('warning', 'Un problème est survenu, si cela se reproduit, veuillez nous contacter.'));
           }
         });
       break;
@@ -53,9 +61,12 @@ const exhibitionsMiddleware = (store) => (next) => (action) => {
         },
       )
         .then(() => {
+          store.dispatch(toggleAlertMessage());
+          store.dispatch(messageToShow('success', 'Ok je vais aller faire sécher !'));
         })
-        .catch((error) => {
-          console.warn(error);
+        .catch(() => {
+          store.dispatch(toggleAlertMessage());
+          store.dispatch(messageToShow('warning', 'Un problème est survenu, si cela se reproduit, veuillez nous contacter.'));
         });
       break;
     case SUBMIT_NEW_ARTWORK:
@@ -73,11 +84,44 @@ const exhibitionsMiddleware = (store) => (next) => (action) => {
           },
         },
       )
+        .then(() => {
+          store.dispatch(fetchUserArtworks(action.payload.exhibition));
+          store.dispatch(toggleAlertMessage());
+          store.dispatch(messageToShow('success', 'Merci, quelle merveille !'));
+        })
+        .catch(() => {
+          store.dispatch(toggleAlertMessage());
+          store.dispatch(messageToShow('warning', 'Un problème est survenu, si cela se reproduit, veuillez nous contacter.'));
+        });
+      break;
+    case SUBMIT_NEW_EXHIBITION:
+      axios
+        .post(
+          'https://apiroute.webshappers.com/api/secure/exhibitions/new',
+          {
+            title: action.payload.newExhibitionName,
+            description: action.payload.newExhibitionDescription,
+            artist: '',
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${store.getState().users.token}`,
+              'Content-Type': 'application/json',
+            },
+          },
+        )
         .then((response) => {
-          store.dispatch(saveUserArtworks(response.data));
+          store.dispatch(saveUserExhibitions(response.data));
+          const { userExhibitions } = store.getState().exhibitions;
+          const userData = { userExhibitions };
+          saveToLocalStorage('user-arthome', userData);
+          store.dispatch(toggleAlertMessage());
+          store.dispatch(messageToShow('success', 'Mais quelle productivité !'));
         })
         .catch((error) => {
           console.warn(error);
+          store.dispatch(toggleAlertMessage());
+          store.dispatch(messageToShow('warning', "Une erreur est survenue lors de la création de l'exposition, si ce problème persiste, veuillez nous contacter. Merci"));
         });
       break;
     case DELETE_USER_ARTWORK:
@@ -91,9 +135,15 @@ const exhibitionsMiddleware = (store) => (next) => (action) => {
       )
         .then((response) => {
           store.dispatch(saveUserArtworks(response.data));
+          const { userExhibitions } = store.getState().exhibitions;
+          const userData = { userExhibitions };
+          saveToLocalStorage('user-arthome', userData);
+          store.dispatch(toggleAlertMessage());
+          store.dispatch(messageToShow('success', "Même si son heure est venu, nous n'oublierons pas ce chef d'oeuvre."));
         })
-        .catch((error) => {
-          console.warn(error);
+        .catch(() => {
+          store.dispatch(toggleAlertMessage());
+          store.dispatch(messageToShow('warning', 'Un problème est survenu, si cela se reproduit, veuillez nous contacter.'));
         });
       break;
     default:

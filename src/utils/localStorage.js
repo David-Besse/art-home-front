@@ -1,6 +1,13 @@
 // set informations in localStorage
 export const saveToLocalStorage = (keyName, data) => {
-  localStorage.setItem(keyName, JSON.stringify(data));
+  // Retrieve existing data from localStorage
+  const existingData = JSON.parse(localStorage.getItem(keyName)) || {};
+
+  // Merge existing data with new data
+  const mergedData = { ...existingData, ...data };
+
+  // Save merged data to localStorage
+  localStorage.setItem(keyName, JSON.stringify(mergedData));
 };
 
 // get informations from localStorage
