@@ -108,7 +108,7 @@ const user = (store) => (next) => (action) => {
             firstname: store.getState().users.firstName,
             nickname: store.getState().users.nickname,
             avatar: store.getState().users.avatar,
-            birthday: new Date(store.getState().users.birthday),
+            dateOfBirth: store.getState().users.birthday,
             presentation: store.getState().users.presentation,
             favorites: store.getState().users.favorites,
           },

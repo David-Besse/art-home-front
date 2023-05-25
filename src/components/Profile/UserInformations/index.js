@@ -82,17 +82,17 @@ const userInformations = () => {
     }
   };
 
-  const convertDateToISOFormat = (dateString) => {
-    let newDate = '';
-    if (dateString !== '1900-01-01') {
-      const [month, day, year] = dateString.split('/');
-      newDate = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
-    }
-    else {
-      newDate = dateString;
-    }
-    return newDate;
-  };
+  // const convertDateToISOFormat = (dateString) => {
+  //   let newDate = '';
+  //   if (dateString !== '1900-01-01' && dateString.length === 10) {
+  //     const [month, day, year] = dateString.split('/');
+  //     newDate = `${year}-${month.length === 1 ? `0${month}` : month}-${day.length === 1 ? `0${day}` : day}`;
+  //   }
+  //   else {
+  //     newDate = dateString;
+  //   }
+  //   return newDate;
+  // };
 
   return (
     <section className="userInformations">
@@ -115,7 +115,7 @@ const userInformations = () => {
                     }
                     type="text"
                     className="mt-2"
-                    id="inputAvatar"
+                    name="avatar"
                     value={avatar}
                     onChange={(evt) => {
                       changeField(evt.target.value, 'avatar');
@@ -145,7 +145,7 @@ const userInformations = () => {
                     <Form.Control
                       placeholder={nickname}
                       type="text"
-                      id="inputNickname"
+                      name="nickname"
                       value={nickname}
                       onChange={(evt) => {
                         changeField(evt.target.value, 'nickname');
@@ -166,7 +166,7 @@ const userInformations = () => {
                     <Form.Control
                       placeholder={lastName}
                       type="text"
-                      id="inputLastName"
+                      name="lastName"
                       value={lastName}
                       onChange={(evt) => {
                         changeField(evt.target.value, 'lastName');
@@ -188,7 +188,7 @@ const userInformations = () => {
                     <Form.Control
                       placeholder={firstName}
                       type="text"
-                      id="inputFirstName"
+                      name="firstName"
                       value={firstName}
                       onChange={(evt) => {
                         changeField(evt.target.value, 'firstName');
@@ -210,7 +210,7 @@ const userInformations = () => {
                     <Form.Control
                       placeholder={email}
                       type="email"
-                      id="inputEmail"
+                      name="email"
                       value={email}
                       onChange={(evt) => {
                         changeField(evt.target.value, 'email');
@@ -233,9 +233,9 @@ const userInformations = () => {
                   <Form.Group>
                     <Form.Control
                       type="date"
-                      id="inputBirthday"
+                      name="birthday"
                       locale="fr-FR"
-                      value={convertDateToISOFormat(birthday)}
+                      value={birthday}
                       onChange={(evt) => {
                         changeField(evt.target.value, 'birthday');
                       }}
@@ -264,7 +264,7 @@ const userInformations = () => {
                       rows={5}
                       placeholder={presentation}
                       className="mb-3"
-                      id="inputPresentation"
+                      name="presentation"
                       value={presentation}
                       onChange={(evt) => {
                         changeField(evt.target.value, 'presentation');
