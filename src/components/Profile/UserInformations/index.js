@@ -57,14 +57,14 @@ const userInformations = () => {
   const changeField = (newValue, name) => dispatch(changeInputField(newValue, name));
   const handleProfilEditing = () => dispatch(toggleProfileEditing());
 
-  const changedFields = (elOne, elTwo) => Object.keys(elOne).filter((key) => elOne[key] !== elTwo[key]);
+  const findChangedFields = (elOne, elTwo) => Object.keys(elOne).filter((key) => elOne[key] !== elTwo[key]);
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
 
     handleProfilEditing();
 
-    const result = changedFields(curState, userFromLocalStorage);
+    const result = findChangedFields(curState, userFromLocalStorage);
 
     if (result.length > 0 && result.includes('email')) {
       removeFromLocalStorage('user-arthome');
@@ -74,25 +74,13 @@ const userInformations = () => {
       setTimeout(() => {
         navigate('/');
         logoutUser();
-      }, 2600);
+      }, 3010);
       clearTimeout();
     }
     else if (result.length > 0) {
       updateProfile();
     }
   };
-
-  // const convertDateToISOFormat = (dateString) => {
-  //   let newDate = '';
-  //   if (dateString !== '1900-01-01' && dateString.length === 10) {
-  //     const [month, day, year] = dateString.split('/');
-  //     newDate = `${year}-${month.length === 1 ? `0${month}` : month}-${day.length === 1 ? `0${day}` : day}`;
-  //   }
-  //   else {
-  //     newDate = dateString;
-  //   }
-  //   return newDate;
-  // };
 
   return (
     <section className="userInformations">

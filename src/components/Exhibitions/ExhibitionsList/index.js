@@ -17,6 +17,8 @@ const ExhibitionsList = () => {
       {/* Showcase of all exhibitions */}
       <div className="exhibition-container mb-4">
         {list.map((exhibition) => (
+          exhibition.artwork.length !== 0
+          && (
           <Link to={`/expositions/${exhibition.slug}`} key={exhibition.slug} className="text-decoration-none">
             <Card className="text-white card-info">
               <Card.Img className="image-info" src={exhibition.artwork[0].picture} alt={exhibition.artwork[0].slug} />
@@ -27,6 +29,7 @@ const ExhibitionsList = () => {
               </Card.Body>
             </Card>
           </Link>
+          )
         ))}
       </div>
 

@@ -17,11 +17,11 @@ const MessageAlert = () => {
   };
 
   return (
-    <ToastContainer position="top-end" className="p-3">
+    <ToastContainer position="top-end" className="p-3 main-toast-container">
       <Toast
         onClose={handleToast}
         show={isMessageAlertActivated}
-        delay={2500}
+        delay={3000}
         autohide
         className={`border-${typeOfMessage}`}
       >

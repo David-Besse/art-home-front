@@ -2,7 +2,6 @@ import {
   CHANGE_INPUT_FIELD,
   SAVE_AUTH_DATA, SAVE_USER_DATA,
   HANDLE_LOGIN_OFF,
-  SAVE_USER_EXHIBITIONS_LIST,
   SAVE_USER_DATA_FROM_LOCALSTORAGE,
   WIPE_USER_DATA,
   ADD_FAVORITES,
@@ -22,9 +21,6 @@ export const initialState = {
   birthday: '',
   presentation: '',
   avatar: '',
-  exhibitions: [],
-  exhibitionName: '',
-  exhibitionDescription: '',
   favorites: [],
 };
 
@@ -54,7 +50,6 @@ const reducer = (state = initialState, action = {}) => {
         birthday: action.birthday === null ? '1900-01-01' : new Date(action.birthday).toISOString().split('T')[0],
         presentation: action.presentation === null ? '' : action.presentation,
         role: action.role,
-        exhibitions: action.exhibitions,
         favorites: action.favorites,
       };
     case CHANGE_USER_LOGGIN:
@@ -80,17 +75,7 @@ const reducer = (state = initialState, action = {}) => {
         birthday: '',
         presentation: '',
         avatar: '',
-        exhibitions: [],
-        exhibitionName: '',
-        exhibitionDescription: '',
         favorites: [],
-      };
-    case SAVE_USER_EXHIBITIONS_LIST:
-      return {
-        ...state,
-        exhibitions: action.exhibitions,
-        exhibitionName: '',
-        exhibitionDescription: '',
       };
     case SAVE_USER_DATA_FROM_LOCALSTORAGE:
       return {
@@ -104,9 +89,6 @@ const reducer = (state = initialState, action = {}) => {
         role: action.role,
         email: action.email,
         logged: action.logged,
-        exhibitionDescription: action.exhibitionDescription,
-        exhibitionName: action.exhibitionName,
-        exhibitions: action.exhibitions,
         token: action.token,
         favorites: action.favorites,
       };

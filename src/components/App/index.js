@@ -10,7 +10,7 @@ import Disclaimer from 'src/components/Disclaimer';
 import Contact from 'src/components/Contact';
 import Error from 'src/components/Error';
 
-import { fetchExhibitions } from 'src/actions/exhibitions';
+import { fetchExhibitions, saveUserExhibitions } from 'src/actions/exhibitions';
 import { getFromLocalStorage } from 'src/utils/localStorage';
 import { saveUserDataFromLocalStorage } from 'src/actions/users';
 
@@ -25,8 +25,10 @@ function App() {
     dispatch(fetchExhibitions());
 
     const userFromLocalStorage = getFromLocalStorage('user-arthome');
+
     if (userFromLocalStorage && userFromLocalStorage.logged && userFromLocalStorage.token !== '') {
       dispatch(saveUserDataFromLocalStorage(userFromLocalStorage));
+      dispatch(saveUserExhibitions(userFromLocalStorage.userExhibitions));
     }
   }, []);
 

@@ -1,11 +1,10 @@
 import { useDispatch, useSelector } from 'react-redux';
 
-import { submitNewExhibition, changeInputField } from 'src/actions/users';
 import {
   toggleExhibitionCreationModal, toggleArtworkCreationModal, toggleModalImage, setModalImageInfos,
 } from 'src/actions/modals';
 import {
-  fetchUserArtworks, updateUserArtwork, submitNewArtwork, deleteUserArtwork,
+  fetchUserArtworks, updateUserArtwork, submitNewArtwork, submitNewExhibition, deleteUserArtwork,
 } from 'src/actions/exhibitions';
 import { showSelectedExhibition, toggleArtworkEditing } from 'src/actions/profile';
 
@@ -26,19 +25,17 @@ import './styles.scss';
 // show informations about the connected user
 const ExhibitionsManager = () => {
   const { isExhibitionCreationModalOpened, isArtworkCreationModalOpened } = useSelector((state) => state.modals);
-  const { exhibitions, exhibitionName, exhibitionDescription } = useSelector((state) => state.users);
-  const { userArtworks, isArtworksLoading } = useSelector((state) => state.exhibitions);
+  const {
+    userArtworks, isArtworksLoading, userExhibitions,
+  } = useSelector((state) => state.exhibitions);
   const { selectedExhibitionId, isArtworkEditingActivated } = useSelector((state) => state.profile);
 
   const dispatch = useDispatch();
 
   const { artworkFormActivated, isFormActivated } = isArtworkEditingActivated;
 
-  const currentExhibition = exhibitions.find((exhib) => exhib.id === selectedExhibitionId);
+  const currentExhibition = userExhibitions.find((exhib) => exhib.id === selectedExhibitionId);
 
-  const changeField = (newValue, fieldName) => {
-    dispatch(changeInputField(newValue, fieldName));
-  };
   const handleArtworkEditing = (formId) => {
     dispatch(toggleArtworkEditing(formId));
   };
@@ -54,11 +51,6 @@ const ExhibitionsManager = () => {
   };
   const handleUpdateUserArtwork = (artworkId, data) => {
     dispatch(updateUserArtwork(artworkId, data));
-  };
-  const handleSubmitExhibition = (event) => {
-    event.preventDefault();
-    handleExhibitionCreationModal();
-    dispatch(submitNewExhibition());
   };
 
   const compareChangedFields = (elOne, elTwo) => Object.keys(elOne).filter((key) => elOne[key] !== elTwo[key]);
@@ -84,6 +76,7 @@ const ExhibitionsManager = () => {
     handleArtworkEditing('');
   };
 
+  // handle submit a new artwork
   const handleSubmitNewArtwork = (event) => {
     event.preventDefault();
 
@@ -92,16 +85,30 @@ const ExhibitionsManager = () => {
     const newArtwork = Object.fromEntries(formData.entries());
 
     handleArtworkCreationModal();
-
     dispatch(submitNewArtwork(newArtwork));
   };
 
+  // handle submit new exhibition
+  const handleSubmitNewExhibition = (event) => {
+    event.preventDefault();
+
+    // we create a new object FormData and retrieve data
+    const formData = new FormData(event.target);
+    const newExhibition = Object.fromEntries(formData.entries());
+
+    handleExhibitionCreationModal();
+    dispatch(submitNewExhibition(newExhibition));
+  };
+
+  // handle delete artwork
   const handleDeleteArtwork = (event, artworkId) => {
     event.preventDefault();
 
+    handleArtworkEditing('');
     dispatch(deleteUserArtwork(artworkId));
   };
 
+  // manages the opening of the modal for images
   const OpenModalImg = (picture) => {
     dispatch(setModalImageInfos(picture));
     dispatch(toggleModalImage(true));
@@ -109,6 +116,7 @@ const ExhibitionsManager = () => {
 
   return (
     <section className="exhibitionManager mt-3">
+
       {/* modal to view large image */}
       <ModalImage />
 
@@ -126,7 +134,7 @@ const ExhibitionsManager = () => {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form onSubmit={handleSubmitExhibition} className="text-center">
+          <Form onSubmit={handleSubmitNewExhibition} className="text-center">
             <Form.Group className="mb-3" controlId="inputExhibitionName">
               <FloatingLabel label="Nom de l'exposition" className="mb-3">
                 <Form.Control
@@ -134,10 +142,7 @@ const ExhibitionsManager = () => {
                   autoFocus
                   required
                   placeholder="Nom de l'exposition"
-                  value={exhibitionName}
-                  onChange={(evt) => {
-                    changeField(evt.target.value, 'exhibitionName');
-                  }}
+                  name="newExhibitionName"
                 />
               </FloatingLabel>
             </Form.Group>
@@ -148,10 +153,7 @@ const ExhibitionsManager = () => {
                   style={{ height: '100px' }}
                   required
                   placeholder="Description de l'exposition"
-                  value={exhibitionDescription}
-                  onChange={(evt) => {
-                    changeField(evt.target.value, 'exhibitionDescription');
-                  }}
+                  name="newExhibitionDescription"
                 />
               </FloatingLabel>
             </Form.Group>
@@ -175,7 +177,7 @@ const ExhibitionsManager = () => {
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={(event) => handleSubmitNewArtwork(event)}>
-            <Form.Group className="mb-3" controlId="inputExhibitionName">
+            <Form.Group className="mb-3" controlId="inputArtworkTitle">
               <FloatingLabel label="Titre de l'oeuvre" className="mb-3">
                 <Form.Control
                   type="text"
@@ -186,7 +188,7 @@ const ExhibitionsManager = () => {
                 />
               </FloatingLabel>
             </Form.Group>
-            <Form.Group className="mb-3" controlId="inputExhibitionName">
+            <Form.Group className="mb-3" controlId="inputArtworkUrl">
               <FloatingLabel label="URL de l'oeuvre" className="mb-3">
                 <Form.Control
                   type="text"
@@ -206,14 +208,14 @@ const ExhibitionsManager = () => {
                 />
               </FloatingLabel>
             </Form.Group>
-            <Form.Group className="mb-3" controlId="selectExhibition">
+            <Form.Group className="mb-3" controlId="inputExhibitionSelect">
               <FloatingLabel label="Choisir une exposition">
                 <Form.Control
                   as="select"
-                  disabled={!exhibitions.length}
+                  disabled={!userExhibitions.length}
                   name="exhibition"
                 >
-                  {exhibitions.map((exhibition) => (
+                  {userExhibitions.map((exhibition) => (
                     <option key={exhibition.id} value={exhibition.id}>
                       {exhibition.title}
                     </option>
@@ -254,7 +256,7 @@ const ExhibitionsManager = () => {
               </Button>
 
               {/* button to manage the modal for adding an artwork */}
-              {exhibitions.length > 0 && (
+              {userExhibitions.length > 0 && (
               <>
                 <Button
                   variant="primary"
@@ -294,15 +296,15 @@ const ExhibitionsManager = () => {
                       className="me-2"
                     />
                   )}
-                    {(exhibitions.length > 0
+                    {(userExhibitions.length > 0
                       ? ' Voir une exposition'
                       : ' Aucune exposition trouvée')}
                   </>
               )}
-                disabled={exhibitions.length === 0}
+                disabled={userExhibitions.length === 0}
               >
-                {exhibitions.length > 0
-                && exhibitions.map((exhibition) => (
+                {userExhibitions.length > 0
+                && userExhibitions.map((exhibition) => (
                   <Dropdown.Item
                     as="button"
                     key={exhibition.id}
@@ -446,8 +448,8 @@ const ExhibitionsManager = () => {
                             name="exhibition"
                             defaultValue={artwork.exhibition.id}
                           >
-                            {exhibitions.length > 0
-                              && exhibitions.map((exhibition) => (
+                            {userExhibitions.length > 0
+                              && userExhibitions.map((exhibition) => (
                                 <option
                                   key={exhibition.id}
                                   value={exhibition.id}
@@ -507,13 +509,13 @@ const ExhibitionsManager = () => {
             ))}
 
           {/* messages */}
-          {(exhibitions.length > 0 && userArtworks.length === 0)
+          {(userExhibitions.length > 0 && userArtworks.length === 0)
           && (
             <p className="fst-italic">
               Aucunes oeuvres trouvées. Sélectionner une exposition.
             </p>
           )}
-          {exhibitions.length === 0
+          {userExhibitions.length === 0
           && (
             <p className="fw-semibold fs-6">
               Commencer par créer une nouvelle exposition !

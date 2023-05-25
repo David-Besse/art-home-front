@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 import { toggleAlertMessage, messageToShow } from 'src/actions/errorMessages';
+import { saveUserExhibitions } from 'src/actions/exhibitions';
 import {
   SUBMIT_LOGIN,
   saveAuthData,
@@ -9,8 +10,6 @@ import {
   saveUserData,
   SUBMIT_NEW_ACCOUNT,
   SUBMIT_PROFILE_UPDATE,
-  SUBMIT_NEW_EXHIBITION,
-  saveUserExhibitionsList,
 } from '../actions/users';
 import {
   changeInputFieldsValidation,
@@ -59,9 +58,14 @@ const user = (store) => (next) => (action) => {
         )
         .then((res) => {
           store.dispatch(saveUserData(res.data));
-          saveToLocalStorage('user-arthome', store.getState().users);
+          store.dispatch(saveUserExhibitions(res.data.exhibitions));
+          const { userExhibitions } = store.getState().exhibitions;
+          const userData = { ...store.getState().users, userExhibitions };
+          saveToLocalStorage('user-arthome', userData);
         })
         .catch(() => {
+          store.dispatch(toggleAlertMessage());
+          store.dispatch(messageToShow('warning', 'Une erreur est survenue lors de la récupération, si ce problème persiste, veuillez nous contacter. Merci'));
         });
       break;
     case SUBMIT_NEW_ACCOUNT:
@@ -81,11 +85,8 @@ const user = (store) => (next) => (action) => {
           store.dispatch(toggleInformationModal());
         })
         .catch((error) => {
-          console.warn(error);
           action.newAccountForm.current.reset();
-
           store.dispatch(toggleNewAccountModal());
-
           if (error.response.data.status === 500) {
             store.dispatch(showMessageInformation(true, 'Erreur interne du serveur.'));
           }
@@ -120,42 +121,17 @@ const user = (store) => (next) => (action) => {
           },
         )
         .then(() => {
-          const dataFromLocalStorage = getFromLocalStorage('user-arthome');
+          let dataFromLocalStorage = getFromLocalStorage('user-arthome');
           if (dataFromLocalStorage !== null) {
-            saveToLocalStorage('user-arthome', store.getState().users);
+            dataFromLocalStorage = store.getState().users;
+            saveToLocalStorage('user-arthome', dataFromLocalStorage);
             store.dispatch(toggleAlertMessage());
             store.dispatch(messageToShow('success', 'Vos données ont été mises à jour.'));
           }
         })
-        .catch((error) => {
-          console.warn(error);
+        .catch(() => {
           store.dispatch(toggleAlertMessage());
           store.dispatch(messageToShow('warning', 'Une erreur est survenue lors de la mise à jour, si ce problème persiste, veuillez nous contacter. Merci'));
-        });
-      break;
-    case SUBMIT_NEW_EXHIBITION:
-      axios
-        .post(
-          'https://apiroute.webshappers.com/api/secure/exhibitions/new',
-          {
-            title: store.getState().users.exhibitionName,
-            description: store.getState().users.exhibitionDescription,
-            artist: '',
-          },
-          {
-            headers: {
-              Authorization: `Bearer ${store.getState().users.token}`,
-              'Content-Type': 'application/json',
-            },
-          },
-        )
-        .then((response) => {
-          store.dispatch(saveUserExhibitionsList(response.data));
-        })
-        .catch((error) => {
-          console.warn(error);
-          store.dispatch(toggleAlertMessage());
-          store.dispatch(messageToShow('warning', "Une erreur est survenue lors de la création de l'exposition, si ce problème persiste, veuillez nous contacter. Merci"));
         });
       break;
     default:
