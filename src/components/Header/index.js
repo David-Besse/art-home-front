@@ -6,6 +6,8 @@ import { handleLoginOff, wipeUserData } from 'src/actions/users';
 import { toggleLoginModal, toggleNewAccountModal } from 'src/actions/modals';
 import { wipeData } from 'src/actions/exhibitions';
 
+import MessageAlert from 'src/components/MessageAlert';
+
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -48,6 +50,7 @@ const Header = () => {
 
   return (
     <header>
+      <MessageAlert />
       <Navbar collapseOnSelect expand="lg" className="fixed-top">
         <Container>
 

@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 import Footer from 'src/components/Footer';
 import Header from 'src/components/Header';
 import Page from 'src/components/Page';
-import MessageAlert from 'src/components/MessageAlert';
 
 import { Tab, Tabs } from 'react-bootstrap';
 
@@ -22,7 +21,6 @@ const Profile = () => {
       <Header />
       <Page>
         <div className="profile-page">
-          <MessageAlert />
           <UserInformations />
           <Tabs
             defaultActiveKey="favoris"
