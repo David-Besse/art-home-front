@@ -92,6 +92,7 @@ const NewAccountModal = () => {
                 <FloatingLabel label="Nom" className="mb-3">
                   <Form.Control
                     required
+                    autoComplete="family-name"
                     type="text"
                     placeholder="Nom"
                     name="lastName"
@@ -105,6 +106,7 @@ const NewAccountModal = () => {
                 <FloatingLabel label="Prénom" className="mb-3">
                   <Form.Control
                     required
+                    autoComplete="given-name"
                     type="text"
                     placeholder="Prénom"
                     name="firstName"
@@ -119,6 +121,7 @@ const NewAccountModal = () => {
               <FloatingLabel label="Email" className="mb-3">
                 <Form.Control
                   required
+                  autoComplete="email"
                   type="email"
                   placeholder="Email"
                   name="email"
@@ -133,6 +136,7 @@ const NewAccountModal = () => {
               <FloatingLabel label="Mot de passe*" className="mb-3">
                 <Form.Control
                   required
+                  autoComplete="new-password"
                   type="password"
                   placeholder="Mot de passe"
                   name="password"
@@ -148,6 +152,7 @@ const NewAccountModal = () => {
               <FloatingLabel label="Confirmer le mot de passe*" className="mb-3">
                 <Form.Control
                   required
+                  autoComplete="current-password"
                   type="password"
                   placeholder="Confirmer le mot de passe"
                   name="confirmPassword"
@@ -160,7 +165,13 @@ const NewAccountModal = () => {
               </FloatingLabel>
             </Form.Group>
             <Form.Group controlId="selectRole">
-              <Form.Select name="role" defaultValue="" required className="mb-3">
+              <Form.Select
+                name="role"
+                defaultValue=""
+                required
+                autoComplete="off"
+                className="mb-3"
+              >
                 <option disabled value="">Type de compte</option>
                 <option value="ROLE_USER">Rêveur</option>
                 <option value="ROLE_ARTIST">Artiste</option>
