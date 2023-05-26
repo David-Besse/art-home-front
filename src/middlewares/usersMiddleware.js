@@ -14,9 +14,7 @@ import {
 import {
   changeInputFieldsValidation,
   toggleLoginModal,
-  showMessageInformation,
   toggleNewAccountModal,
-  toggleInformationModal,
 } from '../actions/modals';
 import { saveToLocalStorage, getFromLocalStorage } from '../utils/localStorage';
 
@@ -81,22 +79,23 @@ const user = (store) => (next) => (action) => {
           action.newAccountForm.current.reset();
 
           store.dispatch(toggleNewAccountModal());
-          store.dispatch(showMessageInformation(false, 'Le compte a été créé !'));
-          store.dispatch(toggleInformationModal());
+          store.dispatch(toggleAlertMessage());
+          store.dispatch(messageToShow('success', 'Le compte a été créé !'));
         })
         .catch((error) => {
           action.newAccountForm.current.reset();
           store.dispatch(toggleNewAccountModal());
           if (error.response.data.status === 500) {
-            store.dispatch(showMessageInformation(true, 'Erreur interne du serveur.'));
+            store.dispatch(toggleAlertMessage());
+            store.dispatch(messageToShow('warning', 'Erreur interne du serveur.'));
           }
           else {
             const errorMessageObj = error.response.data;
             const errorMessageKeys = Object.keys(errorMessageObj);
             const errorMessageName = errorMessageKeys[0];
-            store.dispatch(showMessageInformation(true, `${errorMessageObj[errorMessageName]}`));
+            store.dispatch(toggleAlertMessage());
+            store.dispatch(toggleAlertMessage('warning', `${errorMessageObj[errorMessageName]}`));
           }
-          store.dispatch(toggleInformationModal());
         });
       break;
     case SUBMIT_PROFILE_UPDATE:
@@ -122,11 +121,14 @@ const user = (store) => (next) => (action) => {
         )
         .then(() => {
           let dataFromLocalStorage = getFromLocalStorage('user-arthome');
+          const { favorites } = store.getState().users;
           if (dataFromLocalStorage !== null) {
+            if (dataFromLocalStorage.favorites === favorites) {
+              store.dispatch(toggleAlertMessage());
+              store.dispatch(messageToShow('success', 'Vos données ont été mises à jour.'));
+            }
             dataFromLocalStorage = store.getState().users;
             saveToLocalStorage('user-arthome', dataFromLocalStorage);
-            store.dispatch(toggleAlertMessage());
-            store.dispatch(messageToShow('success', 'Vos données ont été mises à jour.'));
           }
         })
         .catch(() => {
