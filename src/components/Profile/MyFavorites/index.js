@@ -20,26 +20,38 @@ const MyFavorites = () => {
   const [favoritesUser, setFavoritesUser] = useState([]);
   const [sortOrder, setSortOrder] = useState('exhibitions');
 
+  // Perform side effects when the dependencies list changes
   useEffect(() => {
     if (list.length > 0) {
       let artworksList = [];
       let updatedFavoritesUser = [];
 
+      // Check the sort order
       if (sortOrder === 'exhibitions') {
         list.forEach((item) => {
+          // Push an object to the artworks list with the title and filtered artwork based on favorites
           artworksList.push({
             title: item.title,
             artwork: item.artwork.filter((exhib) => favorites.includes(exhib.id)),
           });
         });
+        // Filter the artworks list to get only items with artwork present
         updatedFavoritesUser = [...artworksList.filter((item) => item.artwork && item.artwork.length > 0)];
       }
+
+      // Check the sort order
       if (sortOrder === 'alphabetical') {
+        // Flatten the list to get an array of all artworks
         artworksList = list.flatMap((exhibition) => exhibition.artwork);
+
+        // Filter the artworks based on favorites
         updatedFavoritesUser = artworksList.filter((artwork) => favorites.includes(artwork.id));
+
+        // Sort the updated favorites user based on the title in alphabetical order
         updatedFavoritesUser = updatedFavoritesUser.sort((a, b) => (a.title || '').localeCompare(b.title || ''));
       }
 
+      // Update the favorites user state
       setFavoritesUser(updatedFavoritesUser);
     }
   }, [list, favorites, sortOrder]);
@@ -48,6 +60,7 @@ const MyFavorites = () => {
     dispatch(removeFavorites(pictureId));
     dispatch(submitProfileUpdate());
 
+    // Update the favorites user list by removing the artwork with the given pictureId
     setFavoritesUser((prevFavoritesUser) => prevFavoritesUser.filter((artwork) => artwork.id !== pictureId));
   };
 

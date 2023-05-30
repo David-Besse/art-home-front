@@ -5,18 +5,17 @@ import Button from 'react-bootstrap/Button';
 import { Form } from 'react-bootstrap';
 
 import {
-  toggleProfileEditing,
-} from 'src/actions/profile';
-import {
   changeInputField,
   submitProfileUpdate,
   handleLoginOff,
   wipeUserData,
 } from 'src/actions/users';
+import { toggleProfileEditing } from 'src/actions/profile';
 import { wipeData } from 'src/actions/exhibitions';
 import { toggleAlertMessage, messageToShow } from 'src/actions/errorMessages';
 
 import { removeFromLocalStorage, getFromLocalStorage } from 'src/utils/localStorage';
+import findChangedFields from 'src/utils/findChangedFields';
 
 import './styles.scss';
 import AvatarPicture from '../../../assets/images/avatar/avatar.png';
@@ -44,6 +43,7 @@ const userInformations = () => {
   }));
 
   const navigate = useNavigate();
+
   const dispatch = useDispatch();
 
   const userFromLocalStorage = getFromLocalStorage('user-arthome');
@@ -57,8 +57,7 @@ const userInformations = () => {
   const changeField = (newValue, name) => dispatch(changeInputField(newValue, name));
   const handleProfilEditing = () => dispatch(toggleProfileEditing());
 
-  const findChangedFields = (elOne, elTwo) => Object.keys(elOne).filter((key) => elOne[key] !== elTwo[key]);
-
+  // data processing after submission of the user profile change
   const handleSubmit = (evt) => {
     evt.preventDefault();
 

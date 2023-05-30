@@ -21,7 +21,9 @@ const Profile = () => {
       <Header />
       <Page>
         <div className="profile-page">
+
           <UserInformations />
+
           <Tabs
             defaultActiveKey="favoris"
             id="tabMain"
@@ -37,6 +39,7 @@ const Profile = () => {
               </Tab>
               )}
           </Tabs>
+
         </div>
       </Page>
       <Footer />

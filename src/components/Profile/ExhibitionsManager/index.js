@@ -20,9 +20,11 @@ import {
   Spinner,
 } from 'react-bootstrap';
 
+import findChangedFields from 'src/utils/findChangedFields';
+
 import './styles.scss';
 
-// show informations about the connected user
+/* User content management panel */
 const ExhibitionsManager = () => {
   const { isExhibitionCreationModalOpened, isArtworkCreationModalOpened } = useSelector((state) => state.modals);
   const {
@@ -36,30 +38,19 @@ const ExhibitionsManager = () => {
 
   const currentExhibition = userExhibitions.find((exhib) => exhib.id === selectedExhibitionId);
 
-  const handleArtworkEditing = (formId) => {
-    dispatch(toggleArtworkEditing(formId));
-  };
-  const handleExhibitionCreationModal = () => {
-    dispatch(toggleExhibitionCreationModal());
-  };
-  const handleArtworkCreationModal = () => {
-    dispatch(toggleArtworkCreationModal());
-  };
+  const handleArtworkEditing = (formId) => dispatch(toggleArtworkEditing(formId));
+  const handleExhibitionCreationModal = () => dispatch(toggleExhibitionCreationModal());
+  const handleArtworkCreationModal = () => dispatch(toggleArtworkCreationModal());
   const handleShowExhibition = (id) => {
     dispatch(showSelectedExhibition(id));
     dispatch(fetchUserArtworks(id));
   };
-  const handleUpdateUserArtwork = (artworkId, data) => {
-    dispatch(updateUserArtwork(artworkId, data));
-  };
+  const handleUpdateUserArtwork = (artworkId, data) => dispatch(updateUserArtwork(artworkId, data));
 
-  const compareChangedFields = (elOne, elTwo) => Object.keys(elOne).filter((key) => elOne[key] !== elTwo[key]);
-
-  // handle update artwork
+  // data processing after submitting an artwork update
   const handleUpdateArtwork = (event, artwork) => {
     event.preventDefault();
 
-    // we create a new object FormData and retrieve data
     const formData = new FormData(event.target);
     const updateArtwork = Object.fromEntries(formData.entries());
 
@@ -67,7 +58,7 @@ const ExhibitionsManager = () => {
       title: artwork.title, description: artwork.description, picture: artwork.picture, exhibition: (artwork.exhibition.id).toString(),
     };
 
-    const result = compareChangedFields(updateArtwork, currentArtwork);
+    const result = findChangedFields(updateArtwork, currentArtwork);
 
     if (result.length > 0) {
       handleUpdateUserArtwork(artwork.id, updateArtwork);
@@ -76,11 +67,10 @@ const ExhibitionsManager = () => {
     handleArtworkEditing('');
   };
 
-  // handle submit a new artwork
+  // data processing after submitting a new artwork
   const handleSubmitNewArtwork = (event) => {
     event.preventDefault();
 
-    // we create a new object FormData and retrieve data
     const formData = new FormData(event.target);
     const newArtwork = Object.fromEntries(formData.entries());
 
@@ -88,11 +78,10 @@ const ExhibitionsManager = () => {
     dispatch(submitNewArtwork(newArtwork));
   };
 
-  // handle submit new exhibition
+  // data processing after submitting a new exhibition
   const handleSubmitNewExhibition = (event) => {
     event.preventDefault();
 
-    // we create a new object FormData and retrieve data
     const formData = new FormData(event.target);
     const newExhibition = Object.fromEntries(formData.entries());
 
@@ -100,7 +89,7 @@ const ExhibitionsManager = () => {
     dispatch(submitNewExhibition(newExhibition));
   };
 
-  // handle delete artwork
+  // data processing after deleting an artwork
   const handleDeleteArtwork = (event, artworkId) => {
     event.preventDefault();
 
@@ -108,7 +97,7 @@ const ExhibitionsManager = () => {
     dispatch(deleteUserArtwork(artworkId));
   };
 
-  // manages the opening of the modal for images
+  // manages the opening of the modal to view images in a bigger way, zoom is include
   const OpenModalImg = (picture) => {
     dispatch(setModalImageInfos(picture));
     dispatch(toggleModalImage(true));
@@ -278,6 +267,7 @@ const ExhibitionsManager = () => {
               )}
 
             </div>
+
             {/* button to select an exhibition */}
             <div className="d-flex align-items-center">
               <DropdownButton
@@ -333,6 +323,7 @@ const ExhibitionsManager = () => {
         </div>
 
         <div className="artworks-zone mb-3 d-flex flex-wrap">
+
           {/* card of an artwork with image, title, description, exhibition it belongs to, edit/delete buttons */}
           {userArtworks.length > 0
             && userArtworks.map((artwork) => (
@@ -512,7 +503,7 @@ const ExhibitionsManager = () => {
           {(userExhibitions.length > 0 && userArtworks.length === 0)
           && (
             <p className="fst-italic">
-              Aucunes oeuvres trouvées. Sélectionner une exposition.
+              Aucunes oeuvres trouvées.
             </p>
           )}
           {userExhibitions.length === 0

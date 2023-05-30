@@ -20,9 +20,7 @@ const LogModal = () => {
   const formRef = useRef(null);
 
   // triggers the display of the modal to login
-  const handleNewAccountModal = () => {
-    dispatch(toggleLoginModal());
-  };
+  const handleNewAccountModal = () => dispatch(toggleLoginModal());
 
   // data processing after submission of the login form
   const handleSubmit = (event) => {
@@ -37,7 +35,12 @@ const LogModal = () => {
 
     // we create a new object FormData and retrieve data
     const formData = new FormData(event.target);
+
+    // The purpose of this code line is to convert a FormData object into a regular JavaScript object.
     const userDataLogin = Object.fromEntries(formData.entries());
+    // The FormData object is used to represent data from an HTML form . It contains a collection of key-value pairs representing the form fields and their values.
+    // The entries() method of the FormData object returns an iterable containing arrays of key-value pairs. For example, [["username", "john"], ["password", "secret"]].
+    // By using Object.fromEntries(), we can convert these arrays of key-value pairs into a JavaScript object. It creates a new object where each key is associated with its corresponding value. For example, { username: "john", password: "secret" }.
 
     // we trigger the action of connecting to the server, we add the user data and the targeted form as a parameter
     dispatch(submitLogin(userDataLogin, formRef));
@@ -84,7 +87,7 @@ const LogModal = () => {
           {isLogFormValidated
               && (
               <Form.Text className="text-danger fw-2">
-                email / mot de passe non valide.
+                Email / mot de passe non valide..
               </Form.Text>
               )}
           <Button type="submit" className="mt-3 customButton" id="submitLoginBtn">Soumettre</Button>

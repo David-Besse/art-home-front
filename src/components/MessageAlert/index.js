@@ -9,9 +9,10 @@ import './styles.scss';
 
 const MessageAlert = () => {
   const { textToSHowInMessageAlert, isMessageAlertActivated, typeOfMessage } = useSelector((state) => state.errorMessages);
+
   const dispatch = useDispatch();
 
-  const handleToast = () => {
+  const closeToast = () => {
     dispatch(toggleAlertMessage());
     dispatch(messageToShow('', ''));
   };
@@ -19,7 +20,7 @@ const MessageAlert = () => {
   return (
     <ToastContainer position="top-end" className="p-3 main-toast-container">
       <Toast
-        onClose={handleToast}
+        onClose={closeToast}
         show={isMessageAlertActivated}
         delay={3000}
         autohide

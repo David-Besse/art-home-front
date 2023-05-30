@@ -11,8 +11,9 @@ import Contact from 'src/components/Contact';
 import Error from 'src/components/Error';
 
 import { fetchExhibitions, saveUserExhibitions } from 'src/actions/exhibitions';
-import { getFromLocalStorage } from 'src/utils/localStorage';
 import { saveUserDataFromLocalStorage } from 'src/actions/users';
+
+import { getFromLocalStorage } from 'src/utils/localStorage';
 
 import './styles.scss';
 
@@ -20,19 +21,22 @@ function App() {
   const dispatch = useDispatch();
   const { logged } = useSelector((state) => state.users);
 
-  // fetch all exhibitions and checks if a user is in localstorage then retrieves their information
+  // checks if a user is in localstorage then retrieves their information
   useEffect(() => {
+    // fetch all exhibitions
     dispatch(fetchExhibitions());
 
+    // checks if a user is in localstorage then retrieves their information
     const userFromLocalStorage = getFromLocalStorage('user-arthome');
-
     if (userFromLocalStorage && userFromLocalStorage.logged && userFromLocalStorage.token !== '') {
+      // retrieves user informations
       dispatch(saveUserDataFromLocalStorage(userFromLocalStorage));
+      // retrieves user exhibitions
       dispatch(saveUserExhibitions(userFromLocalStorage.userExhibitions));
     }
   }, []);
 
-  /* Route to navigate in the application */
+  /* Routes to navigate in the application */
   return (
     <div className="app d-flex flex-column">
       <Routes>

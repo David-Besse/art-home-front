@@ -2,12 +2,7 @@ import PropTypes from 'prop-types';
 
 import './style.scss';
 
-/**
- * Main
- * @param {*} param0
- * @returns {JSX.Element}
- */
-
+// base page structure
 const Page = ({ children }) => (
   <main className="page">
     {children}

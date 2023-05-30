@@ -4,7 +4,7 @@ import Page from 'src/components/Page';
 import Header from 'src/components/Header';
 import Footer from 'src/components/Footer';
 
-import Pictures from './Pictures';
+import ArtworksPage from './ArtworksPage';
 import Loading from '../Home/Loading';
 
 // Structure to display one exhibition
@@ -19,7 +19,7 @@ const OneExhibition = () => {
         { !isExhibitionsLoaded
         && <Loading /> }
         { isExhibitionsLoaded
-        && <Pictures /> }
+        && <ArtworksPage /> }
       </Page>
       <Footer />
     </>
