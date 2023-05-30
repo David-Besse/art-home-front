@@ -122,8 +122,15 @@ const user = (store) => (next) => (action) => {
         .then(() => {
           let dataFromLocalStorage = getFromLocalStorage('user-arthome');
           const { favorites } = store.getState().users;
+
           if (dataFromLocalStorage !== null) {
-            if (dataFromLocalStorage.favorites === favorites) {
+            // Compare two arrays by iterating over their elements
+            const compareArrays = dataFromLocalStorage.favorites.reduce((acc, value) => {
+              const index = favorites.indexOf(value);
+              return acc && index !== -1;
+            }, true);
+
+            if (compareArrays && favorites.length === dataFromLocalStorage.favorites.length) {
               store.dispatch(toggleAlertMessage());
               store.dispatch(messageToShow('success', 'Vos données ont été mises à jour.'));
             }

@@ -12,15 +12,15 @@ import { toggleModalImage, setModalImageInfos } from 'src/actions/modals';
 import Card from 'react-bootstrap/Card';
 import { Button } from 'react-bootstrap';
 
-import { findExhibition } from 'src/selectors/findExhibition';
+import findExhibition from 'src/selectors/findExhibition';
 
 import ModalImage from 'src/components/ModalImage';
-import ArtistPresentation from '../ArtistPresentation';
+import ArtistPresentation from './ArtistPresentation';
 
 import './styles.scss';
 
 // Component gathering all informations needed (show artist information, exhibiton information and all artworks related to the exhibition)
-const Pictures = () => {
+const ArtworksPage = () => {
   const { slug } = useParams();
   const {
     title, artwork, artist, description,
@@ -127,4 +127,4 @@ const Pictures = () => {
   );
 };
 
-export default Pictures;
+export default ArtworksPage;

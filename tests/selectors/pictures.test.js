@@ -1,4 +1,4 @@
-import { findExhibition } from 'src/selectors/findExhibition';
+import findExhibition from 'src/selectors/findExhibition';
 
 /**
  *  TEST

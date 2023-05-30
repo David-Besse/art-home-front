@@ -92,9 +92,9 @@ PICTURES EXHIBITION
   padding-right: 2em;
 }
 
-/*
-Like icon
-*/
+/********
+LIKE ICON
+********/
 .heart-icon {
   .bi-heart {
     height: 2.4em;
@@ -122,8 +122,6 @@ Like icon
     }
   }
 }
-
-/*---------------------------MEDIA QUERIES-----------------------------*/
 
 @media screen and (max-width: 768px) {
   .title-picture {

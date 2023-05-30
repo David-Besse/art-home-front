@@ -3,13 +3,14 @@ import { useSelector } from 'react-redux';
 
 import Modal from 'react-bootstrap/Modal';
 
-import { findExhibition } from 'src/selectors/findExhibition';
+import findExhibition from 'src/selectors/findExhibition';
 
 import './styles.scss';
 
 // modal for artist presentation
 const ArtistPresentation = (props) => {
   const { slug } = useParams();
+
   const { artist } = useSelector((state) => findExhibition(state.exhibitions.list, slug));
 
   return (

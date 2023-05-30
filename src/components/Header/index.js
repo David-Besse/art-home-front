@@ -42,15 +42,16 @@ const Header = () => {
     removeFromLocalStorage('user-arthome');
   };
 
-  // triggers the display of the connection window
+  // triggers the display of the login modal
   const handleLoginModal = () => dispatch(toggleLoginModal());
-
-  // triggers the display of the registration window
+  // triggers the display of the new account modal
   const handleNewAccountModal = () => dispatch(toggleNewAccountModal());
 
   return (
     <header>
+      {/* component that displays a confirmation or error message */}
       <MessageAlert />
+
       <Navbar collapseOnSelect expand="lg" className="fixed-top">
         <Container>
 
@@ -78,17 +79,22 @@ const Header = () => {
             <Nav className="me-auto">
               <LinkContainer to="/expositions">
                 <Nav.Link eventKey={1}>Expositions</Nav.Link>
-                {/* Profil option visible only for logged users */}
               </LinkContainer>
+
+              {/* Profil page link visible only for logged users */}
               {logged
                 && (
                 <LinkContainer to="/profil">
                   <Nav.Link eventKey={2}>Profil</Nav.Link>
                 </LinkContainer>
                 )}
+
+              {/* link to CGU page */}
               <LinkContainer to="/mentions-legales" className="d-lg-none">
                 <Nav.Link eventKey={3}>Mentions Légales</Nav.Link>
               </LinkContainer>
+
+              {/* link to contact page */}
               <LinkContainer to="/contact" className="d-lg-none">
                 <Nav.Link eventKey={4}>Contact</Nav.Link>
               </LinkContainer>

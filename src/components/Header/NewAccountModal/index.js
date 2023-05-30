@@ -2,11 +2,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useRef, useState } from 'react';
 
 import { toggleAlertMessage, messageToShow } from 'src/actions/errorMessages';
-
 import { submitNewAccount } from 'src/actions/users';
-import {
-  toggleNewAccountModal,
-} from 'src/actions/modals';
+import { toggleNewAccountModal } from 'src/actions/modals';
 
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
@@ -117,7 +114,7 @@ const NewAccountModal = () => {
                 pattern="^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+.[a-z]{2,4}$"
               />
               <Form.Control.Feedback type="invalid">
-                Email invalide / manquant.
+                Email non valide.
               </Form.Control.Feedback>
             </FloatingLabel>
           </Form.Group>
@@ -133,7 +130,7 @@ const NewAccountModal = () => {
                 aria-describedby="passwordHelpBlock"
               />
               <Form.Control.Feedback type="invalid">
-                Mot de passe invalide.
+                Mot de passe non valide.
               </Form.Control.Feedback>
             </FloatingLabel>
           </Form.Group>
@@ -149,7 +146,7 @@ const NewAccountModal = () => {
                 isInvalid={!formValidated && formRef.current && (formRef.current.elements.confirmPassword.value !== formRef.current.elements.password.value)}
               />
               <Form.Control.Feedback type="invalid">
-                Mot de passe invalide.
+                Mot de passe non valide.
               </Form.Control.Feedback>
             </FloatingLabel>
           </Form.Group>

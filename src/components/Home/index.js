@@ -7,11 +7,7 @@ import Footer from 'src/components/Footer';
 import Loading from './Loading';
 import HomeCarousel from './HomeCarousel';
 
-/**
- * Homepage
- @return {JSX.Element}
- */
-
+// homepage with the carousel
 const Home = () => {
   const { isExhibitionsLoaded } = useSelector((state) => state.exhibitions);
 
