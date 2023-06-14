@@ -1,6 +1,7 @@
 import {
   CHANGE_INPUT_FIELD,
-  SAVE_AUTH_DATA, SAVE_USER_DATA,
+  SAVE_AUTH_DATA,
+  SAVE_USER_DATA,
   HANDLE_LOGIN_OFF,
   SAVE_USER_DATA_FROM_LOCALSTORAGE,
   WIPE_USER_DATA,
@@ -47,7 +48,10 @@ const reducer = (state = initialState, action = {}) => {
         firstName: action.firstName,
         nickname: action.nickname === null ? '' : action.nickname,
         avatar: action.avatar === null ? '' : action.avatar,
-        birthday: action.birthday === null ? '1900-01-01' : new Date(action.birthday).toISOString().split('T')[0],
+        birthday:
+          action.birthday === null
+            ? '1900-01-01'
+            : new Date(action.birthday).toISOString().split('T')[0],
         presentation: action.presentation === null ? '' : action.presentation,
         role: action.role,
         favorites: action.favorites,

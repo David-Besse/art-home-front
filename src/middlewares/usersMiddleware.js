@@ -1,7 +1,7 @@
-import axios from 'axios';
-
 import { toggleAlertMessage, messageToShow } from 'src/actions/errorMessages';
 import { saveUserExhibitions } from 'src/actions/exhibitions';
+
+import axios from './Axios/axiosConf';
 import {
   SUBMIT_LOGIN,
   saveAuthData,
@@ -10,6 +10,8 @@ import {
   saveUserData,
   SUBMIT_NEW_ACCOUNT,
   SUBMIT_PROFILE_UPDATE,
+  wipeUserData,
+  handleLoginOff,
 } from '../actions/users';
 import {
   changeInputFieldsValidation,
@@ -23,7 +25,7 @@ const user = (store) => (next) => (action) => {
     case SUBMIT_LOGIN:
       axios
         .post(
-          'https://apiroute.webshappers.com/api/login_check',
+          '/login_check',
           {
             username: action.payload.email,
             password: action.payload.password,
@@ -46,14 +48,11 @@ const user = (store) => (next) => (action) => {
       break;
     case GET_USER_PROFILE:
       axios
-        .get(
-          'https://apiroute.webshappers.com/api/secure/users/profile',
-          {
-            headers: {
-              Authorization: `Bearer ${action.userToken}`,
-            },
+        .get('/secure/users/profile', {
+          headers: {
+            Authorization: `Bearer ${action.userToken}`,
           },
-        )
+        })
         .then((res) => {
           store.dispatch(saveUserData(res.data));
           store.dispatch(saveUserExhibitions(res.data.exhibitions));
@@ -62,13 +61,20 @@ const user = (store) => (next) => (action) => {
           saveToLocalStorage('user-arthome', userData);
         })
         .catch(() => {
+          store.dispatch(handleLoginOff());
+          store.dispatch(wipeUserData());
           store.dispatch(toggleAlertMessage());
-          store.dispatch(messageToShow('warning', 'Une erreur est survenue lors de la récupération, si ce problème persiste, veuillez nous contacter. Merci'));
+          store.dispatch(
+            messageToShow(
+              'warning',
+              'Une erreur est survenue lors de la récupération, si ce problème persiste, veuillez nous contacter. Merci',
+            ),
+          );
         });
       break;
     case SUBMIT_NEW_ACCOUNT:
       axios
-        .post('https://apiroute.webshappers.com/api/users/new', {
+        .post('/users/new', {
           email: action.payload.email,
           password: action.payload.password,
           lastname: action.payload.lastName,
@@ -87,21 +93,28 @@ const user = (store) => (next) => (action) => {
           store.dispatch(toggleNewAccountModal());
           if (error.response.data.status === 500) {
             store.dispatch(toggleAlertMessage());
-            store.dispatch(messageToShow('warning', 'Erreur interne du serveur.'));
+            store.dispatch(
+              messageToShow('warning', 'Erreur interne du serveur.'),
+            );
           }
           else {
             const errorMessageObj = error.response.data;
             const errorMessageKeys = Object.keys(errorMessageObj);
             const errorMessageName = errorMessageKeys[0];
             store.dispatch(toggleAlertMessage());
-            store.dispatch(toggleAlertMessage('warning', `${errorMessageObj[errorMessageName]}`));
+            store.dispatch(
+              toggleAlertMessage(
+                'warning',
+                `${errorMessageObj[errorMessageName]}`,
+              ),
+            );
           }
         });
       break;
     case SUBMIT_PROFILE_UPDATE:
       axios
         .patch(
-          'https://apiroute.webshappers.com/api/secure/users/edit',
+          '/secure/users/edit',
           {
             email: store.getState().users.email,
             lastname: store.getState().users.lastName,
@@ -125,14 +138,22 @@ const user = (store) => (next) => (action) => {
 
           if (dataFromLocalStorage !== null) {
             // Compare two arrays by iterating over their elements
-            const compareArrays = dataFromLocalStorage.favorites.reduce((acc, value) => {
-              const index = favorites.indexOf(value);
-              return acc && index !== -1;
-            }, true);
+            const compareArrays = dataFromLocalStorage.favorites.reduce(
+              (acc, value) => {
+                const index = favorites.indexOf(value);
+                return acc && index !== -1;
+              },
+              true,
+            );
 
-            if (compareArrays && favorites.length === dataFromLocalStorage.favorites.length) {
+            if (
+              compareArrays
+              && favorites.length === dataFromLocalStorage.favorites.length
+            ) {
               store.dispatch(toggleAlertMessage());
-              store.dispatch(messageToShow('success', 'Vos données ont été mises à jour.'));
+              store.dispatch(
+                messageToShow('success', 'Vos données ont été mises à jour.'),
+              );
             }
             dataFromLocalStorage = store.getState().users;
             saveToLocalStorage('user-arthome', dataFromLocalStorage);
@@ -140,7 +161,12 @@ const user = (store) => (next) => (action) => {
         })
         .catch(() => {
           store.dispatch(toggleAlertMessage());
-          store.dispatch(messageToShow('warning', 'Une erreur est survenue lors de la mise à jour, si ce problème persiste, veuillez nous contacter. Merci'));
+          store.dispatch(
+            messageToShow(
+              'warning',
+              'Une erreur est survenue lors de la mise à jour, si ce problème persiste, veuillez nous contacter. Merci',
+            ),
+          );
         });
       break;
     default:

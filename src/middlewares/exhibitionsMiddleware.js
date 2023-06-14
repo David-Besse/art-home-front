@@ -14,7 +14,7 @@ import { saveToLocalStorage } from '../utils/localStorage';
 const exhibitionsMiddleware = (store) => (next) => (action) => {
   switch (action.type) {
     case FETCH_EXHIBITIONS:
-      axios.get('https://apiroute.webshappers.com/api/exhibitions')
+      axios.get('/exhibitions')
         .then((response) => {
           store.dispatch(saveExhibitions(response.data));
         })
@@ -24,7 +24,7 @@ const exhibitionsMiddleware = (store) => (next) => (action) => {
       break;
     case FETCH_USER_ARTWORKS:
       axios.get(
-        `https://apiroute.webshappers.com/api/secure/artworks/exhibitions/${action.payload}/profile`,
+        `/secure/artworks/exhibitions/${action.payload}/profile`,
         {
           headers: {
             Authorization: `Bearer ${store.getState().users.token}`,
@@ -47,7 +47,7 @@ const exhibitionsMiddleware = (store) => (next) => (action) => {
       break;
     case UPDATE_USER_ARTWORK:
       axios.patch(
-        `https://apiroute.webshappers.com/api/secure/artworks/${action.artworkId}/edit`,
+        `/secure/artworks/${action.artworkId}/edit`,
         {
           title: action.data.title,
           description: action.data.description,
@@ -71,7 +71,7 @@ const exhibitionsMiddleware = (store) => (next) => (action) => {
       break;
     case SUBMIT_NEW_ARTWORK:
       axios.post(
-        'https://apiroute.webshappers.com/api/secure/artworks/new',
+        '/secure/artworks/new',
         {
           title: action.payload.title,
           description: action.payload.description,
@@ -97,7 +97,7 @@ const exhibitionsMiddleware = (store) => (next) => (action) => {
     case SUBMIT_NEW_EXHIBITION:
       axios
         .post(
-          'https://apiroute.webshappers.com/api/secure/exhibitions/new',
+          '/secure/exhibitions/new',
           {
             title: action.payload.newExhibitionName,
             description: action.payload.newExhibitionDescription,
@@ -126,7 +126,7 @@ const exhibitionsMiddleware = (store) => (next) => (action) => {
       break;
     case DELETE_USER_ARTWORK:
       axios.delete(
-        `https://apiroute.webshappers.com/api/secure/artworks/${action.id}/delete`,
+        `/secure/artworks/${action.id}/delete`,
         {
           headers: {
             Authorization: `Bearer ${store.getState().users.token}`,
