@@ -18,8 +18,7 @@ const exhibitionsMiddleware = (store) => (next) => (action) => {
         .then((response) => {
           store.dispatch(saveExhibitions(response.data));
         })
-        .catch((error) => {
-          console.warn(error);
+        .catch(() => {
         });
       break;
     case FETCH_USER_ARTWORKS:
@@ -118,8 +117,7 @@ const exhibitionsMiddleware = (store) => (next) => (action) => {
           store.dispatch(toggleAlertMessage());
           store.dispatch(messageToShow('success', 'Mais quelle productivité !'));
         })
-        .catch((error) => {
-          console.warn(error);
+        .catch(() => {
           store.dispatch(toggleAlertMessage());
           store.dispatch(messageToShow('warning', "Une erreur est survenue lors de la création de l'exposition, si ce problème persiste, veuillez nous contacter. Merci"));
         });
