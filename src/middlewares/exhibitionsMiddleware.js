@@ -60,6 +60,9 @@ const exhibitionsMiddleware = (store) => (next) => (action) => {
         },
       )
         .then(() => {
+          const currentExhib = parseInt(action.payload.exhibition, 10);
+          store.dispatch(fetchUserArtworks(currentExhib));
+
           store.dispatch(toggleAlertMessage());
           store.dispatch(messageToShow('success', 'Ok je vais aller faire sécher !'));
         })
