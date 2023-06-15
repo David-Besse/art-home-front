@@ -84,7 +84,13 @@ const exhibitionsMiddleware = (store) => (next) => (action) => {
         },
       )
         .then(() => {
-          store.dispatch(fetchUserArtworks(action.payload.exhibition));
+          const currentExhib = parseInt(action.payload.exhibition, 10);
+          const artworkExhib = store.getState().profile.selectedExhibitionId;
+
+          if (currentExhib === artworkExhib) {
+            store.dispatch(fetchUserArtworks(currentExhib));
+          }
+
           store.dispatch(toggleAlertMessage());
           store.dispatch(messageToShow('success', 'Merci, quelle merveille !'));
         })
@@ -131,8 +137,8 @@ const exhibitionsMiddleware = (store) => (next) => (action) => {
           },
         },
       )
-        .then((response) => {
-          store.dispatch(saveUserArtworks(response.data));
+        .then(() => {
+          store.dispatch(fetchUserArtworks(store.getState().profile.selectedExhibitionId));
           const { userExhibitions } = store.getState().exhibitions;
           const userData = { userExhibitions };
           saveToLocalStorage('user-arthome', userData);
