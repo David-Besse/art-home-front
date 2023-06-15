@@ -60,7 +60,7 @@ const exhibitionsMiddleware = (store) => (next) => (action) => {
         },
       )
         .then(() => {
-          const currentExhib = parseInt(action.payload.exhibition, 10);
+          const currentExhib = store.getState().profile.selectedExhibitionId;
           store.dispatch(fetchUserArtworks(currentExhib));
 
           store.dispatch(toggleAlertMessage());
