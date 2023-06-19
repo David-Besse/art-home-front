@@ -7,6 +7,7 @@ import Exhibitions from 'src/components/Exhibitions';
 import OneExhibition from 'src/components/OneExhibition';
 import Profile from 'src/components/Profile';
 import Disclaimer from 'src/components/Disclaimer';
+import CguPage from 'src/components/Cgu';
 import Contact from 'src/components/Contact';
 import Error from 'src/components/Error';
 
@@ -45,6 +46,7 @@ function App() {
         <Route path="/expositions/:slug" element={<OneExhibition />} />
         {logged && <Route path="/profil" element={<Profile />} />}
         <Route path="/mentions-legales" element={<Disclaimer />} />
+        <Route path="/CGU" element={<CguPage />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="*" element={<Error />} />
       </Routes>

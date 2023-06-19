@@ -94,9 +94,14 @@ const Header = () => {
                 <Nav.Link eventKey={3}>Mentions Légales</Nav.Link>
               </LinkContainer>
 
+              {/* link to CGU page */}
+              <LinkContainer to="/CGU" className="d-lg-none">
+                <Nav.Link eventKey={4}>CGU</Nav.Link>
+              </LinkContainer>
+
               {/* link to contact page */}
               <LinkContainer to="/contact" className="d-lg-none">
-                <Nav.Link eventKey={4}>Contact</Nav.Link>
+                <Nav.Link eventKey={5}>Contact</Nav.Link>
               </LinkContainer>
             </Nav>
 

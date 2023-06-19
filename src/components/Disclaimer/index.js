@@ -10,51 +10,87 @@ const Disclaimer = () => (
     <Header />
     <Page>
       <section className="disclaimer-page">
-
-        <h3>Objet des CGU</h3>
+        <p className="alerte">
+          Ce site a été développé dans un but éducatif, les mentions légales
+          suivantes sont factices et n'ont aucunes valeurs réelles.
+        </p>
+        <br />
+        <h1>Mentions légales</h1>
+        <br />
+        <h2>Éditeur du site :</h2>
         <p>
-          Les présentes CGU ont pour objet de définir les conditions d'utilisation du site internet <strong>Art@home</strong> par les utilisateurs.
+          Nom de l'entreprise : <strong>Art@home</strong>
+          <br />
+          Forme juridique : SARL<br />
+          Adresse : 123 boulevard des oeuvres<br />
+          75000 Paris France
+          <br />
+          Numéro de téléphone : +33 01 23 45 67 89
+          <br />
+          Adresse e-mail : contact-art_home@gmail.com
         </p>
 
-        <h3>Acceptation des CGU</h3>
+        <h2>Directeur de publication :</h2>
         <p>
-          L'utilisation du site implique l'acceptation pleine et entière des présentes CGU. Si un utilisateur n'accepte pas les CGU, il doit s'abstenir d'utiliser le site.
+          Nom du directeur de publication : <strong>Art@home</strong> direction
         </p>
 
-        <h3>Accès au site</h3>
+        <h2>Hébergeur du site :</h2>
         <p>
-          L'accès au site est ouvert à tous les utilisateurs disposant d'une connexion internet et d'un navigateur web. L'accès peut être suspendu ou interrompu à tout moment pour des raisons techniques ou pour des raisons de maintenance.
+          Nom de l'entreprise : PlanetHoster
+          <br />
+          Adresse : 4416 Louis-B. -Mayer, Laval, Québec, Canada H7P 0G1
+          <br />
+          Numéro de téléphone : 01 76 60 41 43
         </p>
 
-        <h3>Contenu du site</h3>
+        <h2>Propriété intellectuelle :</h2>
         <p>
-          Les images publiées sont libres de droits et peuvent être téléchargées et utilisées pour un usage personnel ou éducatif. Cependant, il est strictement interdit d'utiliser ces images à des fins commerciales (<a href="https://pixabay.com/fr/service/terms/" target="_blank" rel="noopener noreferrer">pixabay.com</a>).
-          {/* The rel attribute sets the relationship between the page and the linked URL. Setting it to "noopener noreferrer" is to prevent a type of phishing known as tabnabbing. */}
+          Le site et son contenu sont la propriété exclusive de <strong>Art@home</strong> ou de ses partenaires. Toute reproduction,
+          représentation, modification, distribution ou exploitation non
+          autorisée, partielle ou totale, du contenu du site est strictement
+          interdite, sauf accord préalable écrit de <strong>Art@home</strong>.
         </p>
 
-        <h3>Responsabilité</h3>
+        <h2>Données personnelles :</h2>
         <p>
-          L'administrateur du site ne peut être tenu responsable de tout dommage direct ou indirect résultant de l'utilisation du site. L'utilisateur assume l'entière responsabilité de l'utilisation du site et de son contenu.
+          Le site peut collecter des données personnelles lors de l'utilisation
+          du site, notamment lors de l'inscription ou du téléchargement d'œuvres
+          d'art. Ces données sont utilisées uniquement dans le cadre de la
+          gestion du site et pour communiquer avec les utilisateurs. Elles ne
+          seront pas transmises à des tiers sans le consentement préalable de
+          l'utilisateur.
         </p>
 
-        <h3>Propriété intellectuelle</h3>
+        <h2>Cookies :</h2>
         <p>
-          Le site est la propriété de <strong>Art@home</strong>. Toute reproduction du site sans l'autorisation écrite de <strong>Art@home</strong> est strictement interdite.
+          Le site peut utiliser des cookies pour améliorer l'expérience de
+          navigation des utilisateurs. Les utilisateurs peuvent paramétrer leur
+          navigateur pour refuser les cookies, mais cela peut limiter certaines
+          fonctionnalités du site.
         </p>
 
-        <h3>Données personnelles</h3>
+        <h2>Responsabilité :</h2>
         <p>
-          Le site collecte des données personnelles sur les utilisateurs, notamment lors de l'inscription. Les données collectées sont utilisées pour la gestion du site et pour communiquer avec les utilisateurs. Les données personnelles ne sont pas transmises à des tiers sans le consentement préalable de l'utilisateur.
+          L'éditeur du site décline toute responsabilité quant aux erreurs ou
+          omissions dans le contenu du site. Les utilisateurs utilisent le site
+          à leurs propres risques. L'éditeur du site ne peut être tenu
+          responsable de tout dommage direct ou indirect résultant de
+          l'utilisation du site.
         </p>
 
-        <h3>Modifications des CGU</h3>
+        <h2>Loi applicable et juridiction compétente :</h2>
         <p>
-          Les présentes CGU peuvent être modifiées à tout moment. Les utilisateurs seront informés des modifications par une notification sur le site. L'utilisation continue du site après la notification des modifications implique l'acceptation des nouvelles CGU.
+          Les présentes mentions légales sont régies par le droit français. Tout
+          litige relatif à l'utilisation du site sera soumis à la juridiction
+          compétente du tribunal de Paris, en France.
         </p>
 
-        <h3>Loi applicable et juridiction compétente</h3>
         <p>
-          Les présentes CGU sont régies par le droit français. Tout litige relatif à l'utilisation du site sera soumis à la juridiction compétente.
+          Ceci est un exemple général de mentions légales. Il est recommandé de
+          consulter un professionnel du droit pour s'assurer de la conformité
+          légale des mentions légales avec la législation applicable dans votre
+          pays.
         </p>
       </section>
     </Page>

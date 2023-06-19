@@ -17,6 +17,11 @@ const Footer = () => (
             <a className="text-muted">Mentions Légales</a>
           </LinkContainer>
         </li>
+        <li className="justify-content-center me-3">
+          <LinkContainer to="/CGU">
+            <a className="text-muted">CGU</a>
+          </LinkContainer>
+        </li>
         <li className="justify-content-center">
           <LinkContainer to="/contact">
             <a className="text-muted">Contact</a>
