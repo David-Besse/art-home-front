@@ -335,13 +335,14 @@ const ExhibitionsManager = () => {
               >
                 <div className="card p-2 border h-100">
                   <div className="row g-0 cardContainer">
-                    <div className="col-lg-4 d-flex flex-column align-items-center justify-content-center">
+                    <div className="col-lg-4 d-flex flex-column align-items-center justify-content-center img-container">
                       <img
                         src={artwork.picture}
                         className="img-fluid rounded artwork-image"
                         alt="artwork"
                         onClick={() => OpenModalImg(artwork)}
                       />
+                      <span className="iconZoom" />
                       {isFormActivated && artworkFormActivated === artwork.id && (
                         <Form.Group>
                           <Form.Control

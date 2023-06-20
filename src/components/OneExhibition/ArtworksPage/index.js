@@ -67,7 +67,10 @@ const ArtworksPage = () => {
           Pour en savoir plus sur {artist.nickname}
         </Button>
       </div>
-      <ArtistPresentation show={modalArtistShow} onHide={() => setModalArtistShow(false)} />
+      <ArtistPresentation
+        show={modalArtistShow}
+        onHide={() => setModalArtistShow(false)}
+      />
 
       {/* Showcase of all the picture included in the exhibiton */}
       <section className="picture-list">
@@ -79,6 +82,7 @@ const ArtworksPage = () => {
               alt={picture.slug}
               onClick={() => OpenModalImg(picture)}
             />
+            <span className="iconZoom" />
             <div
               className="heart-icon"
               onClick={() => handleFavorites(picture.id)}
@@ -122,7 +126,6 @@ const ArtworksPage = () => {
       </section>
 
       <ModalImage />
-
     </div>
   );
 };

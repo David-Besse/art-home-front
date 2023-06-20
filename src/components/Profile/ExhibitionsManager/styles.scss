@@ -22,6 +22,33 @@
     pointer-events: none;
   }
 
+  .img-container{
+    position: relative;
+  }
+
+  .img-container .iconZoom {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-image: url("../../../assets/zoom-in.svg");
+    background-size: cover;
+    width: 32px;
+    height: 32px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    color: azure;
+    pointer-events: none;
+  }
+
+  .img-container:hover .artwork-image:hover + .iconZoom {
+    opacity: 1;
+  }
+  
+  .img-container .artwork-image:hover {
+    opacity: 0.5;
+  }
+
   .selectExhibition {
     height: 2em;
 
