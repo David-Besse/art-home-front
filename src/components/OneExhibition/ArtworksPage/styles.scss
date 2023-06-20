@@ -160,7 +160,7 @@ LIKE ICON
   }
 }
 
-@media screen and (min-width: 1024px) {
+@media screen and (min-width: 992px) {
   .picture-list {
     flex-direction: unset;
     flex-wrap: wrap;
@@ -175,6 +175,7 @@ LIKE ICON
   .image-picture {
     height: 70%;
     pointer-events: all;
+    cursor: pointer;
   }
 
   .description-picture {
