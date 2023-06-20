@@ -11,7 +11,7 @@ const Footer = () => (
           <span className="ms-3 text-muted">© 2023 Art@home</span>
         </LinkContainer>
       </div>
-      <ul className="col-md-4 d-flex d-none d-lg-flex justify-content-center align-items-center list-unstyled mb-0">
+      <ul className="links col-md-4 d-flex d-none d-lg-flex justify-content-center align-items-center mb-0">
         <li className="justify-content-center me-3">
           <LinkContainer to="/mentions-legales">
             <a className="text-muted">Mentions Légales</a>
