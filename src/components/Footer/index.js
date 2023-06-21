@@ -14,23 +14,23 @@ const Footer = () => (
       <ul className="links col-md-4 d-flex d-none d-lg-flex justify-content-center align-items-center mb-0">
         <li className="justify-content-center me-3">
           <LinkContainer to="/mentions-legales">
-            <a className="text-muted">Mentions Légales</a>
+            <a className="text-muted" aria-label="mentions légales">Mentions Légales</a>
           </LinkContainer>
         </li>
         <li className="justify-content-center me-3">
           <LinkContainer to="/CGU">
-            <a className="text-muted">CGU</a>
+            <a className="text-muted" aria-label="conditions générales d'utilisateur">CGU</a>
           </LinkContainer>
         </li>
         <li className="justify-content-center">
           <LinkContainer to="/contact">
-            <a className="text-muted">Contact</a>
+            <a className="text-muted" aria-label="contact">Contact</a>
           </LinkContainer>
         </li>
       </ul>
       <ul className="col-md-4 d-flex justify-content-end list-unstyled nav">
         <li className="justify-content-center me-3">
-          <a className="text-muted" href="#">
+          <a className="text-muted" href="#" aria-label="twitter">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -44,7 +44,7 @@ const Footer = () => (
           </a>
         </li>
         <li className="justify-content-center me-3">
-          <a className="text-muted" href="#">
+          <a className="text-muted" href="#" aria-label="instagram">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -58,7 +58,7 @@ const Footer = () => (
           </a>
         </li>
         <li className="justify-content-center me-3">
-          <a className="text-muted" href="#">
+          <a className="text-muted" href="#" aria-label="facebook">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"

@@ -121,7 +121,7 @@ const MyFavorites = () => {
                   <div className="fade-images">
                     {item.artwork && item.artwork.map((artworkItem) => (
                       <Figure key={artworkItem.id} className="image-card">
-                        <Figure.Image src={artworkItem.picture} className="image-fav" rounded fluid />
+                        <Figure.Image src={artworkItem.picture} alt={artworkItem.title} className="image-fav" rounded fluid />
                         <div
                           className="heart-icon"
                           onClick={() => handleFavorites(artworkItem.id)}

@@ -27,7 +27,7 @@ const ArtistPresentation = (props) => {
         <img src={artist.avatar} alt={artist.slug} className="avatar" />
         <h3 className="realname">de son véritable nom {artist.firstname} {artist.lastname}</h3>
         <p className="presentation">&laquo; {artist.presentation} &raquo;</p>
-        <p className="align-self-end fw-bold">{artist.email}</p>
+        <a href={`mailto:${artist.email}`} aria-label={`envoyer un email à ${artist.nickname}`} className="align-self-end fw-bold">{artist.email}</a>
       </Modal.Body>
     </Modal>
   );

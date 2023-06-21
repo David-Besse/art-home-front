@@ -52,14 +52,14 @@ const Header = () => {
       {/* component that displays a confirmation or error message */}
       <MessageAlert />
 
-      <Navbar collapseOnSelect expand="lg" className="fixed-top">
+      <Navbar collapseOnSelect expand="lg" className="fixed-top navbar">
         <Container>
 
           {/* displays the logo and the title of the website */}
           <div className="d-flex align-items-center">
-            <Image src={Logo} alt="logo art at home" className="me-2 imageLogo" />
+            <Image src={Logo} alt="logo art at home" width="48" height="40" className="me-2 imageLogo" />
             <LinkContainer to="/">
-              <Navbar.Brand>Art@home</Navbar.Brand>
+              <Navbar.Brand className="navbar-brand">Art@home</Navbar.Brand>
             </LinkContainer>
           </div>
           {nickname !== ''

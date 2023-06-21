@@ -231,6 +231,7 @@ const ExhibitionsManager = () => {
                 variant="primary"
                 onClick={handleExhibitionCreationModal}
                 className="my-3 me-3 d-none d-sm-block customButton"
+                aria-label="créer une exposition"
               >
                 Créer une exposition
               </Button>
@@ -238,6 +239,7 @@ const ExhibitionsManager = () => {
                 variant="primary"
                 onClick={handleExhibitionCreationModal}
                 className="my-3 me-3 d-block d-sm-none customButton"
+                aria-label="créer une exposition"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-easel2" viewBox="0 0 16 16">
                   <path fillRule="evenodd" d="M8 0a.5.5 0 0 1 .447.276L8.81 1h4.69A1.5 1.5 0 0 1 15 2.5V11h.5a.5.5 0 0 1 0 1h-2.86l.845 3.379a.5.5 0 0 1-.97.242L12.11 14H3.89l-.405 1.621a.5.5 0 0 1-.97-.242L3.36 12H.5a.5.5 0 0 1 0-1H1V2.5A1.5 1.5 0 0 1 2.5 1h4.691l.362-.724A.5.5 0 0 1 8 0ZM2 11h12V2.5a.5.5 0 0 0-.5-.5h-11a.5.5 0 0 0-.5.5V11Zm9.61 1H4.39l-.25 1h7.72l-.25-1Z" />
@@ -251,6 +253,7 @@ const ExhibitionsManager = () => {
                   variant="primary"
                   onClick={handleArtworkCreationModal}
                   className="my-3 d-none d-sm-block customButton"
+                  aria-label="ajouter une oeuvre"
                 >
                   Ajouter une oeuvre
                 </Button>
@@ -258,6 +261,7 @@ const ExhibitionsManager = () => {
                   variant="primary"
                   onClick={handleArtworkCreationModal}
                   className="my-3 d-block d-sm-none customButton"
+                  aria-label="ajouter une oeuvre"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-brush" viewBox="0 0 16 16">
                     <path d="M15.825.12a.5.5 0 0 1 .132.584c-1.53 3.43-4.743 8.17-7.095 10.64a6.067 6.067 0 0 1-2.373 1.534c-.018.227-.06.538-.16.868-.201.659-.667 1.479-1.708 1.74a8.118 8.118 0 0 1-3.078.132 3.659 3.659 0 0 1-.562-.135 1.382 1.382 0 0 1-.466-.247.714.714 0 0 1-.204-.288.622.622 0 0 1 .004-.443c.095-.245.316-.38.461-.452.394-.197.625-.453.867-.826.095-.144.184-.297.287-.472l.117-.198c.151-.255.326-.54.546-.848.528-.739 1.201-.925 1.746-.896.126.007.243.025.348.048.062-.172.142-.38.238-.608.261-.619.658-1.419 1.187-2.069 2.176-2.67 6.18-6.206 9.117-8.104a.5.5 0 0 1 .596.04zM4.705 11.912a1.23 1.23 0 0 0-.419-.1c-.246-.013-.573.05-.879.479-.197.275-.355.532-.5.777l-.105.177c-.106.181-.213.362-.32.528a3.39 3.39 0 0 1-.76.861c.69.112 1.736.111 2.657-.12.559-.139.843-.569.993-1.06a3.122 3.122 0 0 0 .126-.75l-.793-.792zm1.44.026c.12-.04.277-.1.458-.183a5.068 5.068 0 0 0 1.535-1.1c1.9-1.996 4.412-5.57 6.052-8.631-2.59 1.927-5.566 4.66-7.302 6.792-.442.543-.795 1.243-1.042 1.826-.121.288-.214.54-.275.72v.001l.575.575zm-4.973 3.04.007-.005a.031.031 0 0 1-.007.004zm3.582-3.043.002.001h-.002z" />
@@ -351,6 +355,7 @@ const ExhibitionsManager = () => {
                             className="mt-2"
                             id={`inputPicture_${artwork.id}`}
                             name="picture"
+                            aria-label="lien de l'image'"
                           />
                         </Form.Group>
                       )}
@@ -381,6 +386,7 @@ const ExhibitionsManager = () => {
                             className="mb-3"
                             id={`inputTitle_${artwork.id}`}
                             name="title"
+                            aria-label="titre de l'oeuvre"
                           />
                         </Form.Group>
                         )}
@@ -409,6 +415,7 @@ const ExhibitionsManager = () => {
                             className="mb-3"
                             id={`inputDescription_${artwork.id}`}
                             name="description"
+                            aria-label="description de l'oeuvre"
                           />
                         </Form.Group>
                         )}
@@ -439,6 +446,7 @@ const ExhibitionsManager = () => {
                             size="sm"
                             name="exhibition"
                             defaultValue={artwork.exhibition.id}
+                            aria-label="sélectionner une exposition"
                           >
                             {userExhibitions.length > 0
                               && userExhibitions.map((exhibition) => (
@@ -462,6 +470,7 @@ const ExhibitionsManager = () => {
                         className="mb-lg-3 me-lg-0 mb-0 customButton"
                         variant="secondary"
                         onClick={() => handleArtworkEditing(artwork.id)}
+                        aria-label={`activer l'edition des informations de l'oeuvre ${artwork.title}`}
                       >
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-pencil-square" viewBox="0 0 16 16">
                           <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
@@ -474,6 +483,7 @@ const ExhibitionsManager = () => {
                         type="submit"
                         id="validationBtn"
                         className="mb-lg-3 me-lg-0 mb-0 btn-success"
+                        aria-label={`valider l'edition des informations de l'oeuvre ${artwork.title}`}
                       >
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-check-square" viewBox="0 0 16 16">
                           <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
@@ -488,6 +498,7 @@ const ExhibitionsManager = () => {
                         variant="danger"
                         onClick={(event) => handleDeleteArtwork(event, artwork.id)}
                         className="ms-3 ms-lg-0"
+                        aria-label={`supprimer l'oeuvre ${artwork.title}`}
                       >
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-trash3" viewBox="0 0 16 16">
                           <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z" />

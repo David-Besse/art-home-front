@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-axios.defaults.baseURL = 'https://apiroute.webshappers.com/api/';
+axios.defaults.baseURL = 'http://localhost:8000/api/';
 
 axios.defaults.withCredentials = true;
 
