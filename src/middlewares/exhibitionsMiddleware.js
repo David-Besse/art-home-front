@@ -142,9 +142,6 @@ const exhibitionsMiddleware = (store) => (next) => (action) => {
       )
         .then(() => {
           store.dispatch(fetchUserArtworks(store.getState().profile.selectedExhibitionId));
-          const { userExhibitions } = store.getState().exhibitions;
-          const userData = { userExhibitions };
-          saveToLocalStorage('user-arthome', userData);
           store.dispatch(toggleAlertMessage());
           store.dispatch(messageToShow('success', "Même si son heure est venu, nous n'oublierons pas ce chef d'oeuvre."));
         })
