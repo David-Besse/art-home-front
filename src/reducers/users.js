@@ -49,9 +49,9 @@ const reducer = (state = initialState, action = {}) => {
         nickname: action.nickname === null ? '' : action.nickname,
         avatar: action.avatar === null ? '' : action.avatar,
         birthday:
-          action.birthday === null
-            ? '1900-01-01'
-            : new Date(action.birthday).toISOString().split('T')[0],
+            action.birthday === null
+              ? '1900-01-01'
+              : action.birthday,
         presentation: action.presentation === null ? '' : action.presentation,
         role: action.role,
         favorites: action.favorites,
