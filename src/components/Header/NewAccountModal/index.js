@@ -111,7 +111,7 @@ const NewAccountModal = () => {
                 type="email"
                 placeholder="Email"
                 name="email"
-                pattern="^[a-zA-Z0-9_.\-]+@[a-zA-Z0-9\-]+.[a-z]{2,4}$"
+                pattern="^[a-zA-Z0-9_.\-]+@[a-zA-Z0-9\-]+\.[a-z]{2,3}$"
               />
               <Form.Control.Feedback type="invalid">
                 Email non valide.
