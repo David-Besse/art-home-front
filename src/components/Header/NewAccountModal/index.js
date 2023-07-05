@@ -111,7 +111,7 @@ const NewAccountModal = () => {
                 type="email"
                 placeholder="Email"
                 name="email"
-                pattern="^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+.[a-z]{2,4}$"
+                pattern="^[a-zA-Z0-9_.\-]+@[a-zA-Z0-9\-]+.[a-z]{2,4}$"
               />
               <Form.Control.Feedback type="invalid">
                 Email non valide.
@@ -126,7 +126,7 @@ const NewAccountModal = () => {
                 type="password"
                 placeholder="Mot de passe"
                 name="password"
-                pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$"
+                pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*\(\)_+])[A-Za-z\d!@#$%^&*\(\)_+]{8,}$"
                 aria-describedby="passwordHelpBlock"
               />
               <Form.Control.Feedback type="invalid">
@@ -142,7 +142,7 @@ const NewAccountModal = () => {
                 type="password"
                 placeholder="Confirmer le mot de passe"
                 name="confirmPassword"
-                pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$"
+                pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*\(\)_+])[A-Za-z\d!@#$%^&*\(\)_+]{8,}$"
                 isInvalid={!formValidated && formRef.current && (formRef.current.elements.confirmPassword.value !== formRef.current.elements.password.value)}
               />
               <Form.Control.Feedback type="invalid">
