@@ -23,7 +23,7 @@ const reducer = (state = initialState, action = {}) => {
     case SHOW_SELECTED_EXHIBITION:
       return {
         ...state,
-        selectedExhibitionId: action.id,
+        selectedExhibitionId: parseInt(action.id, 10),
       };
     default:
       return state;

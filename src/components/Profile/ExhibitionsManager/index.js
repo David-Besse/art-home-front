@@ -41,9 +41,9 @@ const ExhibitionsManager = () => {
   const handleArtworkEditing = (formId) => dispatch(toggleArtworkEditing(formId));
   const handleExhibitionCreationModal = () => dispatch(toggleExhibitionCreationModal());
   const handleArtworkCreationModal = () => dispatch(toggleArtworkCreationModal());
-  const handleShowExhibition = (id) => {
-    dispatch(showSelectedExhibition(id));
-    dispatch(fetchUserArtworks(id));
+  const handleShowExhibition = (exhibitionId) => {
+    dispatch(showSelectedExhibition(exhibitionId));
+    dispatch(fetchUserArtworks(exhibitionId));
   };
   const handleUpdateUserArtwork = (artworkId, data) => dispatch(updateUserArtwork(artworkId, data));
 
@@ -296,6 +296,7 @@ const ExhibitionsManager = () => {
                   </>
               )}
                 disabled={userExhibitions.length === 0}
+                onSelect={(exhibitionId) => handleShowExhibition(exhibitionId)}
               >
                 {userExhibitions.length > 0
                 && userExhibitions.map((exhibition) => (
@@ -303,7 +304,7 @@ const ExhibitionsManager = () => {
                     as="button"
                     key={exhibition.id}
                     className="dropdown-item fst-italic"
-                    onClick={() => handleShowExhibition(exhibition.id)}
+                    eventKey={exhibition.id}
                   >
                     {exhibition.title}
                   </Dropdown.Item>
