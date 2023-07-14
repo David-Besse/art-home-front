@@ -35,7 +35,7 @@ const ExhibitionsList = () => {
       {/* Showcase of all exhibitions */}
       <div className="exhibition-container mb-4">
         {list
-          .filter((exhibition) => exhibition.artwork.every((el) => el.status === true))
+          .filter((exhibition) => exhibition.artwork.length > 0 && exhibition.artwork.every((el) => el.status === true))
           .map((exhibition) => (
             <Link to={`/expositions/${exhibition.slug}`} key={exhibition.slug} className="cardLink text-decoration-none">
               <Card className="text-white card-info">
