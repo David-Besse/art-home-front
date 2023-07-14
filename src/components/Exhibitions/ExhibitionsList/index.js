@@ -6,7 +6,6 @@ import Card from 'react-bootstrap/Card';
 import './style.scss';
 import { Link } from 'react-router-dom';
 
-
 // exhibitions page
 const ExhibitionsList = () => {
   const { list } = useSelector((state) => state.exhibitions);
@@ -36,7 +35,7 @@ const ExhibitionsList = () => {
       {/* Showcase of all exhibitions */}
       <div className="exhibition-container mb-4">
         {list.map((exhibition) => (
-          exhibition.artwork.length !== 0
+          exhibition.artwork.map((art) => art.status !== false).length !== 0
           && (
           <Link to={`/expositions/${exhibition.slug}`} key={exhibition.slug} className="cardLink text-decoration-none">
             <Card className="text-white card-info">
