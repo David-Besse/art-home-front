@@ -34,21 +34,20 @@ const ExhibitionsList = () => {
 
       {/* Showcase of all exhibitions */}
       <div className="exhibition-container mb-4">
-        {list.map((exhibition) => (
-          exhibition.artwork.map((art) => art.status !== false).length !== 0
-          && (
-          <Link to={`/expositions/${exhibition.slug}`} key={exhibition.slug} className="cardLink text-decoration-none">
-            <Card className="text-white card-info">
-              <Card.Img className="image-info" src={exhibition.artwork[0].picture} alt={exhibition.artwork[0].slug} />
-              <Card.Title className="text-center title-info">{exhibition.title}</Card.Title>
-              <Card.Text className="text-center nickname-info">{exhibition.nickname}</Card.Text>
-              <Card.Body className="exhibition-info">
-                <Card.Text className="description-info">{exhibition.description}</Card.Text>
-              </Card.Body>
-            </Card>
-          </Link>
-          )
-        ))}
+        {list
+          .filter((exhibition) => exhibition.artwork.every((el) => el.status === true))
+          .map((exhibition) => (
+            <Link to={`/expositions/${exhibition.slug}`} key={exhibition.slug} className="cardLink text-decoration-none">
+              <Card className="text-white card-info">
+                <Card.Img className="image-info" src={exhibition.artwork[0].picture} alt={exhibition.artwork[0].slug} />
+                <Card.Title className="text-center title-info">{exhibition.title}</Card.Title>
+                <Card.Text className="text-center nickname-info">{exhibition.nickname}</Card.Text>
+                <Card.Body className="exhibition-info">
+                  <Card.Text className="description-info">{exhibition.description}</Card.Text>
+                </Card.Body>
+              </Card>
+            </Link>
+          ))}
       </div>
 
     </div>
