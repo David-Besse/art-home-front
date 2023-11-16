@@ -7,6 +7,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const dotenv = require('dotenv-flow').config( {
   path: path.join(paths.root)
 });
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 
 module.exports = {
   entry: [
@@ -44,6 +46,8 @@ module.exports = {
       favicon: paths.assets + '/favicon.ico',
       template: paths.assets + '/index.html',
     }),
+
+    new MiniCssExtractPlugin(),
   ],
 
   module: {
@@ -77,6 +81,22 @@ module.exports = {
           filename: 'fonts/[hash][ext][query]'
         }
       },
+      // SCSS
+      {
+        test: /\.s[ac]ss$/i,
+        use: [
+          MiniCssExtractPlugin.loader,
+          "css-loader",
+          "sass-loader",
+        ],
+      }
     ],
   },
+
+  optimization: {
+    minimizer: [
+      `...`,
+      new CssMinimizerPlugin(),
+    ],
+  }
 };
