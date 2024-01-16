@@ -20,36 +20,36 @@ module.exports = merge(common, {
     rules: [
       {
         test: /\.(s?css)$/,
-        use: [
-          {
-            loader: MiniCssExtractPlugin.loader,
-            options: { publicPath: '../' },
-          },
-          {
-            loader: 'css-loader',
-            options: { 
-              sourceMap: true,
-              importLoaders: 3,
-              url: {
-                filter: (url) => {
-                  if (url.includes('charset=utf-8;;')) {
-                    return false;
-                  }
-                  return true;
-                },
-              },
-            },
-          },
-          'postcss-loader',
-          'resolve-url-loader',
-          {
-            loader: 'sass-loader',
-            options: {
-              sourceMap: true,
-              implementation: require('sass'),
-            },
-          },
-        ],
+        // use: [
+        //   {
+        //     loader: MiniCssExtractPlugin.loader,
+        //     options: { publicPath: '../' },
+        //   },
+        //   {
+        //     loader: 'css-loader',
+        //     options: { 
+        //       sourceMap: true,
+        //       importLoaders: 3,
+        //       // url: {
+        //       //   filter: (url) => {
+        //       //     if (url.includes('charset=utf-8;;')) {
+        //       //       return false;
+        //       //     }
+        //       //     return true;
+        //       //   },
+        //       // },
+        //     },
+        //   },
+        //   'postcss-loader',
+        //   'resolve-url-loader',
+        //   {
+        //     loader: 'sass-loader',
+        //     options: {
+        //       sourceMap: true,
+        //       implementation: require('sass'),
+        //     },
+        //   },
+        // ],
       },
     ],
   },

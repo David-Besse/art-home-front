@@ -1,11 +1,11 @@
-const path = require('path');
-const paths = require('./paths');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const webpack = require('webpack');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const dotenv = require('dotenv-flow').config( {
-  path: path.join(paths.root)
+const path = require("path");
+const paths = require("./paths");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const webpack = require("webpack");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const dotenv = require("dotenv-flow").config({
+  path: path.join(paths.root),
 });
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
@@ -13,14 +13,14 @@ const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 module.exports = {
   entry: [
     // SCSS
-    paths.src + '/styles/index.scss',
+    paths.src + "/styles/index.scss",
     // JS
-    paths.src + '/index.js',
+    paths.src + "/index.js",
   ],
   output: {
     path: paths.build,
-    publicPath: '/',
-    filename: 'js/[name].[contenthash].js',
+    publicPath: "/",
+    filename: "js/[name].[contenthash].js",
   },
   resolve: {
     alias: {
@@ -29,27 +29,27 @@ module.exports = {
     },
   },
   plugins: [
-    new webpack.DefinePlugin( {
-      "process.env": JSON.stringify(dotenv.parsed)
+    new webpack.DefinePlugin({
+      "process.env": JSON.stringify(dotenv.parsed),
     }),
     new CleanWebpackPlugin(),
     new CopyWebpackPlugin({
       patterns: [
-        { 
+        {
           from: paths.static,
-          to: '',
-        }
+          to: "",
+        },
       ],
     }),
 
     new HtmlWebpackPlugin({
-      favicon: paths.assets + '/favicon.ico',
-      template: paths.assets + '/index.html',
+      title: "Art@home",
+      favicon: paths.assets + "/favicon.ico",
+      template: paths.assets + "/index.html",
     }),
 
     new MiniCssExtractPlugin(),
   ],
-
   module: {
     rules: [
       //JS
@@ -58,7 +58,7 @@ module.exports = {
         exclude: /node_modules/,
         use: [
           {
-            loader: 'babel-loader',
+            loader: "babel-loader",
             options: {
               cacheDirectory: true,
             },
@@ -68,35 +68,27 @@ module.exports = {
       // Images
       {
         test: /\.(?:ico|gif|png|jpg|jpeg)$/i,
-        type: 'asset/resource',
+        type: "asset/resource",
         generator: {
-          filename: 'images/[hash][ext][query]'
-        }
+          filename: "images/[hash][ext][query]",
+        },
       },
       // Fonts and SVGs
       {
         test: /\.(woff(2)?|eot|ttf|otf|svg|)$/,
-        type: 'asset',
+        type: "asset",
         generator: {
-          filename: 'fonts/[hash][ext][query]'
-        }
+          filename: "fonts/[hash][ext][query]",
+        },
       },
       // SCSS
       {
         test: /\.s[ac]ss$/i,
-        use: [
-          MiniCssExtractPlugin.loader,
-          "css-loader",
-          "sass-loader",
-        ],
-      }
+        use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
+      },
     ],
   },
-
   optimization: {
-    minimizer: [
-      `...`,
-      new CssMinimizerPlugin(),
-    ],
-  }
+    minimizer: [`...`, new CssMinimizerPlugin()],
+  },
 };
