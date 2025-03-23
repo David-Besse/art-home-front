@@ -15,8 +15,8 @@
     "build": "cross-env NODE_ENV=production webpack --config config/webpack.prod.js",
     "lint": "eslint ./src/** --no-error-on-unmatched-pattern",
     "lint:fix": "eslint --fix ./src/** --no-error-on-unmatched-pattern",
-    "clean": "rimraf dist",
-    "clean:all": "rimraf dist node_modules yarn.lock package-lock.json",
+    "clean": "rimraf build",
+    "clean:all": "rimraf build node_modules yarn.lock package-lock.json",
     "test": "jest"
   },
   "devDependencies": {

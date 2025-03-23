@@ -4,9 +4,23 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const webpack = require("webpack");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const dotenv = require("dotenv-flow").config({
-  path: path.join(paths.root),
-});
+const dotenv = require("dotenv-flow");
+
+// Chargement des variables d'environnement de manière plus résiliente
+let env = {};
+try {
+  const result = dotenv.config({
+    path: path.join(paths.root),
+    silent: true // Ne pas échouer si aucun fichier n'est trouvé
+  });
+  
+  if (result.parsed) {
+    env = result.parsed;
+  }
+} catch (error) {
+  console.warn("Attention: Fichiers .env non trouvés - utilisation des variables d'environnement du système");
+}
+
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 
@@ -41,7 +55,7 @@ module.exports = {
   },
   plugins: [
     new webpack.DefinePlugin({
-      "process.env": JSON.stringify(dotenv.parsed),
+      "process.env": JSON.stringify(env),
     }),
     new webpack.ProvidePlugin({
       process: 'process',
