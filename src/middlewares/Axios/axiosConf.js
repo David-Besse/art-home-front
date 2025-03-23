@@ -1,6 +1,9 @@
 import axios from 'axios';
+import dotenv from 'dotenv';
 
-axios.defaults.baseURL = 'https://apiroute.webshappers.com/api/';
+dotenv.config();
+
+axios.defaults.baseURL = process.env.DATABASE_URL;
 
 axios.defaults.withCredentials = true;
 
