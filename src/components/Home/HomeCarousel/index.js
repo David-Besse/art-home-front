@@ -9,6 +9,7 @@ import './style.scss';
 // Display several images in carousel on the Home page to promote the lastest exhibitions
 const HomeCarousel = () => {
   const exhibitions = useSelector((state) => state.exhibitions);
+  const list = Array.isArray(exhibitions.list) ? exhibitions.list : [];
 
   return (
     <section className="sectionCarousel">
