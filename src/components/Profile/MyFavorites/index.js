@@ -14,15 +14,18 @@ import './styles.scss';
 const MyFavorites = () => {
   const dispatch = useDispatch();
 
-  const { list = [] } = useSelector((state) => state.exhibitions || {});
-  const { favorites = [] } = useSelector((state) => state.users || {});
+  const exhibitions = useSelector((state) => state.exhibitions);
+  const users = useSelector((state) => state.users);
+  
+  const list = Array.isArray(exhibitions.list) ? exhibitions.list : [];
+  const favorites = Array.isArray(users.favorites) ? users.favorites : [];
 
   const [favoritesUser, setFavoritesUser] = useState([]);
   const [sortOrder, setSortOrder] = useState('exhibitions');
 
   // Perform side effects when the dependencies list changes
   useEffect(() => {
-    if (Array.isArray(list) && list.length > 0) {
+    if (list.length > 0) {
       let artworksList = [];
       let updatedFavoritesUser = [];
 
@@ -65,7 +68,11 @@ const MyFavorites = () => {
     dispatch(submitProfileUpdate());
 
     // Update the favorites user list by removing the artwork with the given pictureId
-    setFavoritesUser((prevFavoritesUser) => prevFavoritesUser.filter((artwork) => artwork.id !== pictureId));
+    setFavoritesUser((prevFavoritesUser) => 
+      Array.isArray(prevFavoritesUser) 
+        ? prevFavoritesUser.filter((artwork) => artwork.id !== pictureId)
+        : []
+    );
   };
 
   return (

@@ -3,16 +3,33 @@ import { LinkContainer } from 'react-router-bootstrap';
 
 import Carousel from 'react-bootstrap/Carousel';
 import Image from 'react-bootstrap/Image';
+import Spinner from 'react-bootstrap/Spinner';
 
 import './style.scss';
 
 // Display several images in carousel on the Home page to promote the lastest exhibitions
 const HomeCarousel = () => {
-  const { list = [] } = useSelector((state) => state.exhibitions || {});
+  const exhibitions = useSelector((state) => state.exhibitions);
+  const list = Array.isArray(exhibitions.list) ? exhibitions.list : [];
+  const isExhibitionsLoaded = exhibitions.isExhibitionsLoaded;
 
-  // Si la liste est vide ou n'est pas un tableau, ne rien afficher
-  if (!list || !Array.isArray(list) || list.length === 0) {
-    return null;
+  // Si la liste est vide ou n'est pas un tableau, afficher un message de chargement
+  if (list.length === 0) {
+    return (
+      <section className="sectionCarousel d-flex justify-content-center align-items-center">
+        {!isExhibitionsLoaded && (
+          <div className="text-center">
+            <Spinner animation="border" role="status" variant="primary">
+              <span className="visually-hidden">Chargement...</span>
+            </Spinner>
+            <p className="mt-2">Chargement des expositions...</p>
+          </div>
+        )}
+        {isExhibitionsLoaded && (
+          <p>Aucune exposition disponible pour le moment.</p>
+        )}
+      </section>
+    );
   }
 
   return (
