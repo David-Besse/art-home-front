@@ -14,10 +14,8 @@ import { saveToLocalStorage } from '../utils/localStorage';
 const exhibitionsMiddleware = (store) => (next) => (action) => {
   switch (action.type) {
     case FETCH_EXHIBITIONS:
-      console.log('Fetching exhibitions...');
       axios.get('/exhibitions')
         .then((response) => {
-          console.log('Exhibitions loaded successfully:', response.data);
           store.dispatch(saveExhibitions(response.data));
         })
         .catch((error) => {

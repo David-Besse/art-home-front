@@ -25,7 +25,7 @@ const user = (store) => (next) => (action) => {
     case SUBMIT_LOGIN:
       axios
         .post(
-          '/login_check',
+          '/token',
           {
             username: action.payload.email,
             password: action.payload.password,

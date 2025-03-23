@@ -16,7 +16,7 @@ const reducer = (state = initialState, action = {}) => {
       return {
         ...state,
         list: action.payload,
-        isExhibitionsLoaded: true,
+        isExhibitionsLoaded: action.payload.length > 0 ? true : false,
       };
     case FETCH_USER_ARTWORKS:
       return {
