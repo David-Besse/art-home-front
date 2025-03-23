@@ -14,26 +14,28 @@ import './styles.scss';
 const MyFavorites = () => {
   const dispatch = useDispatch();
 
-  const { list } = useSelector((state) => state.exhibitions);
-  const { favorites } = useSelector((state) => state.users);
+  const { list = [] } = useSelector((state) => state.exhibitions || {});
+  const { favorites = [] } = useSelector((state) => state.users || {});
 
   const [favoritesUser, setFavoritesUser] = useState([]);
   const [sortOrder, setSortOrder] = useState('exhibitions');
 
   // Perform side effects when the dependencies list changes
   useEffect(() => {
-    if (list.length > 0) {
+    if (Array.isArray(list) && list.length > 0) {
       let artworksList = [];
       let updatedFavoritesUser = [];
 
       // Check the sort order
       if (sortOrder === 'exhibitions') {
         list.forEach((item) => {
-          // Push an object to the artworks list with the title and filtered artwork based on favorites
-          artworksList.push({
-            title: item.title,
-            artwork: item.artwork.filter((exhib) => favorites.includes(exhib.id)),
-          });
+          if (item && item.artwork) {
+            // Push an object to the artworks list with the title and filtered artwork based on favorites
+            artworksList.push({
+              title: item.title,
+              artwork: item.artwork.filter((exhib) => exhib && favorites.includes(exhib.id)),
+            });
+          }
         });
         // Filter the artworks list to get only items with artwork present
         updatedFavoritesUser = [...artworksList.filter((item) => item.artwork && item.artwork.length > 0)];
@@ -42,10 +44,12 @@ const MyFavorites = () => {
       // Check the sort order
       if (sortOrder === 'alphabetical') {
         // Flatten the list to get an array of all artworks
-        artworksList = list.flatMap((exhibition) => exhibition.artwork);
+        artworksList = list.flatMap((exhibition) => 
+          exhibition && exhibition.artwork ? exhibition.artwork : []
+        );
 
         // Filter the artworks based on favorites
-        updatedFavoritesUser = artworksList.filter((artwork) => favorites.includes(artwork.id));
+        updatedFavoritesUser = artworksList.filter((artwork) => artwork && favorites.includes(artwork.id));
 
         // Sort the updated favorites user based on the title in alphabetical order
         updatedFavoritesUser = updatedFavoritesUser.sort((a, b) => (a.title || '').localeCompare(b.title || ''));
@@ -76,86 +80,89 @@ const MyFavorites = () => {
             </select>
           </label>
         </div>
-        {favoritesUser.length > 0
+        {Array.isArray(favoritesUser) && favoritesUser.length > 0
         && sortOrder === 'alphabetical'
         && (
         <Fade in>
           <div className="fade-images">
             {favoritesUser.map((artwork) => (
-              <Figure key={`${artwork.id}_${artwork.title}`} className="image-card">
-                <Figure.Image src={artwork.picture} className="image-fav" rounded fluid />
-                <div
-                  className="heart-icon"
-                  onClick={() => handleFavorites(artwork.id)}
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    fill="currentColor"
-                    className="bi bi-heart-fill"
-                    viewBox="0 0 16 16"
+              artwork && (
+                <Figure key={`${artwork.id}_${artwork.title}`} className="image-card">
+                  <Figure.Image src={artwork.picture} className="image-fav" rounded fluid />
+                  <div
+                    className="heart-icon"
+                    onClick={() => handleFavorites(artwork.id)}
                   >
-                    <path
-                      fillRule="evenodd"
-                      d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"
-                    />
-                  </svg>
-                </div>
-                <Figure.Caption className="image-title">
-                  {artwork.title}
-                </Figure.Caption>
-              </Figure>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      fill="currentColor"
+                      className="bi bi-heart-fill"
+                      viewBox="0 0 16 16"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"
+                      />
+                    </svg>
+                  </div>
+                  <Figure.Caption className="image-title">
+                    {artwork.title || 'Sans titre'}
+                  </Figure.Caption>
+                </Figure>
+              )
             ))}
           </div>
         </Fade>
         )}
-        {favoritesUser.length > 0
+        {Array.isArray(favoritesUser) && favoritesUser.length > 0
         && sortOrder === 'exhibitions'
         && (
           <Fade in>
             <div>
               {favoritesUser.map((item) => (
-                <div key={item.title}>
-                  <h4>{item.title}</h4>
-                  <div className="fade-images">
-                    {item.artwork && item.artwork.map((artworkItem) => (
-                      <Figure key={artworkItem.id} className="image-card">
-                        <Figure.Image src={artworkItem.picture} alt={artworkItem.title} className="image-fav" rounded fluid />
-                        <div
-                          className="heart-icon"
-                          onClick={() => handleFavorites(artworkItem.id)}
-                        >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="16"
-                            height="16"
-                            fill="currentColor"
-                            className="bi bi-heart-fill"
-                            viewBox="0 0 16 16"
-                          >
-                            <path
-                              fillRule="evenodd"
-                              d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"
-                            />
-                          </svg>
-                        </div>
-                        <Figure.Caption className="image-title">
-                          {artworkItem.title}
-                        </Figure.Caption>
-                      </Figure>
-                    ))}
+                item && (
+                  <div key={item.title || 'sans-titre'}>
+                    <h4>{item.title || 'Sans titre'}</h4>
+                    <div className="fade-images">
+                      {item.artwork && Array.isArray(item.artwork) && item.artwork.map((artworkItem) => (
+                        artworkItem && (
+                          <Figure key={artworkItem.id} className="image-card">
+                            <Figure.Image src={artworkItem.picture} alt={artworkItem.title} className="image-fav" rounded fluid />
+                            <div
+                              className="heart-icon"
+                              onClick={() => handleFavorites(artworkItem.id)}
+                            >
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="16"
+                                height="16"
+                                fill="currentColor"
+                                className="bi bi-heart-fill"
+                                viewBox="0 0 16 16"
+                              >
+                                <path
+                                  fillRule="evenodd"
+                                  d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"
+                                />
+                              </svg>
+                            </div>
+                            <Figure.Caption className="image-title">
+                              {artworkItem.title || 'Sans titre'}
+                            </Figure.Caption>
+                          </Figure>
+                        )
+                      ))}
+                    </div>
                   </div>
-                </div>
+                )
               ))}
             </div>
           </Fade>
         )}
-        {favoritesUser.length === 0
-        && (
-        <div>
-          <p>Pas de favoris enregistrés.</p>
-        </div>
+        {(!Array.isArray(favoritesUser) || favoritesUser.length === 0) && (
+          <p className="text-center my-5">Aucun favori pour le moment.</p>
         )}
       </div>
     </section>

@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 
 // exhibitions page
 const ExhibitionsList = () => {
-  const { list } = useSelector((state) => state.exhibitions);
+  const { list = [] } = useSelector((state) => state.exhibitions || {});
 
   useEffect(() => {
     const handleCardClick = () => {
@@ -27,6 +27,16 @@ const ExhibitionsList = () => {
     };
   }, []);
 
+  // Si la liste est vide ou n'est pas un tableau, afficher un message
+  if (!list || !Array.isArray(list) || list.length === 0) {
+    return (
+      <div className="all-exhibitions">
+        <h1 className="page-title mb-5 mt-3">NOS EXPOSITIONS</h1>
+        <p className="text-center">Aucune exposition disponible pour le moment.</p>
+      </div>
+    );
+  }
+
   return (
     <div className="all-exhibitions">
 
@@ -35,15 +45,17 @@ const ExhibitionsList = () => {
       {/* Showcase of all exhibitions */}
       <div className="exhibition-container mb-4">
         {list
-          .filter((exhibition) => exhibition.artwork.length > 0 && exhibition.artwork.every((el) => el.status === true))
+          .filter((exhibition) => exhibition && exhibition.artwork && 
+                  exhibition.artwork.length > 0 && 
+                  exhibition.artwork.every((el) => el && el.status === true))
           .map((exhibition) => (
             <Link to={`/expositions/${exhibition.slug}`} key={exhibition.slug} className="cardLink text-decoration-none">
               <Card className="text-white card-info">
                 <Card.Img className="image-info" src={exhibition.artwork[0].picture} alt={exhibition.artwork[0].slug} />
                 <Card.Title className="text-center title-info">{exhibition.title}</Card.Title>
-                <Card.Text className="text-center nickname-info">{exhibition.nickname}</Card.Text>
+                <Card.Text className="text-center nickname-info">{exhibition.nickname || 'Artiste'}</Card.Text>
                 <Card.Body className="exhibition-info">
-                  <Card.Text className="description-info">{exhibition.description}</Card.Text>
+                  <Card.Text className="description-info">{exhibition.description || 'Pas de description disponible'}</Card.Text>
                 </Card.Body>
               </Card>
             </Link>

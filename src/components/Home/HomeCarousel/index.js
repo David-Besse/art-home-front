@@ -8,18 +8,23 @@ import './style.scss';
 
 // Display several images in carousel on the Home page to promote the lastest exhibitions
 const HomeCarousel = () => {
-  const { list } = useSelector((state) => state.exhibitions);
+  const { list = [] } = useSelector((state) => state.exhibitions || {});
+
+  // Si la liste est vide ou n'est pas un tableau, ne rien afficher
+  if (!list || !Array.isArray(list) || list.length === 0) {
+    return null;
+  }
 
   return (
     <section className="sectionCarousel">
       <Carousel fade interval={5000}>
         {list.map((exhibition) => (
-          exhibition.artwork.length !== 0
+          exhibition && exhibition.artwork && exhibition.artwork.length !== 0
           && (
           <Carousel.Item key={exhibition.id}>
             <h1 className="carousel-title">{exhibition.title}</h1>
-            <h2 className="carousel-artist">{exhibition.artist.nickname}</h2>
-            <p className="carousel-description">{`${exhibition.description.split(/[.]/)[0]}...`}</p>
+            <h2 className="carousel-artist">{exhibition.artist?.nickname || 'Artiste'}</h2>
+            <p className="carousel-description">{exhibition.description ? `${exhibition.description.split(/[.]/)[0]}...` : ''}</p>
             <LinkContainer to={`/expositions/${exhibition.slug}`}>
               <Image
                 className="carousel-image"
