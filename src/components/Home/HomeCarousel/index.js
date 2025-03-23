@@ -3,19 +3,12 @@ import { LinkContainer } from 'react-router-bootstrap';
 
 import Carousel from 'react-bootstrap/Carousel';
 import Image from 'react-bootstrap/Image';
-import Loading from '../Loading';
 
 import './style.scss';
 
 // Display several images in carousel on the Home page to promote the lastest exhibitions
 const HomeCarousel = () => {
   const exhibitions = useSelector((state) => state.exhibitions);
-  const list = Array.isArray(exhibitions.list) ? exhibitions.list : [];
-
-  // Si la liste est vide ou n'est pas un tableau, afficher un message de chargement
-  if (list.length === 0) {
-    return <Loading />;
-  }
 
   return (
     <section className="sectionCarousel">
