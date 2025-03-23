@@ -1,8 +1,7 @@
 @use 'reset';
 @use 'vars';
+@forward '~bootstrap/scss/bootstrap' as bootstrap-*;
 @import url(https://fonts.bunny.net/css?family=albert-sans:300|averia-libre:300);
-@import '~bootstrap/scss/bootstrap';
-@import url(https://fonts.bunny.net/css?family=albert-sans:300%7Caveria-libre:300);
 
 body {
   font-family: 'Albert Sans', sans-serif;
@@ -29,9 +28,9 @@ h6 {
 
   &:hover,
   &:active {
-    background-color: vars.$ochre7!important;
-    border-color: vars.$ochre!important;
-    color: vars.$eggshell!important;
+    background-color: vars.$ochre7 !important;
+    border-color: vars.$ochre !important;
+    color: vars.$eggshell !important;
   }
 }
 

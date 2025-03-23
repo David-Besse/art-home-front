@@ -27,10 +27,25 @@ module.exports = {
       src: paths.src,
       app: paths.src,
     },
+    extensions: ['.js', '.jsx', '.ts', '.tsx'],
+    fallback: {
+      "path": require.resolve("path-browserify"),
+      "crypto": require.resolve("crypto-browserify"),
+      "os": require.resolve("os-browserify/browser"),
+      "stream": require.resolve("stream-browserify"),
+      "buffer": require.resolve("buffer/"),
+      "vm": require.resolve("vm-browserify"),
+      "string_decoder": require.resolve("string_decoder/"),
+      "events": require.resolve("events/")
+    },
   },
   plugins: [
     new webpack.DefinePlugin({
       "process.env": JSON.stringify(dotenv.parsed),
+    }),
+    new webpack.ProvidePlugin({
+      process: 'process',
+      Buffer: ['buffer', 'Buffer'],
     }),
     new CleanWebpackPlugin(),
     new CopyWebpackPlugin({
@@ -48,7 +63,10 @@ module.exports = {
       template: paths.assets + "/index.html",
     }),
 
-    new MiniCssExtractPlugin(),
+    new MiniCssExtractPlugin({
+      filename: 'css/[name].[contenthash].css',
+      chunkFilename: 'css/[id].[contenthash].css',
+    }),
   ],
   module: {
     rules: [
@@ -84,7 +102,23 @@ module.exports = {
       // SCSS
       {
         test: /\.s[ac]ss$/i,
-        use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
+        use: [
+          MiniCssExtractPlugin.loader, 
+          "css-loader", 
+          "postcss-loader",
+          {
+            loader: "sass-loader",
+            options: {
+              implementation: require('sass'),
+              sassOptions: {
+                outputStyle: 'compressed',
+                includePaths: ['node_modules'],
+                quietDeps: true // Supprime les avertissements des dépendances comme Bootstrap
+              },
+              sourceMap: true
+            }
+          }
+        ],
       },
     ],
   },
