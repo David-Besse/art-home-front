@@ -15,10 +15,13 @@ const Home = () => {
     <>
       <Header />
       <Page>
-        { !isExhibitionsLoaded
-        && <Loading /> }
-        { isExhibitionsLoaded
-        && <HomeCarousel />}
+        { !isExhibitionsLoaded && (
+          <>
+            <Loading />
+            <HomeCarousel />
+          </>
+        )}
+        { isExhibitionsLoaded && <HomeCarousel />}
       </Page>
       <Footer />
     </>
