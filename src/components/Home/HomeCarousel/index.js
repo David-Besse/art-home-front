@@ -11,23 +11,17 @@ import './style.scss';
 const HomeCarousel = () => {
   const exhibitions = useSelector((state) => state.exhibitions);
   const list = Array.isArray(exhibitions.list) ? exhibitions.list : [];
-  const isExhibitionsLoaded = exhibitions.isExhibitionsLoaded;
 
   // Si la liste est vide ou n'est pas un tableau, afficher un message de chargement
   if (list.length === 0) {
     return (
       <section className="sectionCarousel d-flex justify-content-center align-items-center">
-        {!isExhibitionsLoaded && (
-          <div className="text-center">
-            <Spinner animation="border" role="status" variant="primary">
-              <span className="visually-hidden">Chargement...</span>
-            </Spinner>
-            <p className="mt-2">Chargement des expositions...</p>
-          </div>
-        )}
-        {isExhibitionsLoaded && (
-          <p>Aucune exposition disponible pour le moment.</p>
-        )}
+        <div className="text-center">
+          <Spinner animation="border" role="status" variant="primary">
+            <span className="visually-hidden">Chargement...</span>
+          </Spinner>
+          <p className="mt-2">Chargement des expositions...</p>
+        </div>
       </section>
     );
   }

@@ -168,9 +168,6 @@ const MyFavorites = () => {
             </div>
           </Fade>
         )}
-        {(!Array.isArray(favoritesUser) || favoritesUser.length === 0) && (
-          <p className="text-center my-5">Aucun favori pour le moment.</p>
-        )}
       </div>
     </section>
   );

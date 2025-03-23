@@ -11,7 +11,6 @@ import { Link } from 'react-router-dom';
 const ExhibitionsList = () => {
   const exhibitions = useSelector((state) => state.exhibitions);
   const list = Array.isArray(exhibitions.list) ? exhibitions.list : [];
-  const isExhibitionsLoaded = exhibitions.isExhibitionsLoaded;
 
   useEffect(() => {
     const handleCardClick = () => {
@@ -36,16 +35,12 @@ const ExhibitionsList = () => {
       <div className="all-exhibitions">
         <h1 className="page-title mb-5 mt-3">NOS EXPOSITIONS</h1>
         
-        {!isExhibitionsLoaded ? (
-          <div className="text-center my-5">
-            <Spinner animation="border" role="status" variant="primary">
-              <span className="visually-hidden">Chargement...</span>
-            </Spinner>
-            <p className="mt-2">Chargement des expositions...</p>
-          </div>
-        ) : (
-          <p className="text-center">Aucune exposition disponible pour le moment.</p>
-        )}
+        <div className="text-center my-5">
+          <Spinner animation="border" role="status" variant="primary">
+            <span className="visually-hidden">Chargement...</span>
+          </Spinner>
+          <p className="mt-2">Chargement des expositions...</p>
+        </div>
       </div>
     );
   }
